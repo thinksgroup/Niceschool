@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsapi.niceschoolapi.mapper.AddStudentMapper">
+    <!-- 根据前台传来信息添加学生 -->
+    <insert id="addStudent" parameterType="studentVO">
+        insert into student(stuid,sname,sgender,sbirthday,pid,snation,scardid,sphone,saddress,entertime,classid)
+        values(#{stuid},#{sname},#{sgender},#{sbirthday},#{pid},#{snation},#{scardid},#{sphone},#{saddress},#{entertime},#{classid})
+    </insert>
+    <!-- 根据学生专业查询该专业开设的必修课程 -->
+    <select id="selCourse" resultType="CourseDB">
+        select * from course where studytype = '必修' and mid = #{mid}
+    </select>
+    <!-- 根据学号查询学生id编号 -->
+    <select id="selectSid" resultType="int">
+        select sid from student where stuid = #{stuid}
+    </select>
+    <!-- 将学生id以及必修课程的id添加至学生选课表 -->
+    <insert id="addStuCourse" parameterType="int">
+        insert into stu_course(sid,cid) values(#{param1},#{param2})
+    </insert>
+    <!-- 生成学生学号 -->
+    <select id="selStuid" resultType="String">
+      select concat(substring(gname,1,4),sum(gcount)+1) gcount from grade where gname = (select gname from grade where gid = #{param1})
+    </select>
+</mapper>

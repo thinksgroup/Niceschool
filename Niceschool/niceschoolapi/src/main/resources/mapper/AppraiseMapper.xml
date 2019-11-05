@@ -1,0 +1,40 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsapi.niceschoolapi.mapper.AppraiseMapper">
+    <!--查询全部对应教评的老师-->
+    <select id="findAllTch" resultType="SelEvRecardVO">
+        select * from teacher tch,tch_course tc,course c where tch.tid in(select tid from tch_course where cid in
+(SELECT cid from course where cid in(select cid from stu_course where sid=(select sid from student where stuid=#{stuid})) GROUP BY cid) and classid
+in(select classid from student where stuid=#{stuid})) AND tch.tid=tc.tid AND tc.cid=c.cid
+    </select>
+    <!--查询全部教评题目-->
+    <select id="findAllTM" resultType="EvaluateListDB">
+       select * from evaluate_list
+    </select>
+    <!--查询教评状态-->
+    <select id="selOneState" resultType="Integer">
+       select count(*) from evaluate_record where stuid=#{stuid} and tchid=#{tchid}
+    </select>
+    <!--添加教评记录-->
+    <insert id="addOneAppraise" parameterType="EvTchVO">
+        insert into evaluate_record(stuid,tchid,erexam,erstate) values(#{stuid},#{tchid},#{erexam},0)
+    </insert>
+    <!--更新教师分数及教评人数-->
+    <update id="updOneTchExam" parameterType="EvTchVO">
+        UPDATE teacher SET exam=exam+#{erexam},count=count+1 WHERE tchid=#{tchid}
+    </update>
+    <!--编辑问题-->
+    <update id="editOneEv" parameterType="EvaluateListDB">
+        update evaluate_list set elcontent=#{elcontent} where elid=#{elid}
+    </update>
+    <!--删除问题-->
+    <delete id="deleteOneEv" parameterType="Integer">
+        delete from evaluate_list where elid=#{elid}
+    </delete>
+    <!--添加问题-->
+    <insert id="addOneEv" parameterType="EvaluateListDB">
+        insert into evaluate_list(elcontent) values(#{elcontent})
+    </insert>
+</mapper>
