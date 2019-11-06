@@ -14,9 +14,35 @@
     .layui-card {
         box-shadow: #c0c0c0 0 1px 3px;
     }
+    .layui-row .layui-form-item {
+        padding: 0 5px;
+    }
 </style>
 <body>
+<form class="layui-form layui-form-pane" style="padding: 10px;">
 
+    <div class="layui-row">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
+            <fieldset class="layui-elem-field">
+                <legend>精确查询</legend>
+                <div class="layui-field-box">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">系部名称</label>
+                        <div class="layui-input-block">
+                            <select id="selByDpm" name="selByDpm" lay-filter="selByDpm" lay-verify="selByDpm"
+                                    lay-search></select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+
+
+    </div>
+
+
+</form>
 
 <table id="evlist" lay-filter="dpmTable"></table>
 
@@ -64,8 +90,9 @@
             , laydate = layui.laydate;
 
 
+        var tableId;
         //获取分页数据列表
-        table.render({
+        tableId = table.render({
             elem: '#evlist'
             ,
             url: '/schoolmanage/findalldpm'
@@ -214,19 +241,40 @@
         });
 
 
+        /***************************************************************条件查询*********************************************************************/
+
         /**
-         * 转换时间格式
+         * 默认填充
          */
-        function fDate(date) {
-            var d = new Date(date);
-            var month = (d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1);
-            var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
-            var hours = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
-            var min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
-            var sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
-            var times = d.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + min + ':' + sec;
-            return times
-        }
+        //填充系部
+        $.ajax({
+            type: 'post',
+            url: '/schoolmanage/tjseldpm?page=1&limit=1000',
+            data: {},
+            success: function (alldata) {
+
+                var result = alldata.data;
+                var lists = "<option value='all'>全部</option>";
+                for (var i in result) {
+                    lists += "<option value='" + result[i].dname + "'>" + result[i].dname + "</option>";
+                }
+                $('#selByDpm').html(lists);
+                form.render();
+            }
+        });
+        //按系名查询
+        form.on('select(selByDpm)', function (seldata) {
+            if(seldata.value=='all'){
+                tableId.reload({
+                    url : '/schoolmanage/findalldpm'
+                });
+            }else{
+                tableId.reload({
+                    url : '/schoolmanage/findalldpm?dname=' + seldata.value
+                });
+            }
+            form.render();
+        });
 
     });
 

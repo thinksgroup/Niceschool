@@ -24,44 +24,57 @@
 <form class="layui-form layui-form-pane" style="padding: 10px;">
 
     <div class="layui-row">
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">班级名称</label>
-                <div class="layui-input-block">
-                    <select id="selByClassName" name="selByClassName" lay-filter="selByClassName"
-                            lay-verify="selByClassName" lay-search></select>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md3">
+            <fieldset class="layui-elem-field">
+                <legend>精确查询</legend>
+                <div class="layui-field-box">
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">班级名称</label>
+                            <div class="layui-input-block">
+                                <select id="selByClassName" name="selByClassName" lay-filter="selByClassName"
+                                        lay-verify="selByClassName" lay-search></select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </fieldset>
         </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">系部名称</label>
-                <div class="layui-input-block">
-                    <select id="selByDpm" name="selByDpm" lay-filter="selByDpm" lay-verify="selByDpm"
-                            lay-search></select>
+        <div class="layui-col-xs12 layui-col-sm12 layui-col-md9">
+            <fieldset class="layui-elem-field">
+                <legend>分级/分类查询</legend>
+                <div class="layui-field-box">
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">系部名称</label>
+                            <div class="layui-input-block">
+                                <select id="selByDpm" name="selByDpm" lay-filter="selByDpm" lay-verify="selByDpm"
+                                        lay-search></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专业名称</label>
+                            <div class="layui-input-block">
+                                <select id="selByMajor" name="selByMajor" lay-filter="selByMajor"
+                                        lay-verify="selByMajor" lay-search></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-xs12 layui-col-sm12 layui-col-md4">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">年级名称</label>
+                            <div class="layui-input-block">
+                                <select id="selByGrade" name="selByGrade" lay-filter="selByGrade"
+                                        lay-verify="selByGrade" lay-search></select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">专业名称</label>
-                <div class="layui-input-block">
-                    <select id="selByMajor" name="selByMajor" lay-filter="selByMajor" lay-verify="selByMajor"
-                            lay-search></select>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-xs12 layui-col-sm6 layui-col-md3">
-            <div class="layui-form-item">
-                <label class="layui-form-label">年级名称</label>
-                <div class="layui-input-block">
-                    <select id="selByGrade" name="selByGrade" lay-filter="selByGrade" lay-verify="selByGrade"
-                            lay-search></select>
-                </div>
-            </div>
+            </fieldset>
         </div>
     </div>
-
 
 </form>
 <table id="evlist" lay-filter="gradeTable"></table>

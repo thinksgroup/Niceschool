@@ -6,7 +6,14 @@
 <!--**************************************************************系部管理***********************************************************************-->
     <!--查询全部系部-->
     <select id="findAllDpm" resultType="SchoolManageVO">
-        select * from department
+        select *
+        from  department d
+        <where>
+            d.is_del=0
+            <if test="dname != null">
+                and d.dname=#{dname}
+            </if>
+        </where>
     </select>
     <!--添加系部-->
     <insert id="addOneDpm" parameterType="DepartmentDB">
@@ -23,7 +30,18 @@
     <!--**************************************************************专业管理***********************************************************************-->
     <!--查询全部专业-->
     <select id="findAllMajor" resultType="SchoolManageVO">
-        select * from major m,department d where m.did=d.did
+        select *
+        from  major m
+        inner join department d on m.did = d.did
+        <where>
+            m.is_del=0 and d.is_del=0
+            <if test="mname != null">
+                and m.mname=#{mname}
+            </if>
+            <if test="dname != null">
+                and d.dname=#{dname}
+            </if>
+        </where>
     </select>
     <!--添加专业-->
     <insert id="addOneMajor" parameterType="MajorDB">
@@ -41,7 +59,22 @@
     <!--**************************************************************年级管理***********************************************************************-->
     <!--查询全部年级-->
     <select id="findAllGrade" resultType="SchoolManageVO">
-        select * from grade g,major m,department d where g.mid=m.mid and m.did=d.did
+        select *
+        from  grade g
+        inner join major m on g.mid = m.mid
+        inner join department d on m.did = d.did
+        <where>
+            g.is_del=0 and m.is_del=0 and d.is_del=0
+            <if test="gname != null">
+                and g.gname=#{gname}
+            </if>
+            <if test="mname != null">
+                and m.mname=#{mname}
+            </if>
+            <if test="dname != null">
+                and d.dname=#{dname}
+            </if>
+        </where>
     </select>
     <!--级联系部查询对应专业-->
     <select id="jlSelMajor" resultType="SchoolManageVO">
@@ -112,11 +145,19 @@
     </select>
     <!--条件查询major-->
     <select id="tjSelMajor" resultType="SchoolManageVO">
-        select mid,mname from major where did in(select did from department where dname=#{dname} and is_del=0) and is_del=0 group by mname order by mid
+        select mid,mname from major where is_del=0
+        <if test="dname != null">
+            and did in(select did from department where dname=#{dname} and is_del=0)
+        </if>
+         group by mname order by mid
     </select>
     <!--条件查询grade-->
     <select id="tjSelGrade" resultType="SchoolManageVO">
-        select gid,gname from grade where mid in(select mid from major where mname=#{mname} and is_del=0) and is_del=0 group by gname order by gid
+        select gid,gname from grade where is_del=0
+        <if test="mname != null">
+            and mid in(select mid from major where mname=#{mname} and is_del=0)
+        </if>
+         group by gname order by gid
     </select>
 
 </mapper>

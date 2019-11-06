@@ -5,6 +5,10 @@
 .layui-layer-tab .layui-layer-title span.layui-layer-tabnow{ height:42px !important; }
 .layui-layer-tab .layui-layer-title span{ min-width:45px !important; }
 .marg0{ margin:0; }
+*{scroll-behavior: smooth;}
+::-webkit-scrollbar{width: 6px;height: 6px;background-color: transparent;}
+
+::-webkit-scrollbar-thumb{border-radius: 6px;background-color: #999999;}
 /*模拟加载层图标样式*/
 .layui-layer-dialog .layui-layer-content .layui-layer-ico16{ background-size:100% 100% !important; }
 
@@ -46,7 +50,7 @@
 .user-photo p{ display: block; width: 100%; height: 25px; color: #ffffff; text-align: center; font-size: 12px; white-space: nowrap;line-height: 25px; overflow: hidden;}
 /*左侧导航重定义*/
 .layui-nav-item a cite{ padding:0 5px; }
-.layui-side-scroll{ height:auto; }
+.layui-side-scroll{ height:min-content;min-height: 570px; }
 .layui-nav-tree .layui-nav-child a{ padding-left: 40px; }
 .layui-nav-tree .layui-nav-child a:hover{ background-color:#4E5465; }
 .layui-nav-tree .layui-nav-child dd.layui-this a:hover{ background-color:#009688; }

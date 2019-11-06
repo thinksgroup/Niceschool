@@ -34,43 +34,6 @@
         <div class="layui-card">
             <div class="layui-card-header">用户登录</div>
             <div class="layui-card-body">
-
-                <!--<form class="layui-form layui-form-pane" action="">-->
-
-                    <!--<div class="layui-form-item">-->
-                        <!--<label class="layui-form-label">身份</label>-->
-                        <!--<div class="layui-input-block">-->
-                            <!--<select name="quiz1" required>-->
-                                <!--<option value="0">请选择登录身份</option>-->
-                                <!--<option value="1" selected="">学生</option>-->
-                                <!--<option value="2">教师</option>-->
-                                <!--<option value="3">管理员</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-
-                    <!--<div class="layui-form-item">-->
-                        <!--<label class="layui-form-label">账号</label>-->
-                        <!--<div class="layui-input-block">-->
-                            <!--<input type="text" name="username" required autocomplete="off" placeholder="学号/工号"-->
-                                   <!--class="layui-input">-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="layui-form-item">-->
-                        <!--<label class="layui-form-label">密码</label>-->
-                        <!--<div class="layui-input-block">-->
-                            <!--<input type="password" name="password" required autocomplete="off" placeholder="请输入密码"-->
-                                   <!--class="layui-input">-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-
-                    <!--<div class="layui-form-item">-->
-                        <!--<button class="layui-btn layui-btn-fluid layui-btn-danger">立即登录</button>-->
-                    <!--</div>-->
-                <!--</form>-->
                 <form class="layui-form" th:action="@{/admin/login}">
                     <div class="layui-form-item">
                         <input class="layui-input" name="username" placeholder="学号 / 工号 / 用户名" lay-verify="required" type="text" autocomplete="off">
@@ -93,7 +56,7 @@
 
 
 
-                    <div class="layui-form-item">
+                    <div class="layui-form-item" style="display: none;">
                         <input type="checkbox" name="rememberMe" lay-skin="primary" title="记住帐号?">
                     </div>
                     <button class="layui-btn layui-btn-fluid login_btn" lay-submit lay-filter="login">登录</button>
