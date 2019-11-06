@@ -20,16 +20,16 @@ public class GradeServiceImpl implements GradeService {
 
     //  查询学生个人信息
     @Override
-    public List<Map> selStudentMessage(Integer sid) {
-        return gradeMapper.selStudentMessage(sid);
+    public List<Map> selStudentMessage(String stuid) {
+        return gradeMapper.selStudentMessage(stuid);
     }
 
     //  查询学生成绩信息
     @Override
-    public List<Map> selGrade(Integer sid, Integer stime) {
+    public List<Map> selGrade(String stuid, Integer stime) {
         Map<String,Object> map = new HashMap<>();
         map.put("stime",stime);
-        map.put("sid",sid);
+        map.put("stuid",stuid);
         return gradeMapper.selGrade(map);
     }
 

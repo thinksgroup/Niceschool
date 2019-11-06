@@ -9,15 +9,16 @@
         left join classinfo class on s.classid = class.classid
         left join grade g on class.gid = g.gid
         left join major m on g.mid = m.mid
-        left join department d on m.did = d.did where sid = #{sid}
+        left join department d on m.did = d.did where s.stuid = #{stuid}
     </select>
     <!-- 查询学生成绩信息 -->
     <select id="selGrade" resultType="map" parameterType="map">
         select se.*,c.cname,c.ccredit,c.cperiod,concat(ct.ctname,'/',c.studytype) type from stu_exam se
+        left join student s on se.sid = s.sid
         left join stu_course sc on se.scid = sc.scid
         left join course c on sc.cid = c.cid
         left join course_type ct on c.ctid = ct.ctid
-        <where>se.sid = #{sid}
+        <where>s.stuid = #{stuid}
             <if test="stime!=null and stime!=''">
                 and se.stime = #{stime}
             </if>

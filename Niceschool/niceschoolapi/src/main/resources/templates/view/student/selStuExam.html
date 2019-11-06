@@ -23,7 +23,7 @@
         <button class="layui-btn" type="button" id="selBtn" style="margin-top: 10px"  lay-event="examine">开始搜索</button>
     </div>
     <div class="layui-form">
-        <input type="hidden" th:name="sid" th:value="${sid}" th:id="sid">
+        <input type="hidden" th:name="stuid" th:value="${stuid}" th:id="stuid">
         <input type="hidden" th:name="time" th:value="${stime}" th:id="time">
         <table class="layui-table">
             <thead>
@@ -72,9 +72,9 @@
 
         var $ = layui.$;
         $('#selBtn').on('click', function(){
-            var sid = $("#sid").val();
+            var stuid = $("#stuid").val();
             var stime = $("#stime").val();
-            location.href="selExam?sid="+sid+"&stime="+stime;
+            location.href="selExam?stuid="+stuid+"&stime="+stime;
         });
 
         var time= $("#time").val();
