@@ -1,5 +1,6 @@
 package com.nsapi.niceschoolapi.controller;
 
+import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.LayuiResult;
 import com.nsapi.niceschoolapi.entity.TchExamDB;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
@@ -20,9 +21,9 @@ public class GradeController {
 
     @RequestMapping("/selectGrade")
     public String pageSelgrade(Model model){
-        Integer sid = 1;
+        String stuid = MySysUser.loginName();
         //  查询学生个人信息
-        List<Map> selStudentMessage = gradeService.selStudentMessage(sid);
+        List<Map> selStudentMessage = gradeService.selStudentMessage(stuid);
         model.addAttribute("selStudentMessage",selStudentMessage);
         return "view/student/selGrade";
     }
@@ -31,14 +32,14 @@ public class GradeController {
     @RequestMapping("selGrade")
     @ResponseBody
     public LayuiResult<Map> selGrade(Integer stime){
-        Integer sid = 1;
+        String stuid = MySysUser.loginName();
         if(stime == null){
-            List<Map> selGrade = gradeService.selGrade(sid,1);
+            List<Map> selGrade = gradeService.selGrade(stuid,1);
             LayuiResult result = new LayuiResult();
             result.setData(selGrade);
             return result;
         }else{
-            List<Map> selGrade = gradeService.selGrade(sid,stime);
+            List<Map> selGrade = gradeService.selGrade(stuid,stime);
             LayuiResult result = new LayuiResult();
             result.setData(selGrade);
             return result;
@@ -48,18 +49,18 @@ public class GradeController {
 
     //  管理员/教师 详情页面查询学生成绩
     @RequestMapping("/selExam")
-    public String selExam(Integer sid, Integer stime, Model model){
+    public String selExam(String stuid, Integer stime, Model model){
         if(stime == null){
             stime = 1;
-            List<Map> selGrade = gradeService.selGrade(sid,stime);
+            List<Map> selGrade = gradeService.selGrade(stuid,stime);
             model.addAttribute("selGrade",selGrade);
-            model.addAttribute("sid",sid);
+            model.addAttribute("stuid",stuid);
             model.addAttribute("stime",stime);
             return "view/student/selStuExam";
         }else{
-            List<Map> selGrade = gradeService.selGrade(sid,stime);
+            List<Map> selGrade = gradeService.selGrade(stuid,stime);
             model.addAttribute("selGrade",selGrade);
-            model.addAttribute("sid",sid);
+            model.addAttribute("stuid",stuid);
             model.addAttribute("stime",stime);
             return "view/student/selStuExam";
         }
