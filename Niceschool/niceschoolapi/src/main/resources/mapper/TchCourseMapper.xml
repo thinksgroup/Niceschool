@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsapi.niceschoolapi.mapper.TchCourseMapper">
+    <!--查询全部教师-->
+    <select id="findAllTch" resultType="TeacherDB">
+        select * from teacher where is_del=0
+        <if test="tchid != null">
+            and tchid=#{tchid}
+        </if>
+        <if test="tname != null">
+            and tname=#{tname}
+        </if>
+    </select>
+    <!--查询全部教师姓名-->
+    <select id="findAllTchByName" resultType="TeacherDB">
+        select * from teacher where is_del=0 group by tname order by tid
+    </select>
+
+</mapper>
