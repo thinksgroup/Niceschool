@@ -63,6 +63,7 @@
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">查看</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">退学</a>
         </script>
 
 
@@ -387,7 +388,28 @@
                         content:'selExam?stuid='+data.stuid,
                     });
                 }
+
+                //  删除学生
+                if(layEvent == 'del'){
+                    //删除
+                    layer.confirm('真的要执行吗？', function () {
+                        $.post("delStudent",{'stuid':data.stuid},function(result)
+                            {
+                                layer.msg(
+                                    result.msg, {
+                                        icon: 1,
+                                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                    }, function(){
+                                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                        layer.close(index);
+                                    });
+                            }
+                        );
+                    });
+                }
             });
+
+
 
             //分页
             laypage.render({

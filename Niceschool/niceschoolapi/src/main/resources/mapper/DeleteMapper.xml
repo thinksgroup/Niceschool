@@ -1,0 +1,46 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nsapi.niceschoolapi.mapper.DeleteMapper">
+    <!-- 删除学生信息 -->
+    <update id="deleteStudent" parameterType="String">
+      update student set is_del=1 where stuid = #{stuid}
+    </update>
+
+    <!-- 删除学生选课信息 -->
+    <update id="deleteStuCourse" parameterType="String">
+      update stu_course set is_del=1 where sid=(select sid from student where stuid = #{stuid})
+    </update>
+
+    <!-- 删除学生成绩表信息 -->
+    <update id="deleteStuExam" parameterType="String">
+      update stu_exam set is_del=1 where sid=(select sid from student where stuid = #{stuid})
+    </update>
+
+    <!-- 删除教评记录表信息 -->
+    <update id="deleteEvaluateRecord" parameterType="String">
+      update evaluate_record set is_del=1 where stuid = #{stuid}
+    </update>
+
+    <!-- 班级表人数-1 -->
+    <update id="deleteClassinfo" parameterType="String">
+      update classinfo set ccount=ccount-1 where classid = (select classid from student where stuid = #{stuid})
+    </update>
+
+    <!-- 年级人数-1 -->
+    <update id="deleteGrade" parameterType="String">
+      update grade set gcount=gcount-1 where gid = (select gid from classinfo where classid=(select classid from student where stuid = #{stuid}))
+    </update>
+
+    <!-- 专业人数-1 -->
+    <update id="deleteMajor" parameterType="String">
+      update major set mcount=mcount-1 where mid = (select mid from grade where gid=(select gid from classinfo where classid=(select classid from student where stuid = #{stuid})))
+    </update>
+
+    <!-- 系部人数-1 -->
+    <update id="deleteDepartment" parameterType="String">
+      update department set dcount=dcount-1 where did = (select did from major where mid = (select mid from grade where gid=(select gid from classinfo where classid=(select classid from student where stuid = #{stuid}))))
+    </update>
+
+</mapper>
