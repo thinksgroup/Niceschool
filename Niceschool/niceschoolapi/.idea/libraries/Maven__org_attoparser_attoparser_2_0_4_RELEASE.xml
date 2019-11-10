@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Maven: org.attoparser:attoparser:2.0.4.RELEASE">
     <CLASSES>
-<<<<<<< Updated upstream
       <root url="jar://$MAVEN_REPOSITORY$/org/attoparser/attoparser/2.0.4.RELEASE/attoparser-2.0.4.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -9,15 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/attoparser/attoparser/2.0.4.RELEASE/attoparser-2.0.4.RELEASE-sources.jar!/" />
-=======
-      <root url="jar://D:/App-Install/maven/maven_repository/org/attoparser/attoparser/2.0.4.RELEASE/attoparser-2.0.4.RELEASE.jar!/" />
-    </CLASSES>
-    <JAVADOC>
-      <root url="jar://D:/App-Install/maven/maven_repository/org/attoparser/attoparser/2.0.4.RELEASE/attoparser-2.0.4.RELEASE-javadoc.jar!/" />
-    </JAVADOC>
-    <SOURCES>
-      <root url="jar://D:/App-Install/maven/maven_repository/org/attoparser/attoparser/2.0.4.RELEASE/attoparser-2.0.4.RELEASE-sources.jar!/" />
->>>>>>> Stashed changes
     </SOURCES>
   </library>
 </component>
