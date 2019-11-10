@@ -2,6 +2,7 @@ package com.nsapi.niceschoolapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.coursel;
 import com.nsapi.niceschoolapi.service.DropCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ public class DropCourseController {
     @RequestMapping("seld")
     @ResponseBody
     public Object sel(Integer page, Integer limit, String cname){
-        Integer sid=20170001;
+
+        Integer sid= Integer.valueOf(MySysUser.loginName());
         System.out.println(cname);
         PageHelper.startPage(page, limit);
         List<coursel> cs = dropCourseService.seledCourse(cname,sid);
@@ -44,7 +46,7 @@ public class DropCourseController {
     @RequestMapping("dropcou")
     @ResponseBody
     public Object dropcou(Integer cid){
-        Integer sid=20170001;
+        Integer sid= Integer.valueOf(MySysUser.loginName());
         int dropcou = dropCourseService.dropcou(sid, cid);
         int updatecou = dropCourseService.updatecou(cid);
         if(dropcou>0 && updatecou>0){
