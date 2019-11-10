@@ -43,4 +43,24 @@
       update department set dcount=dcount-1 where did = (select did from major where mid = (select mid from grade where gid=(select gid from classinfo where classid=(select classid from student where stuid = #{stuid}))))
     </update>
 
+    <!-- 修改教师为离职状态并逻辑删除 -->
+    <update id="deleteTeacher" parameterType="TeacherDB">
+        update teacher set tname=#{tname},tgender=#{tgender},tbirthday=#{tbirthday},pid=#{pid},tnation=#{tnation},tphone=#{tphone},taddress=#{taddress}, leavetime=now(),tchstate=1,is_del=1 where tid =  #{tid}
+    </update>
+    <!-- 删除教师授课信息 -->
+    <update id="deleteTchCourse" parameterType="int">
+      update tch_course set is_del=1 where tid=#{tid}
+    </update>
+    <!-- 删除教师班级信息 -->
+    <update id="deleteTchClass" parameterType="int">
+      update tch_class set is_del=1 where tid=#{tid}
+    </update>
+    <!-- 删除教师成绩信息 -->
+    <update id="deleteTchExam" parameterType="int">
+      update tch_exam set is_del=1 where tid=#{tid}
+    </update>
+    <!-- 删除教评记录信息 -->
+    <update id="deleteTeaRecord" parameterType="int">
+      update evaluate_record set is_del=1 where tchid=(select tchid from teacher where tid = #{tid})
+    </update>
 </mapper>

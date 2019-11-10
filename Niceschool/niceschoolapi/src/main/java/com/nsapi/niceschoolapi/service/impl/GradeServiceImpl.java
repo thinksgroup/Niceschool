@@ -33,11 +33,6 @@ public class GradeServiceImpl implements GradeService {
         return gradeMapper.selGrade(map);
     }
 
-    //  管理员详情页面查询教师教评成绩
-    @Override
-    public List<TchExamDB> selTeaExam(Integer tid) {
-        return gradeMapper.selTeaExam(tid);
-    }
 
     //  查询教师个人信息
     @Override

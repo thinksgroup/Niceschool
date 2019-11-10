@@ -13,8 +13,6 @@ public interface GradeMapper {
     List<Map> selStudentMessage(String stuid);
     //  查询学生成绩信息
     List<Map> selGrade(Map<String, Object> map);
-    //  管理员详情页面查询教师教评成绩
-    List<TchExamDB> selTeaExam(Integer tid);
     //  查询教师个人信息
     List<TeacherDB> selTea(Integer tid);
 }

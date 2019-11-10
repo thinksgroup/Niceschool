@@ -1,5 +1,6 @@
 package com.nsapi.niceschoolapi.mapper;
 
+import com.nsapi.niceschoolapi.entity.TeacherDB;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -20,4 +21,15 @@ public interface DeleteMapper {
     Integer deleteMajor(String stuid);
     //  系部人数-1
     Integer deleteDepartment(String stuid);
+
+    //  修改教师为离职状态并逻辑删除
+    Integer deleteTeacher(TeacherDB teacherDB);
+    //  删除教师授课信息
+    Integer deleteTchCourse(Integer tid);
+    //  删除教师班级信息
+    Integer deleteTchClass(Integer tid);
+    //  删除教师成绩信息
+    Integer deleteTchExam(Integer tid);
+    //  删除教评记录信息
+    Integer deleteTeaRecord(Integer tid);
 }

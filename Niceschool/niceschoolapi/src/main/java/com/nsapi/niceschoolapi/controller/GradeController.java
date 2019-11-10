@@ -68,24 +68,5 @@ public class GradeController {
 
     }
 
-    //  管理员详情页面查询教师教评成绩
-    @RequestMapping("/selTeaExam")
-    public String selTeaExam(Integer tid, Model model){
-        List<TchExamDB> selTeaExam = gradeService.selTeaExam(tid);
-        model.addAttribute("selTeaExam",selTeaExam);
-        return "view/teacher/selTeaExam";
-    }
-
-    //  教师个人成绩查询
-    @RequestMapping("/selTeacherGrade")
-    public String selGrade(Model model){
-        Integer tid = 1;
-        List<TchExamDB> selTeaExam = gradeService.selTeaExam(tid);
-        //  查询教师个人信息
-        List<TeacherDB> selTea = gradeService.selTea(tid);
-        model.addAttribute("selTea",selTea);
-        model.addAttribute("selTeaExam",selTeaExam);
-        return "view/teacher/selGrade";
-    }
 
 }

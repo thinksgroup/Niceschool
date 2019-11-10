@@ -25,10 +25,6 @@
         </where>
     </select>
 
-    <!-- 管理员详情页面查询教师教评成绩 -->
-    <select id="selTeaExam" resultType="TchExamDB">
-        select * from tch_exam where tid = #{tid}
-    </select>
     <!-- 查询教师个人信息 -->
     <select id="selTea" resultType="TeacherDB">
         select * from teacher where tid = #{tid}

@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: net.bytebuddy:byte-buddy:1.7.11">
     <CLASSES>
+<<<<<<< Updated upstream
       <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11-sources.jar!/" />
+=======
+      <root url="jar://D:/App-Install/maven/maven_repository/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/App-Install/maven/maven_repository/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/App-Install/maven/maven_repository/net/bytebuddy/byte-buddy/1.7.11/byte-buddy-1.7.11-sources.jar!/" />
+>>>>>>> Stashed changes
     </SOURCES>
   </library>
 </component>

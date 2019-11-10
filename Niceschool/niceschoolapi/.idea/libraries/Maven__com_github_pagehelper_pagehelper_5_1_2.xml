@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: com.github.pagehelper:pagehelper:5.1.2">
     <CLASSES>
+<<<<<<< Updated upstream
       <root url="jar://$MAVEN_REPOSITORY$/com/github/pagehelper/pagehelper/5.1.2/pagehelper-5.1.2.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/github/pagehelper/pagehelper/5.1.2/pagehelper-5.1.2-sources.jar!/" />
+=======
+      <root url="jar://D:/App-Install/maven/maven_repository/com/github/pagehelper/pagehelper/5.1.2/pagehelper-5.1.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/App-Install/maven/maven_repository/com/github/pagehelper/pagehelper/5.1.2/pagehelper-5.1.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/App-Install/maven/maven_repository/com/github/pagehelper/pagehelper/5.1.2/pagehelper-5.1.2-sources.jar!/" />
+>>>>>>> Stashed changes
     </SOURCES>
   </library>
 </component>

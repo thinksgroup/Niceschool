@@ -36,6 +36,5 @@
     <update id="updTeacher" parameterType="TeacherDB">
         update teacher set tname=#{tname},tgender=#{tgender},tbirthday=#{tbirthday},pid=#{pid},tnation=#{tnation},tcardid=#{tcardid},
         tphone=#{tphone},taddress=#{taddress},tchstate=#{tchstate} where tid=#{tid}
-
     </update>
 </mapper>

@@ -4,6 +4,7 @@ import com.nsapi.niceschoolapi.entity.LayuiResult;
 import com.nsapi.niceschoolapi.entity.PoliticsTypeDB;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
 import com.nsapi.niceschoolapi.entity.pageCount;
+import com.nsapi.niceschoolapi.service.DeleteService;
 import com.nsapi.niceschoolapi.service.StudentService;
 import com.nsapi.niceschoolapi.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class TeacherController {
     private TeacherService lxxTeacherService;
     @Autowired
     private StudentService lxxStudentService;
+    @Autowired
+    private DeleteService deleteService;
 
     // 跳转教师查询页面
     @RequestMapping("/selectTeacher")
@@ -60,14 +63,32 @@ public class TeacherController {
     @RequestMapping("/updateTeacher")
     @ResponseBody
     public LayuiResult<TeacherDB> updTeacher(TeacherDB teacherDB, String birthday) throws Exception{
+        LayuiResult result= new LayuiResult();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date=format.parse(birthday);
         teacherDB.setTbirthday(date);
-        int a =lxxTeacherService.updTeacher(teacherDB);
-        LayuiResult result= new LayuiResult();
-        //删除提示
-        result.setMsg("修改成功！");
-        return result;
+        Integer state = teacherDB.getTchstate();
+        Integer tid = teacherDB.getTid();
+        if(state == 1){
+            //  修改教师为离职状态并逻辑删除
+            Integer deleteTeacher = deleteService.deleteTeacher(teacherDB);
+            //  删除教师授课信息
+            Integer deleteTchCourse = deleteService.deleteTchCourse(tid);
+            //  删除教师班级信息
+            Integer deleteTchClass = deleteService.deleteTchClass(tid);
+            //  删除教师成绩信息
+            Integer deleteTchExam = deleteService.deleteTchExam(tid);
+            //  删除教评记录信息
+            Integer deleteTeaRecord = deleteService.deleteTeaRecord(tid);
+            //删除提示
+            result.setMsg("修改成功！");
+            return result;
+        }else{
+            int a =lxxTeacherService.updTeacher(teacherDB);
+            //删除提示
+            result.setMsg("修改成功！");
+            return result;
+        }
     }
 
 }

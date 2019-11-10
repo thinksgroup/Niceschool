@@ -1,5 +1,6 @@
 package com.nsapi.niceschoolapi.service.impl;
 
+import com.nsapi.niceschoolapi.entity.TeacherDB;
 import com.nsapi.niceschoolapi.mapper.DeleteMapper;
 import com.nsapi.niceschoolapi.service.DeleteService;
 import org.springframework.stereotype.Service;
@@ -59,5 +60,36 @@ public class DeleteServiceImpl implements DeleteService {
     @Override
     public Integer deleteDepartment(String stuid) {
         return deleteMapper.deleteDepartment(stuid);
+    }
+
+
+    //  修改教师为离职状态并逻辑删除
+    @Override
+    public Integer deleteTeacher(TeacherDB teacherDB) {
+        return deleteMapper.deleteTeacher(teacherDB);
+    }
+
+    //  删除教师授课信息
+    @Override
+    public Integer deleteTchCourse(Integer tid) {
+        return deleteMapper.deleteTchCourse(tid);
+    }
+
+    //  删除教师班级信息
+    @Override
+    public Integer deleteTchClass(Integer tid) {
+        return deleteMapper.deleteTchClass(tid);
+    }
+
+    //  删除教师成绩信息
+    @Override
+    public Integer deleteTchExam(Integer tid) {
+        return deleteMapper.deleteTchExam(tid);
+    }
+
+    //  删除教评记录信息
+    @Override
+    public Integer deleteTeaRecord(Integer tid) {
+        return deleteMapper.deleteTeaRecord(tid);
     }
 }
