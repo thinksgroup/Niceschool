@@ -5,9 +5,8 @@
 <mapper namespace="com.nsapi.niceschoolapi.mapper.AppraiseMapper">
     <!--查询全部对应教评的老师-->
     <select id="findAllTch" resultType="SelEvRecardVO">
-        select * from teacher tch,tch_course tc,course c where tch.tid in(select tid from tch_course where cid in
-(SELECT cid from course where cid in(select cid from stu_course where sid=(select sid from student where stuid=#{stuid})) GROUP BY cid) and classid
-in(select classid from student where stuid=#{stuid})) AND tch.tid=tc.tid AND tc.cid=c.cid
+select tc.*,c.cname from teacher tc,tch_course tco,tch_class tcl,course c,student s where
+tc.tid = tco.tid and tco.cid = c.cid and tc.tid = tcl.tid and tcl.classid = s.classid and s.sid = #{stuid}
     </select>
     <!--查询全部教评题目-->
     <select id="findAllTM" resultType="EvaluateListDB">
