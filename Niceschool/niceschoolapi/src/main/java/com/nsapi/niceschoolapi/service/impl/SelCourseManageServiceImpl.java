@@ -3,6 +3,7 @@ package com.nsapi.niceschoolapi.service.impl;
 import com.nsapi.niceschoolapi.entity.*;
 import com.nsapi.niceschoolapi.mapper.SelCourseManageMapper;
 import com.nsapi.niceschoolapi.service.SelCourseManageService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,7 +54,18 @@ public class SelCourseManageServiceImpl implements SelCourseManageService {
     }
 
     @Override
-    public int changesCou(Integer sid, Integer cid) {
-        return selCourseManageMapper.changesCou(sid,cid);
+    public int changesCou(@Param("ccd") Integer ccd, @Param("sid") Integer sid, @Param("cid") Integer cid) {
+        return selCourseManageMapper.changesCou(ccd,sid,cid);
+    }
+
+
+    @Override
+    public List<CourseDB> selCo() {
+        return selCourseManageMapper.selCo();
+    }
+
+    @Override
+    public int selStc(Integer ccd, Integer sid) {
+        return selCourseManageMapper.selStc(ccd,sid);
     }
 }

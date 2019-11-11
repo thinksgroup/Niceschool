@@ -14,5 +14,7 @@ public interface SelCourseManageService {
     List<StuCourseVO> selSc(StuCourseVO stuCourseVO);
     int dropcou(@Param("sid") Integer sid, @Param("cid") Integer cid);
     int updatecou(Integer cid);
-    int changesCou(@Param("sid") Integer sid, @Param("cid") Integer cid);
+    int changesCou(@Param("ccd") Integer ccd, @Param("sid") Integer sid, @Param("cid") Integer cid);
+    List<CourseDB> selCo();
+    int selStc(@Param("ccd") Integer ccd, @Param("sid") Integer sid);
 }

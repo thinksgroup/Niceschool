@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.*;
 import com.nsapi.niceschoolapi.service.SelCourseManageService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +84,14 @@ public class SelCourseManController {
        // System.out.println(studentDBS);
         return studentDBS;
     }
+    @RequestMapping("selCo")
+    @ResponseBody
+    public Object selCo(){
+        //System.out.println(classid);
+        List<CourseDB> courseDBS = selCourseManageService.selCo();
+        // System.out.println(studentDBS);
+        return courseDBS;
+    }
     //退课
     @RequestMapping("dropCous")
     @ResponseBody
@@ -99,14 +108,20 @@ public class SelCourseManController {
     //换课
     @RequestMapping("changesCou")
     @ResponseBody
-    public Object changesCou(Integer sid,Integer cid){
+    public Object changesCou( Integer ccd,  Integer sid,Integer cid) {
+        /*System.out.println(ccd+"8888888");
+        System.out.println(sid+"-----"+cid);*/
+        int i = selCourseManageService.selStc(ccd, sid);
 
-        int dropcou = selCourseManageService.changesCou(sid,cid);
-
-        if(dropcou>0 ){
-            return "换课成功";
-        }else{
-            return "退课失败,请稍后再试或联系管理员";
+        if (i > 0) {
+            return "该学生已经选过这门课";
+        } else {
+            int dropcou = selCourseManageService.changesCou(ccd, sid, cid);
+            if (dropcou > 0) {
+                return "换课成功";
+            } else {
+                return "退课失败,请稍后再试或联系管理员";
+            }
         }
     }
 }

@@ -33,7 +33,13 @@
     <update id="updatecou" parameterType="Integer">
         update course set cselcount=cselcount-1 where cid=#{cid}
     </update>
-    <update id="changeCou" parameterType="Integer">
-        UPDATE stu_course set cid=#{cid} where sid=#{sid} and cid=#{cid}
+    <update id="changesCou" parameterType="Integer">
+        UPDATE stu_course set cid=#{ccd} where sid=#{sid} and cid=#{cid}
     </update>
+    <select id="selCo" resultType="com.nsapi.niceschoolapi.entity.CourseDB">
+        select * from course
+    </select>
+    <select id="selStc" parameterType="Integer" resultType="Integer">
+      select count(*) from stu_course where cid=#{ccd} and sid=#{sid}
+    </select>
 </mapper>

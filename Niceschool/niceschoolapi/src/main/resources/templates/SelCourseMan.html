@@ -66,13 +66,12 @@
     <form class="layui-form"  lay-filter="dataFrm" id="dataFrm">
         <div class="layui-form-item">
 
-            <input type="hidden" name="cid"  autocomplete="off">
-            <input type="hidden" name="sid"  autocomplete="off">
+
 
             <div class="layui-inline">
                 <label class="layui-form-label">请选课程:</label>
                 <div class="layui-input-inline">
-                    <select name="mid" id="ss" lay-filter="select" class="layui-input" lay-verify="required">
+                    <select name="ccd" id="cid" lay-filter="selCo" class="layui-input" lay-verify="required">
                         <option value=""></option>
                     </select>
 
@@ -80,7 +79,8 @@
             </div>
         </div>
 
-
+        <input type="hidden" name="sid"  autocomplete="off">
+        <input type="hidden" name="cid"  autocomplete="off">
 
         <div class="layui-form-item" style="text-align: center;">
             <div class="layui-input-block">
@@ -149,11 +149,11 @@
         });
         //打开修改页面
         function openUpdate(data){
-            layer.open({
+            mainIndex=layer.open({
                 type:1,
                 title:'修改',
                 content:$("#saveOrUpdateDiv"),
-                area:['400px','200px'],
+                area:['500px','300px'],
                 success:function(index){
                     form.val("dataFrm",data);
                     url="changesCou";
@@ -164,8 +164,9 @@
         form.on("submit(doSubmit)",function(obj){
             //序列化表单数据
             var params=$("#dataFrm").serialize();
+            alert(params);
             $.post(url,params,function(obj){
-                layer.msg("修改成功");
+                layer.msg(obj);
                 //关闭弹出层
                 layer.close(mainIndex)
                 //刷新数据 表格
@@ -188,6 +189,26 @@
 
                 $.each(data, function (index, item) {
                     $('#did').append(new Option(item.dname, item.did));// 下拉菜单里添加元素
+
+                });
+                form.render();
+            }
+
+        });
+        $.ajax({
+            //要跳转的地址
+            url: 'selCo',
+            //数据类型
+            dataType: 'json',
+
+            //提交类型
+            type: 'post',
+            //查询成功后执行的方法
+
+            success: function (data) {
+
+                $.each(data, function (index, item) {
+                    $('#cid').append(new Option(item.cname, item.cid));// 下拉菜单里添加元素
 
                 });
                 form.render();
