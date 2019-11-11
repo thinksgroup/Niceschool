@@ -23,7 +23,7 @@
 <form class="layui-form" method="post" id="searchFrm">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">用户姓名:</label>
+            <label class="layui-form-label">课程姓名:</label>
             <div class="layui-input-inline">
                 <input type="text" name="cname" id="name" autocomplete="off" class="layui-input">
             </div>
@@ -242,7 +242,7 @@
         function openUpdate(data){
             mainIndex=layer.open({
                 type:1,
-                title:'修改用户',
+                title:'修改',
                 content:$("#saveOrUpdateDiv"),
                 area:['800px','400px'],
                 success:function(index){

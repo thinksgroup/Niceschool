@@ -26,4 +26,14 @@
         </if>
 
     </select>
+
+    <delete id="dropcou" parameterType="Integer">
+        delete from stu_course where sid=#{sid} and cid=#{cid}
+    </delete>
+    <update id="updatecou" parameterType="Integer">
+        update course set cselcount=cselcount-1 where cid=#{cid}
+    </update>
+    <update id="changeCou" parameterType="Integer">
+        UPDATE stu_course set cid=#{cid} where sid=#{sid} and cid=#{cid}
+    </update>
 </mapper>

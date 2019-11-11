@@ -41,4 +41,19 @@ public class SelCourseManageServiceImpl implements SelCourseManageService {
     public List<StuCourseVO> selSc(StuCourseVO stuCourseVO) {
         return selCourseManageMapper.selSc(stuCourseVO);
     }
+
+    @Override
+    public int dropcou(Integer sid, Integer cid) {
+        return selCourseManageMapper.dropcou(sid,cid);
+    }
+
+    @Override
+    public int updatecou(Integer cid) {
+        return selCourseManageMapper.updatecou(cid);
+    }
+
+    @Override
+    public int changesCou(Integer sid, Integer cid) {
+        return selCourseManageMapper.changesCou(sid,cid);
+    }
 }

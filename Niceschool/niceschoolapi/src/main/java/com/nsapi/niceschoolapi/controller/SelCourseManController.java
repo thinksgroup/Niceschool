@@ -2,6 +2,7 @@ package com.nsapi.niceschoolapi.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.*;
 import com.nsapi.niceschoolapi.service.SelCourseManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class SelCourseManController {
         // System.out.print(cs);
         return tableData;
     }
+
+    //下面是下拉框
     @RequestMapping("selDe")
     @ResponseBody
     public Object selDe(){
@@ -79,5 +82,31 @@ public class SelCourseManController {
         List<StudentDB> studentDBS = selCourseManageService.selSt(classid);
        // System.out.println(studentDBS);
         return studentDBS;
+    }
+    //退课
+    @RequestMapping("dropCous")
+    @ResponseBody
+    public Object dropCous(Integer sid,Integer cid){
+
+        int dropcou = selCourseManageService.dropcou(sid, cid);
+        int updatecou = selCourseManageService.updatecou(cid);
+        if(dropcou>0 && updatecou>0){
+            return "退课成功";
+        }else{
+            return "退课失败,请稍后再试或联系管理员";
+        }
+    }
+    //换课
+    @RequestMapping("changesCou")
+    @ResponseBody
+    public Object changesCou(Integer sid,Integer cid){
+
+        int dropcou = selCourseManageService.changesCou(sid,cid);
+
+        if(dropcou>0 ){
+            return "换课成功";
+        }else{
+            return "退课失败,请稍后再试或联系管理员";
+        }
     }
 }

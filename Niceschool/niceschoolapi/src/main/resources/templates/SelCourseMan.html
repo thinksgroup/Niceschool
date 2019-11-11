@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
 </head>
 <body>
+
 <form class="layui-form" style="padding: 10px;" id="fors">
 
 
@@ -51,13 +52,44 @@
     <div class="layui-inline">
         <label class="layui-form-label">学生名称</label>
         <div class="layui-input-inline">
-            <select name="sname" id="sid" lay-filter="selSt" class="layui-input" lay-verify="required">
+            <select name="sname" id="sid" lay-filter="selSt" class="layui-input" lay-verify="editSelGrade" lay-search>
                 <option value=""></option>
             </select>
+
         </div>
     </div>
 
 </form>
+
+<!--换课的弹出层-->
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
+    <form class="layui-form"  lay-filter="dataFrm" id="dataFrm">
+        <div class="layui-form-item">
+
+            <input type="hidden" name="cid"  autocomplete="off">
+            <input type="hidden" name="sid"  autocomplete="off">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">请选课程:</label>
+                <div class="layui-input-inline">
+                    <select name="mid" id="ss" lay-filter="select" class="layui-input" lay-verify="required">
+                        <option value=""></option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="doSubmit" id="yu" lay-submit="">提交</button>
+            </div>
+        </div>
+    </form>
+
+</div>
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="userTable" lay-filter="userTable"></table>
 <script>
@@ -85,18 +117,61 @@
 
                     {field:'scid', title:'ID',align:'center',width:"100",sort: true}
                     ,{field:'stuid', title:'学号',align:'center',width:"100"}
+
                     ,{field:'sname', title:'学生名',align:'center',width:"140",sort: true}
                     ,{field:'cname', title:'课程名',align:'center',width:"160",sort: true}
                     ,{field:'classname', title:'班级名字',align:'center',width:"140",sort: true}
 
                     ,{fixed: '', title:'操作',align:'center',width:'230',templet:function(data){
 
-                        return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">强制退课</a><a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="dels">换课</a>'
+                        return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">强制退课</a><a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #fff979;" lay-event="dels">换课</a>'
 
                     }}
                 ]
             ]
         })
+        //监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('确定要为'+data.sname+'退选【'+data.cname+'】这个课程吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("dropCous",{cid:data.cid,sid:data.sid},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns.reload();
+                    })
+                });
+            }else if(layEvent === 'dels'){
+                openUpdate(data);
+            }
+        });
+        //打开修改页面
+        function openUpdate(data){
+            layer.open({
+                type:1,
+                title:'修改',
+                content:$("#saveOrUpdateDiv"),
+                area:['400px','200px'],
+                success:function(index){
+                    form.val("dataFrm",data);
+                    url="changesCou";
+                }
+            });
+        }
+        //提交
+        form.on("submit(doSubmit)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm").serialize();
+            $.post(url,params,function(obj){
+                layer.msg("修改成功");
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns.reload();
+            })
+        });
         //渲染下拉框
 
        $.ajax({
