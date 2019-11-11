@@ -263,11 +263,9 @@
                 url: 'selStudent', //数据接口
                 title: '用户表',
                 page: true //开启分页
-                ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板
                 ,limits:[5,10,15],
                 cols: [
                     [ //表头
-                        {type: 'checkbox', fixed: 'left'},
                         {field: "sid", title: '编号'},
                         {field: "stuid", title: '学号'},
                         {field: "sname", title: '姓名'},
@@ -392,7 +390,7 @@
                 //  删除学生
                 if(layEvent == 'del'){
                     //删除
-                    layer.confirm('真的要执行吗？', function () {
+                    layer.confirm('确定要对该学生执行退学措施吗？', function () {
                         $.post("delStudent",{'stuid':data.stuid},function(result)
                             {
                                 layer.msg(

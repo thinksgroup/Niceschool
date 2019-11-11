@@ -32,4 +32,7 @@ public interface DeleteMapper {
     Integer deleteTchExam(Integer tid);
     //  删除教评记录信息
     Integer deleteTeaRecord(Integer tid);
+
+    //  改用户登录状态改为（1）锁定状态
+    Integer deleteUser(String loginName);
 }

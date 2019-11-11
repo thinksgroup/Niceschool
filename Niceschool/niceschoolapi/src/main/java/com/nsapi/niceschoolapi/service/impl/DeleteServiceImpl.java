@@ -92,4 +92,10 @@ public class DeleteServiceImpl implements DeleteService {
     public Integer deleteTeaRecord(Integer tid) {
         return deleteMapper.deleteTeaRecord(tid);
     }
+
+    //  改用户登录状态改为（1）锁定状态
+    @Override
+    public Integer deleteUser(String loginName) {
+        return deleteMapper.deleteUser(loginName);
+    }
 }

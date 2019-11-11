@@ -34,7 +34,9 @@ public class DeleteController {
         Integer deleteMajor = deleteService.deleteMajor(stuid);
         //  系部人数-1
         Integer deleteDepartment = deleteService.deleteDepartment(stuid);
-        result.setMsg("删除成功");
+        //  改用户登录状态改为（1）锁定状态
+        Integer deleteUser = deleteService.deleteUser(stuid);
+        result.setMsg("操作成功");
         return result;
     }
 }

@@ -80,6 +80,8 @@ public class TeacherController {
             Integer deleteTchExam = deleteService.deleteTchExam(tid);
             //  删除教评记录信息
             Integer deleteTeaRecord = deleteService.deleteTeaRecord(tid);
+            //  改用户登录状态改为（1）锁定状态
+            Integer deleteUser = deleteService.deleteUser(teacherDB.getTchid());
             //删除提示
             result.setMsg("修改成功！");
             return result;

@@ -21,13 +21,8 @@
             <input type="radio" th:name="tgender" value="女" title="女">
         </div>
     </div>
+
     <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">出生日期</label>
-            <div class="layui-input-block">
-                <input type="text" name="date" th:name="birthday" lay-verify="date" id="date" autocomplete="off" class="layui-input">
-            </div>
-        </div>
         <label class="layui-form-label">政治面貌</label>
         <div class="layui-input-inline">
             <select name="quiz1" th:name="pid">
@@ -36,6 +31,14 @@
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-block">
+                <input type="text" name="date" th:name="birthday" lay-verify="date" id="date" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">民族</label>
         <div class="layui-input-inline">

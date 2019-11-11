@@ -63,4 +63,9 @@
     <update id="deleteTeaRecord" parameterType="int">
       update evaluate_record set is_del=1 where tchid=(select tchid from teacher where tid = #{tid})
     </update>
+
+    <!-- 改用户登录状态改为（1）锁定状态 -->
+    <update id="deleteUser" parameterType="String">
+      update sys_user set locked = 1 where login_name=#{login_name}
+    </update>
 </mapper>
