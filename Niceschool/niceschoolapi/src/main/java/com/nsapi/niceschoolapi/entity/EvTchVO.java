@@ -3,33 +3,38 @@ package com.nsapi.niceschoolapi.entity;
 import java.util.Date;
 
 /**
- * 表
+ * 教评表
  */
 public class EvTchVO {
-    private int eid;
+    private Integer eid;
     private String stuid;
     private String tchid;
-    private int erexam;
-    private int erstate;
-    private int tid;
+    private Integer erexam;
+    private Integer erstate;
+    private Integer tid;
     private String tname;
     private String tgender;
     private Date tbirthday;
-    private int pid;
+    private Integer pid;
     private String tnation;
     private String tcardid;
     private String tphone;
     private String taddress;
-    private int tchstate;
-    private int exam;
-    private int count;
-    private int mid;
+    private Integer tchstate;
+    private Integer exam;
+    private Integer count;
+    private Integer mid;
+    private Integer teid; //教师成绩编号
+    private Integer pcount; //评教人数
+    private Date tetime; //成绩时间
+    private Integer semester; //学期
+    private Integer isDel; //逻辑删除
 
-    public int getEid() {
+    public Integer getEid() {
         return eid;
     }
 
-    public void setEid(int eid) {
+    public void setEid(Integer eid) {
         this.eid = eid;
     }
 
@@ -49,27 +54,27 @@ public class EvTchVO {
         this.tchid = tchid;
     }
 
-    public int getErexam() {
+    public Integer getErexam() {
         return erexam;
     }
 
-    public void setErexam(int erexam) {
+    public void setErexam(Integer erexam) {
         this.erexam = erexam;
     }
 
-    public int getErstate() {
+    public Integer getErstate() {
         return erstate;
     }
 
-    public void setErstate(int erstate) {
+    public void setErstate(Integer erstate) {
         this.erstate = erstate;
     }
 
-    public int getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(int tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 
@@ -97,11 +102,11 @@ public class EvTchVO {
         this.tbirthday = tbirthday;
     }
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
@@ -137,35 +142,75 @@ public class EvTchVO {
         this.taddress = taddress;
     }
 
-    public int getTchstate() {
+    public Integer getTchstate() {
         return tchstate;
     }
 
-    public void setTchstate(int tchstate) {
+    public void setTchstate(Integer tchstate) {
         this.tchstate = tchstate;
     }
 
-    public int getExam() {
+    public Integer getExam() {
         return exam;
     }
 
-    public void setExam(int exam) {
+    public void setExam(Integer exam) {
         this.exam = exam;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
-    public int getMid() {
+    public Integer getMid() {
         return mid;
     }
 
-    public void setMid(int mid) {
+    public void setMid(Integer mid) {
         this.mid = mid;
+    }
+
+    public Integer getTeid() {
+        return teid;
+    }
+
+    public void setTeid(Integer teid) {
+        this.teid = teid;
+    }
+
+    public Integer getPcount() {
+        return pcount;
+    }
+
+    public void setPcount(Integer pcount) {
+        this.pcount = pcount;
+    }
+
+    public Date getTetime() {
+        return tetime;
+    }
+
+    public void setTetime(Date tetime) {
+        this.tetime = tetime;
+    }
+
+    public Integer getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Integer semester) {
+        this.semester = semester;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 }

@@ -18,6 +18,10 @@ public interface AppraiseMapper {
     int selOneState(EvaluateRecordDB evaluateRecordDB);
     //添加教评记录
     int addOneAppraise(EvTchVO evTchVO);
+    //判断是否有教师成绩记录
+    int selTchExamState(EvTchVO evTchVO);
+    //添加教师分数及教评人数
+    int addOneTchExam(EvTchVO evTchVO);
     //更新教师分数及教评人数
     int updOneTchExam(EvTchVO evTchVO);
     //删除问题

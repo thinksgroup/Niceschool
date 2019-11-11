@@ -18,11 +18,35 @@ tc.tid = tco.tid and tco.cid = c.cid and tc.tid = tcl.tid and tcl.classid = s.cl
     </select>
     <!--添加教评记录-->
     <insert id="addOneAppraise" parameterType="EvTchVO">
-        insert into evaluate_record(stuid,tchid,erexam,erstate) values(#{stuid},#{tchid},#{erexam},0)
+        insert into evaluate_record(stuid,tchid,erexam,is_del) values(#{stuid},#{tchid},#{erexam},0)
     </insert>
+    <!--判断是否有教师成绩记录-->
+    <select id="selTchExamState" resultType="Integer">
+        select count(*) from tch_exam where tid=#{tid} and year(tetime)=year(now()) and semester = (select case
+        when (select month(now()))=1
+        then 1
+        when (select month(now()))&gt;=9 and (select month(now()))&lt;=12
+        then 1
+        when (select month(now()))&gt;=2 and (select month(now()))&lt;=6
+        then 2
+        else 0
+        end)
+    </select>
+    <!--添加教师分数及教评人数-->
+    <update id="addOneTchExam" parameterType="EvTchVO">
+        insert into tch_exam(tid,exam,pcount,tetime,semester,is_del) values(#{tid},#{exam},#{pcount},now(),(select case
+        when (select month(now()))=1
+        then 1
+        when (select month(now()))&gt;=9 and (select month(now()))&lt;=12
+        then 1
+        when (select month(now()))&gt;=2 and (select month(now()))&lt;=6
+        then 2
+        else 0
+        end),0)
+    </update>
     <!--更新教师分数及教评人数-->
     <update id="updOneTchExam" parameterType="EvTchVO">
-        UPDATE teacher SET exam=exam+#{erexam},count=count+1 WHERE tchid=#{tchid}
+        update tch_exam set exam=exam+#{erexam},pcount=pcount+1 where tid=#{tid}
     </update>
     <!--编辑问题-->
     <update id="editOneEv" parameterType="EvaluateListDB">

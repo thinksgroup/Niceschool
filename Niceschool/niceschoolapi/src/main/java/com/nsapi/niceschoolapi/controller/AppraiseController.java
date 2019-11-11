@@ -124,6 +124,7 @@ public class AppraiseController extends BaseController {
     @RequestMapping("selonestate")
     @ResponseBody
     public Object selOneState(EvaluateRecordDB evaluateRecordDB){
+        evaluateRecordDB.setStuid(MySysUser.loginName());
         int r = appraiseService.selOneState(evaluateRecordDB);
         if(r>0){
             return true;
@@ -138,13 +139,35 @@ public class AppraiseController extends BaseController {
     @RequestMapping("addoneappraise")
     @ResponseBody
     public Object addOneAppraise(EvTchVO evTchVO){
-        int res1 = appraiseService.addOneAppraise(evTchVO);
-        int res2 = appraiseService.updOneTchExam(evTchVO);
-        if(res1==1&&res2==1){
-            return true;
-        }else{
+        evTchVO.setStuid(MySysUser.loginName());
+        //判断成绩是否存在
+        int res1 = appraiseService.selTchExamState(evTchVO);
+        if(res1>0){
+            //添加记录
+            int res_addOneAppraise = appraiseService.addOneAppraise(evTchVO);
+            //更新成绩
+            int res_updOneTchExam = appraiseService.updOneTchExam(evTchVO);
+            if(res_addOneAppraise==1&&res_updOneTchExam==1){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(res1==0){
+            //添加记录
+            int res_addOneAppraise = appraiseService.addOneAppraise(evTchVO);
+            //新增成绩
+            int res_addOneTchExam = appraiseService.addOneTchExam(evTchVO);
+
+            if(res_addOneAppraise==1&&res_addOneTchExam==1){
+                return true;
+            }else{
+                return false;
+            }
+        }else {
             return false;
         }
+
+
     }
 
 }

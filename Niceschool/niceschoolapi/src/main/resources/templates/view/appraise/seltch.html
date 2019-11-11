@@ -78,7 +78,6 @@
                     type: 'post',
                     url: '/appraise/selonestate',
                     data: {
-                        stuid: '20172005',
                         tchid: data.tchid
                     },
                     success: function (statedata) {
@@ -147,7 +146,7 @@
                                                     type: 'post',
                                                     url: '/appraise/addoneappraise',
                                                     data: {
-                                                        stuid:'20172005',
+                                                        tid:data.tchid,
                                                         tchid:data.tchid,
                                                         erexam:sum
                                                     },

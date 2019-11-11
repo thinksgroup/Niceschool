@@ -37,6 +37,18 @@ public class AppraiseServiceImpl implements AppraiseService {
     public int addOneAppraise(EvTchVO evTchVO) {
         return appraiseMapper.addOneAppraise(evTchVO);
     }
+    //判断是否有教师成绩记录
+    @Override
+    public int selTchExamState(EvTchVO evTchVO) {
+        return appraiseMapper.selTchExamState(evTchVO);
+    }
+
+    //添加教师分数及教评人数
+    @Override
+    public int addOneTchExam(EvTchVO evTchVO) {
+        return appraiseMapper.addOneTchExam(evTchVO);
+    }
+
     //更新教师分数及教评人数
     @Override
     public int updOneTchExam(EvTchVO evTchVO) { return appraiseMapper.updOneTchExam(evTchVO); }
