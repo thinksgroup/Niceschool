@@ -5,8 +5,8 @@
 <mapper namespace="com.nsapi.niceschoolapi.mapper.AddStudentMapper">
     <!-- 根据前台传来信息添加学生 -->
     <insert id="addStudent" parameterType="studentVO">
-        insert into student(stuid,sname,sgender,sbirthday,pid,snation,scardid,sphone,saddress,entertime,classid)
-        values(#{stuid},#{sname},#{sgender},#{sbirthday},#{pid},#{snation},#{scardid},#{sphone},#{saddress},#{entertime},#{classid})
+        insert into student(sid,stuid,sname,sgender,sbirthday,pid,snation,scardid,sphone,saddress,entertime,classid)
+        values(#{sid},#{stuid},#{sname},#{sgender},#{sbirthday},#{pid},#{snation},#{scardid},#{sphone},#{saddress},#{entertime},#{classid})
     </insert>
     <!-- 根据学生专业查询该专业开设的必修课程 -->
     <select id="selCourse" resultType="CourseDB">

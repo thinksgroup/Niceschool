@@ -42,6 +42,7 @@ public class AddStudentController {
         //  生成学生学号
         String stui = addStudentService.selStuid(studentVO.getGid());
         studentVO.setStuid(stui);
+        studentVO.setSid(Integer.valueOf(stui));
         //  根据前台传来信息添加学生
         Integer addStudent = addStudentService.addStudent(studentVO);
         //  获取学号
