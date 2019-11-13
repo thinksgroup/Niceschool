@@ -105,7 +105,11 @@ public class UserController {
                 return ResponseEntity.failure("该手机号已被绑定");
             }
         }
-        user.setPassword(Constants.DEFAULT_PASSWORD);
+        //设置默认密码
+        if(StringUtils.isBlank(user.getPassword())){
+            user.setPassword(Constants.DEFAULT_PASSWORD);
+        }
+
         userService.saveUser(user);
         if(StringUtils.isBlank(user.getId())){
             return ResponseEntity.failure("保存用户信息出错");
