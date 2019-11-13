@@ -48,6 +48,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/admin","anon");
         filterChainDefinitionMap.put("/home","anon");
         filterChainDefinitionMap.put("/newslist","anon");
+        filterChainDefinitionMap.put("/admin/system/user/changePassword","anon");//修改密码
+        filterChainDefinitionMap.put("/admin/system/user/add","anon");//注册
         filterChainDefinitionMap.put("/appraise/seltch","anon");
         filterChainDefinitionMap.put("/schedulelist","anon");
         filterChainDefinitionMap.put("/admin/index","anon");
@@ -64,7 +66,6 @@ public class ShiroConfig {
 
     @Bean
     public SecurityManager securityManager(@Qualifier("authRealm")AuthRealm authRealm){
-        logger.info("- - - - - - -shiro开始加载- - - - - - ");
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(authRealm);
         defaultWebSecurityManager.setRememberMeManager(rememberMeManager());

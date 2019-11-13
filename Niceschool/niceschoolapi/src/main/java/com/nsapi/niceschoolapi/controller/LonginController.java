@@ -129,31 +129,60 @@ public class LonginController {
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");
         String code = request.getParameter("code");
-        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
-            return ResponseEntity.failure("用户名或者密码不能为空");
-        }else if(StringUtils.isBlank(code)){
-            return ResponseEntity.failure("验证码不能为空");
-        }
-        HttpSession session = request.getSession();
-        if(session == null){
-            return ResponseEntity.failure("session超时");
-        }
-        String trueCode = (String)session.getAttribute(Constants.VALIDATE_CODE);
-        if(StringUtils.isBlank(trueCode)){
-            return ResponseEntity.failure("验证码超时");
-        }
-        if(StringUtils.isBlank(code) || !trueCode.toLowerCase().equals(code.toLowerCase())){
-            return ResponseEntity.failure("验证码错误");
-        }else {
-            /*当前用户*/
-            String errorMsg = null;
+        String driver = request.getParameter("driver");
+        String errorMsg = null;
+        //判断登陆设备
+        if(StringUtils.isBlank(driver)){
+            //电脑登录
+            if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+                return ResponseEntity.failure("用户名或者密码不能为空");
+            }else if(StringUtils.isBlank(code)){
+                return ResponseEntity.failure("验证码不能为空");
+            }
+            HttpSession session = request.getSession();
+            if(session == null){
+                return ResponseEntity.failure("session超时");
+            }
+            String trueCode = (String)session.getAttribute(Constants.VALIDATE_CODE);
+            if(StringUtils.isBlank(trueCode)){
+                return ResponseEntity.failure("验证码超时");
+            }
+            if(StringUtils.isBlank(code) || !trueCode.toLowerCase().equals(code.toLowerCase())){
+                return ResponseEntity.failure("验证码错误");
+            }else {
+                Subject user = SecurityUtils.getSubject();
+                UsernamePasswordToken token = new UsernamePasswordToken(username,password,Boolean.valueOf(rememberMe));
+                try {
+                    user.login(token);
+                }catch (IncorrectCredentialsException e) {
+                    errorMsg = "用户名密码错误!";
+                }catch (UnknownAccountException e) {
+                    errorMsg = "账户不存在!";
+                }catch (LockedAccountException e) {
+                    errorMsg = "账户已被锁定!";
+                }catch (UserTypeAccountException e) {
+                    errorMsg = "账户不是管理用户!";
+                }
+                if(StringUtils.isBlank(errorMsg)) {
+                    ResponseEntity responseEntity = new ResponseEntity();
+                    responseEntity.setSuccess(Boolean.TRUE);
+                    responseEntity.setAny("url","index");
+                    return responseEntity;
+                }else {
+                    return ResponseEntity.failure(errorMsg);
+                }
+            }
+        }else{
+            //小程序或APP登录
+            if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+                return ResponseEntity.failure("用户名或者密码不能为空");
+            }
             Subject user = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username,password,Boolean.valueOf(rememberMe));
             try {
                 user.login(token);
-                LOGGER.debug(username+"用户"+LocalDate.now().toString()+":======》登陆系统!");
             }catch (IncorrectCredentialsException e) {
-                errorMsg = "用户名密码错误!";
+                errorMsg = "用户名或密码错误!";
             }catch (UnknownAccountException e) {
                 errorMsg = "账户不存在!";
             }catch (LockedAccountException e) {
@@ -161,7 +190,6 @@ public class LonginController {
             }catch (UserTypeAccountException e) {
                 errorMsg = "账户不是管理用户!";
             }
-
             if(StringUtils.isBlank(errorMsg)) {
                 ResponseEntity responseEntity = new ResponseEntity();
                 responseEntity.setSuccess(Boolean.TRUE);
@@ -171,6 +199,11 @@ public class LonginController {
                 return ResponseEntity.failure(errorMsg);
             }
         }
+
+
+
+
+
     }
 
     @RequestMapping("admin/main")

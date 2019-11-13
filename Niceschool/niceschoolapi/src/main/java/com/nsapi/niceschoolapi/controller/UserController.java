@@ -274,7 +274,8 @@ public class UserController {
     @SysLog("用户修改密码")
     @PostMapping("changePassword")
     @ResponseBody
-    public ResponseEntity changePassword(@RequestParam(value = "oldPwd",required = false)String oldPwd,
+    public ResponseEntity changePassword(@RequestParam(value = "userName",required = false)String userName,
+                                         @RequestParam(value = "oldPwd",required = false)String oldPwd,
                                        @RequestParam(value = "newPwd",required = false)String newPwd,
                                        @RequestParam(value = "confirmPwd",required = false)String confirmPwd){
         if(StringUtils.isBlank(oldPwd)){
@@ -289,18 +290,37 @@ public class UserController {
         if(!confirmPwd.equals(newPwd)){
             return ResponseEntity.failure("确认密码与新密码不一致");
         }
-        User user = userService.findUserById(MySysUser.id());
+        //小程序修改密码
+        if(StringUtils.isBlank(userName)){
+            //PC修改密码
+            User user = userService.findUserById(MySysUser.id());
 
-        byte[] hashPassword = Encodes.sha1(oldPwd.getBytes(), Encodes.SHA1, Encodes.decodeHex(user.getSalt()), Constants.HASH_INTERATIONS);
-        String password = Encodes.encodeHex(hashPassword);
+            byte[] hashPassword = Encodes.sha1(oldPwd.getBytes(), Encodes.SHA1, Encodes.decodeHex(user.getSalt()), Constants.HASH_INTERATIONS);
+            String password = Encodes.encodeHex(hashPassword);
 
-        if(!user.getPassword().equals(password)){
-            return ResponseEntity.failure("旧密码错误");
+            if(!user.getPassword().equals(password)){
+                return ResponseEntity.failure("旧密码错误");
+            }
+            user.setPassword(newPwd);
+            Encodes.entryptPassword(user);
+            userService.updateById(user);
+            return ResponseEntity.success("操作成功");
+        }else {
+            //小程序修改密码
+            User user = userService.findUserByLoginName(userName);
+
+            byte[] hashPassword = Encodes.sha1(oldPwd.getBytes(), Encodes.SHA1, Encodes.decodeHex(user.getSalt()), Constants.HASH_INTERATIONS);
+            String password = Encodes.encodeHex(hashPassword);
+
+            if(!user.getPassword().equals(password)){
+                return ResponseEntity.failure("旧密码错误");
+            }
+            user.setPassword(newPwd);
+            Encodes.entryptPassword(user);
+            userService.updateById(user);
+            return ResponseEntity.success("操作成功");
         }
-        user.setPassword(newPwd);
-        Encodes.entryptPassword(user);
-        userService.updateById(user);
-        return ResponseEntity.success("操作成功");
+
     }
 
     @SysLog("上传头像")
