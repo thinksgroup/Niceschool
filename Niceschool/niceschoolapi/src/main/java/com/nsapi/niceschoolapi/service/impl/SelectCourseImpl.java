@@ -34,8 +34,8 @@ private SelectCourseMapper selectCourseMapper;
 
     //查询是否有该课程
     @Override
-    public int selCourse(SelectCourseVo selectCourseVo) {
-        return selectCourseMapper.selCourse(selectCourseVo);
+    public int selCourse(StuCourseDB stuCourseDB) {
+        return selectCourseMapper.selCourse(stuCourseDB);
     }
 //添加课程
     @Override

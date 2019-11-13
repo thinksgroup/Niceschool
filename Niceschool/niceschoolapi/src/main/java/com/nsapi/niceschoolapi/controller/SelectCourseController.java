@@ -31,6 +31,7 @@ public class SelectCourseController {
     @RequestMapping("selectCourse")
     @ResponseBody
     public Object index(Integer page, Integer limit, SelectCourseVo selectCourseVo){
+        selectCourseVo.setStuid(MySysUser.loginName());
         PageHelper.startPage(page, limit);
         List<SelectCourseVo> listAll = selectCourseService.sel(selectCourseVo);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -59,13 +60,12 @@ public Object selType(){
 @ResponseBody
 @RequestMapping("selcourse")
 public Object selcourse(StuCourseDB stuCourseDB, CourseDB courseDB, SelectCourseVo selectCourseVo){
-    selectCourseVo.setStuid(MySysUser.loginName());
     String msg="";
     if(courseDB.getCselcount().equals(courseDB.getCmaxcount())){
         msg="该课程已选满";
     }
     else {
-    int num = selectCourseService.selCourse(selectCourseVo);
+    int num = selectCourseService.selCourse(stuCourseDB);
    if(num==1){
       msg="您已选择过该课程";
    }

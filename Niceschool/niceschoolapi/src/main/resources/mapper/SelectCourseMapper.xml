@@ -14,6 +14,11 @@
        INNER JOIN teacher d on d.tid=c.tid
        INNER JOIN weeks g on c.wid=g.wid
        INNER JOIN schedule h on c.schid=h.schid
+       INNER JOIN major i on a.mid=i.mid
+       INNER JOIN grade j on i.mid=j.mid
+       INNER JOIN classinfo k on j.gid=k.gid
+       INNER JOIN student l on k.classid=l.classid
+       and l.stuid=#{stuid}
        <where>
            <if test="ctname != null and ctname !=''">
                AND `ctname`
@@ -28,9 +33,8 @@
        SELECT ctname FROM course_type
    </select>
     <!-- 查询是否有该课程 -->
-    <select id="selCourse" parameterType="SelectCourseVo" resultType="int">
-        SELECT count(*) FROM stu_course a,student b
-    where a.sid=b.sid and b.stuid=#{stuid} and a.cid=#{cid}
+    <select id="selCourse" parameterType="StuCourseDB" resultType="int">
+        SELECT count(*) FROM stu_course a where a.sid=#{sid} and a.cid=#{cid}
     </select>
     <!-- 查询课程所属学生的编号 -->
     <select id="selStudentid" resultType="StudentDB" parameterType="StudentDB">
