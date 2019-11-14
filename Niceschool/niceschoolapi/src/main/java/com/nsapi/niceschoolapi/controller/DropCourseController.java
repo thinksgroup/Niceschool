@@ -28,6 +28,7 @@ public class DropCourseController {
     public Object sel(Integer page, Integer limit, String cname){
 
         Integer sid= Integer.valueOf(MySysUser.loginName());
+
         System.out.println(cname);
         PageHelper.startPage(page, limit);
         List<coursel> cs = dropCourseService.seledCourse(cname,sid);
