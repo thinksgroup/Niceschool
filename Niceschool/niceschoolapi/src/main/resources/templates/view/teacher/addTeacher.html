@@ -5,9 +5,10 @@
     <title>教师录入</title>
     <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
+
 </head>
 <body>
-<form class="layui-form layui-form-pane" th:action="@{/addTeacher}" th:method="post">
+<form class="layui-form layui-form-pane" th:method="post">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-inline">
@@ -25,7 +26,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">政治面貌</label>
         <div class="layui-input-inline">
-            <select name="quiz1" th:name="pid">
+            <select name="quiz1" th:name="pid" lay-search>
                 <option th:each="stu:${stupol}" th:value="${stu.pid}" th:text="${stu.pname}"></option>
             </select>
         </div>
@@ -39,17 +40,19 @@
             </div>
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">民族</label>
         <div class="layui-input-inline">
-            <input type="text" lay-verify="snation" th:name="tnation" placeholder="请输入" autocomplete="off" class="layui-input">
+            <select name="quiz1" th:name="tnation" id="minzu" lay-search>
+            </select>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">验证身份证</label>
         <div class="layui-input-block">
-            <input type="text" name="identity" th:name="tcardid" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+            <input type="text" name="identity" id="tcardid" th:name="tcardid" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -57,7 +60,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">验证手机</label>
             <div class="layui-input-inline">
-                <input type="tel" name="phone" th:name="tphone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="phone" th:name="tphone" lay-verify="phone" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -77,7 +80,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="button" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -101,6 +104,11 @@
             });
         });
 
+        var mz=new Array('汉族','蒙古族','回族','藏族','维吾尔族','苗族','彝族','壮族','布依族','朝鲜族','满族','侗族','瑶族','白族','土家族','哈尼族','哈萨克族','傣族','黎族','僳僳族','佤族','畲族','高山族','拉祜族','水族','东乡族','纳西族','景颇族','柯尔克孜族','土族','达斡尔族','仫佬族','羌族','布朗族','撒拉族','毛南族','仡佬族','锡伯族','阿昌族','普米族','塔吉克族','怒族','乌孜别克族','俄罗斯族','鄂温克族','德昂族','保安族','裕固族','京族','塔塔尔族','独龙族','鄂伦春族','赫哲族','门巴族','珞巴族','基诺族');
+        for (const index in mz) {
+            document.getElementById("minzu").innerHTML+='<option value="'+mz[index]+'">'+mz[index]+'</option>';
+        };
+        form.render();
         //日期
         laydate.render({
             elem: '#date',
@@ -133,8 +141,36 @@
                 /^[\s\S]*.*[^\s][\s\S]*$/
                 ,'请按正确格式填写信息'
             ]
+            ,identity:[
+                /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+                ,'请按正确格式填写信息'
+            ]
+            ,phone:[
+                /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                ,'请按正确格式填写信息'
+            ]
         });
 
+        //监听提交
+        form.on('submit(demo1)', function(data){
+            layui.$.ajax({
+                type : 'post',
+                url : "addTeacher",
+                dataType:'json',
+                data:layui.$('form').serialize(),
+                success :function(result)
+                {
+                    layer.msg(
+                        result.msg, {
+                            icon: 1,
+                            time: 3000 //2秒关闭（如果不配置，默认是3秒）
+                            ,end:function(){
+                                window.location.reload();
+                            }
+                        } );
+                }
+            });
+        });
 
     });
 </script>

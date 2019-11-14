@@ -1,5 +1,6 @@
 package com.nsapi.niceschoolapi.controller;
 
+import com.nsapi.niceschoolapi.entity.LayuiResult;
 import com.nsapi.niceschoolapi.entity.PoliticsTypeDB;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
 import com.nsapi.niceschoolapi.service.AddTeacherService;
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AddTeacherController {
@@ -31,8 +34,10 @@ public class AddTeacherController {
 
 
     //  添加教师
-    @RequestMapping("/addTeacher")
-    public String addTeacher(TeacherDB teacherDB, String birthday, String tertime) throws Exception{
+    @RequestMapping("addTeacher")
+    @ResponseBody
+    public LayuiResult<Map> addTeacher(TeacherDB teacherDB, String birthday, String tertime) throws Exception{
+        LayuiResult result= new LayuiResult();
         //  将接收到的时间进行类型转换
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date1=format.parse(birthday);
@@ -48,8 +53,10 @@ public class AddTeacherController {
         //  生成教师工号
         String tchid = addTeacherService.selTchid();
         teacherDB.setTchid(tchid);
+        teacherDB.setTid(Integer.valueOf(tchid));
         //  添加教师
         Integer addTeacher = addTeacherService.addTeacher(teacherDB);
-        return "redirect:selectTeacher";
+        result.setMsg("添加成功");
+        return result;
     }
 }
