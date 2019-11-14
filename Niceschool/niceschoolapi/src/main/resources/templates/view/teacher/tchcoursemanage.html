@@ -55,8 +55,7 @@
 </form>
 <table id="tchlist" lay-filter="gradeTable"></table>
 
-<div id="editDiv" style="display: none">
-待完成...
+<div id="editDiv">
     <form class="layui-form layui-form-pane" style="padding: 10px;display: none;">
 
         <div class="layui-form-item">
@@ -80,10 +79,11 @@
                         lay-search></select>
             </div>
         </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label" style="color: red;">请确保名称是全称。</label>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择课目</label>
             <div class="layui-input-block">
-                <textarea id="editClassText" placeholder="请输入名称" class="layui-textarea"></textarea>
+                <select id="editSelCourse" name="editSelCourse" lay-filter="editSelCourse" lay-verify="editSelCourse"
+                        lay-search></select>
             </div>
         </div>
     </form>
