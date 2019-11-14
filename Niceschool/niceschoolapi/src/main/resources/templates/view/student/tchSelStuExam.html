@@ -11,12 +11,7 @@
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
         <div class="layui-input-inline">
             <select name="entertime" id="entertime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option value="2015">2015学期</option>
-                <option value="2016">2016学期</option>
-                <option value="2017">2017学期</option>
-                <option value="2018">2018学期</option>
-                <option value="2019">2019学期</option>
-                <option value="2020">2020学期</option>
+                <option th:each="g:${selTchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
             </select>
         </div>
         <div class="layui-input-inline">

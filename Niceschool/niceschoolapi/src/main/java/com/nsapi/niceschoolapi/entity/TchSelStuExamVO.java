@@ -3,7 +3,7 @@ package com.nsapi.niceschoolapi.entity;
 public class TchSelStuExamVO {
     private String tid;
     private Integer stime;
-    private Integer entertime;
+    private String entertime;
     private Integer classid;
     private String classname;
 
@@ -31,11 +31,11 @@ public class TchSelStuExamVO {
         this.stime = stime;
     }
 
-    public Integer getEntertime() {
+    public String getEntertime() {
         return entertime;
     }
 
-    public void setEntertime(Integer entertime) {
+    public void setEntertime(String entertime) {
         this.entertime = entertime;
     }
 

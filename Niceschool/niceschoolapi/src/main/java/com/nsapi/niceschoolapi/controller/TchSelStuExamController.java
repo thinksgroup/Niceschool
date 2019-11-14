@@ -22,7 +22,9 @@ public class TchSelStuExamController {
     public String tchSelExam(Model model,TchSelStuExamVO tchSelStuExamVO){
         String tid=MySysUser.loginName();
         List<Map> tchClass = tchSelStuExamService.selTchClass(tid);
+        List<Map> selTchGrade= tchSelStuExamService.selTchGrade(tid);
         model.addAttribute("tchClass",tchClass);
+        model.addAttribute("selTchGrade",selTchGrade);
         return "view/student/tchSelStuExam";
     }
 

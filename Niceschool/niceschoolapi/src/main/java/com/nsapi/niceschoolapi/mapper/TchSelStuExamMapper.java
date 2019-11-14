@@ -12,5 +12,7 @@ public interface TchSelStuExamMapper {
     List<Map> selTchClass(String tid);
     //教师查询学生成绩
     List<Map> tchSelStuExam(TchSelStuExamVO tchSelStuExamVO);
+    //查询教师所带年级
+    List<Map> selTchGrade(String tid);
 }
 

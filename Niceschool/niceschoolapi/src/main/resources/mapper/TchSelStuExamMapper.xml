@@ -13,7 +13,7 @@
         tch.tid = tcl.tid and tcl.classid = stu.classid and ste.sid = stu.sid and stu.sid = sco.sid and sco.cid = cou.cid
         and cou.ctid = cty.ctid and tco.tid = tch.tid and ste.scid = sco.scid and tco.cid = cou.cid and ste.is_del =0  and tch.tid = #{tid}
         <if test="entertime != '' and entertime != null">
-            and YEAR(stu.entertime) = #{entertime}
+            and concat(YEAR(stu.entertime),'级') = #{entertime}
         </if>
         <if test="classid != '' and classid != null">
             and tcl.classid = #{classid}
@@ -21,5 +21,8 @@
         <if test="stime != '' and stime != null">
             and ste.stime = #{stime}
         </if>
+    </select>
+    <select id="selTchGrade" resultType="map" parameterType="map">
+        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = #{tid};
     </select>
 </mapper>
