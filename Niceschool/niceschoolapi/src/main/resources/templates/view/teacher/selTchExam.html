@@ -10,24 +10,19 @@
 <div class="layui-form">
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
         <div class="layui-input-inline">
-            <select name="entertime" id="entertime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option th:each="g:${selTchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
+            <select  name="tetime" id="tetime" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option th:each="s:${selTetime}" th:value="${s.tetime}" th:text="${s.tetime}"></option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select  name="classid" id="classid" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option th:each="c:${tchClass}" th:value="${c.classid}" th:text="${c.classname}"></option>
+            <select name="semester" id="semester" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="1">上学期</option>
+                <option value="2">下学期</option>
             </select>
         </div>
-        <div class="layui-input-inline">
-            <select name="stime" id="stime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option value="1">大一上学期</option>
-                <option value="2">大一下学期</option>
-                <option value="3">大二上学期</option>
-                <option value="4">大二下学期</option>
-                <option value="5">大三上学期</option>
-                <option value="6">大三下学期</option>
-            </select>
+        教师编号：
+        <div class="layui-inline">
+            <input class="layui-input" name="tid" id="tid" autocomplete="off">
         </div>
     </div>
 
@@ -49,40 +44,37 @@
         table.render({
             elem: '#demo1'
             ,height: 550
-            ,url: 'tchSelStuExam' //数据接口
+            ,url: '/selTchExam' //数据接口
             ,title: '成绩查询'
             ,cols: [
                 [ //表头
-                    {field: 'sname', title: '学生'}
-                    ,{field: 'cname', title: '课程'}
-                    ,{field: 'ccredit', title: '学分'}
-                    ,{field: 'type', title: '类别'}
-                    ,{field: 'studynature', title: '修读性质'}
-                    ,{field: 'normalexam', title: '平时成绩'}
-                    ,{field: 'testexam', title: '考试成绩'}
-                    ,{field: 'sumexam', title: '综合成绩'}
+                    {field: 'tname', title: '教师姓名'}
+                    ,{field: 'tid', title: '教师工号'}
+                    ,{field: 'exam', title: '教评成绩'}
+                    ,{field: 'pcount', title: '教评人数'}
+                    ,{field: 'tetime', title: '成绩年份'}
+                    ,{field: 'semester', title: '成绩学期'}
                 ]
             ]
-            , id: 'tchSelStuExam'
+            , id: 'selTchExam'
         });
 
         //  按学期查询成绩
         var $ = layui.$;
         $('#selBtn').on('click', function(){
             //获取输入框
-            var entertime = $('#entertime');
-            var classid = $('#classid');
-            var stime = $('#stime');
+            var tetime = $('#tetime');
+            var semester = $('#semester');
+            var tid = $('#tid');
             //执行重载
-            table.reload('tchSelStuExam', {
+            table.reload('selTchExam', {
                 page: {
                     curr: 1 //重新从第 1 页开始selTeacher
                 }
                 ,where: {
-                    entertime: entertime.val(),
-                    classid: classid.val(),
-                    stime: stime.val()
-
+                    tetime: tetime.val(),
+                    semester: semester.val(),
+                    tid: tid.val()
                 }
             });
         });

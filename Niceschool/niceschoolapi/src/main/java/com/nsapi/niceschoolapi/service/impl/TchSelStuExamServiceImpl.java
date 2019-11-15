@@ -26,4 +26,9 @@ public class TchSelStuExamServiceImpl implements TchSelStuExamService {
     public List<Map> tchSelStuExam(TchSelStuExamVO tchSelStuExamVO) {
         return tchSelStuExamMapper.tchSelStuExam(tchSelStuExamVO);
     }
+
+    @Override
+    public List<Map> selTchGrade(String tid) {
+        return tchSelStuExamMapper.selTchGrade(tid);
+    }
 }

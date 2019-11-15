@@ -274,7 +274,7 @@ public class UserController {
         modelMap.put("currentUser",userService.getById(MySysUser.id()));
         return "admin/user/changePassword";
     }
-
+    @CrossOrigin
     @SysLog("用户修改密码")
     @PostMapping("changePassword")
     @ResponseBody
