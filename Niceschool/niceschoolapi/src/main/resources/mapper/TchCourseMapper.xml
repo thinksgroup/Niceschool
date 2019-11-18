@@ -50,6 +50,8 @@
     </select>
     <!--查询指定老师教授所有课程-->
     <select id="findCourseByTch" resultType="TchCourseVO">
-        select * from tch_class tcs,tch_course tc where tcs.tcid=tc.tcid and tc.tid=#{tid}
+        select tcs.tid,classname,cname,gname,wname,schname,tname from tch_class tcs,tch_course tc,
+classinfo ci,course cr,grade gr,weeks we,schedule sc,teacher t where tcs.tcid=tc.tcid and ci.classid=tcs.classid
+and tc.gid=gr.gid and  cr.cid=tc.cid and we.wid=tc.wid and sc.schid=tc.schid and t.tid=tcs.tid and tc.tid=#{tid}
     </select>
 </mapper>

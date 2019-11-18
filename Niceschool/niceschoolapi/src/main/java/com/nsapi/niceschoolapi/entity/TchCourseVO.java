@@ -7,6 +7,13 @@ import java.util.Date;
 public class TchCourseVO implements Serializable {
     private Integer cid; //课目编号
     private String cname; //课目名称
+    private String classname; //班级名称
+    private String mname; //专业名称
+    private String tname; //姓名
+    private String gname; //年级名称
+    private String wname; //星期名
+    private String walias; //周名
+    private String schname; //时序
     private double ccredit; //学分
     private double cperiod; //学时
     private Integer cstate; //课目状态
@@ -15,7 +22,6 @@ public class TchCourseVO implements Serializable {
     private String studytype; //修读类型
     private Integer ctid; //课目类型编号
     private Integer mid; //专业编号
-    private String mname; //专业名称
     private Integer mcount; //专业人数
     private Integer did; //系部编号
     private Integer tcid; //教师授课编号
@@ -25,7 +31,6 @@ public class TchCourseVO implements Serializable {
     private Integer gid; //年级编号
     private Integer classid; //班级编号
     private String tchid; //教师工号
-    private String tname; //姓名
     private String tgender; //性别
     private Date tbirthday; //出生年月
     private Integer pid; //政治面貌编号
@@ -36,12 +41,13 @@ public class TchCourseVO implements Serializable {
     private Date entertime; //入职时间
     private Date leavetime; //离职时间
     private Integer tchstate; //教师状态
-    private String classname; //班级名称
     private Date begintime; //开班时间
     private Date endtime; //闭班时间
     private Integer ccount; //班级人数
-    private String gname; //年级名称
     private Integer gcount; //年级人数
+    private String timeinterval; //时段
+    private String summer; //夏季时间
+    private String winter; //冬季时间
     private Integer isDel; //逻辑删除
 
     public Integer getCid() {
@@ -58,6 +64,62 @@ public class TchCourseVO implements Serializable {
 
     public void setCname(String cname) {
         this.cname = cname;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public String getMname() {
+        return mname;
+    }
+
+    public void setMname(String mname) {
+        this.mname = mname;
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public void setTname(String tname) {
+        this.tname = tname;
+    }
+
+    public String getGname() {
+        return gname;
+    }
+
+    public void setGname(String gname) {
+        this.gname = gname;
+    }
+
+    public String getWname() {
+        return wname;
+    }
+
+    public void setWname(String wname) {
+        this.wname = wname;
+    }
+
+    public String getWalias() {
+        return walias;
+    }
+
+    public void setWalias(String walias) {
+        this.walias = walias;
+    }
+
+    public String getSchname() {
+        return schname;
+    }
+
+    public void setSchname(String schname) {
+        this.schname = schname;
     }
 
     public double getCcredit() {
@@ -122,14 +184,6 @@ public class TchCourseVO implements Serializable {
 
     public void setMid(Integer mid) {
         this.mid = mid;
-    }
-
-    public String getMname() {
-        return mname;
-    }
-
-    public void setMname(String mname) {
-        this.mname = mname;
     }
 
     public Integer getMcount() {
@@ -202,14 +256,6 @@ public class TchCourseVO implements Serializable {
 
     public void setTchid(String tchid) {
         this.tchid = tchid;
-    }
-
-    public String getTname() {
-        return tname;
-    }
-
-    public void setTname(String tname) {
-        this.tname = tname;
     }
 
     public String getTgender() {
@@ -290,6 +336,62 @@ public class TchCourseVO implements Serializable {
 
     public void setTchstate(Integer tchstate) {
         this.tchstate = tchstate;
+    }
+
+    public Date getBegintime() {
+        return begintime;
+    }
+
+    public void setBegintime(Date begintime) {
+        this.begintime = begintime;
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
+
+    public Integer getCcount() {
+        return ccount;
+    }
+
+    public void setCcount(Integer ccount) {
+        this.ccount = ccount;
+    }
+
+    public Integer getGcount() {
+        return gcount;
+    }
+
+    public void setGcount(Integer gcount) {
+        this.gcount = gcount;
+    }
+
+    public String getTimeinterval() {
+        return timeinterval;
+    }
+
+    public void setTimeinterval(String timeinterval) {
+        this.timeinterval = timeinterval;
+    }
+
+    public String getSummer() {
+        return summer;
+    }
+
+    public void setSummer(String summer) {
+        this.summer = summer;
+    }
+
+    public String getWinter() {
+        return winter;
+    }
+
+    public void setWinter(String winter) {
+        this.winter = winter;
     }
 
     public Integer getIsDel() {
