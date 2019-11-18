@@ -299,7 +299,7 @@
         $("#testexams").on('blur',function () {
             var normalexams=$("#normalexams").val();
             var testexams=$("#testexams").val();
-            if(testexams>100||testexams>0){
+            if(testexams>100||testexams<0){
                 alert("最低分为0，最高分为100")
                 $("#testexams").val("");
             }
