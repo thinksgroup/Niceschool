@@ -4,7 +4,7 @@
 <mapper namespace="com.nsapi.niceschoolapi.mapper.TchSelStuExamMapper">
     <!--查询教师授课班级-->
     <select id="selTchClass" resultType="map" parameterType="map">
-        select cla.classid,cla.classname from tch_class tcl,classinfo cla where tcl.classid = cla.classid and tcl.tid = #{tid};
+        select cla.classid,cla.classname from tch_class tcl,classinfo cla where tcl.classid = cla.classid and tcl.tid = #{tid}
     </select>
     <!--教师查询学生成绩-->
     <select id="tchSelStuExam" resultType="map" parameterType="map">
@@ -23,6 +23,6 @@
         </if>
     </select>
     <select id="selTchGrade" resultType="map" parameterType="map">
-        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = #{tid};
+        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = 2012001 GROUP BY g.gname
     </select>
 </mapper>
