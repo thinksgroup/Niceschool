@@ -68,7 +68,7 @@ public class StuExamController {
     @RequestMapping("selCls")
     @ResponseBody
     public Object selCls(Integer gid){
-        // System.out.println(gid);
+         System.out.println(gid);
         List<ClassinfoDB> classinfoDBS = studentExamService.selClasss(gid);
         // System.out.println(classinfoDBS);
         return classinfoDBS;

@@ -16,16 +16,17 @@
         select * from classinfo where gid=#{gid}
     </select>
     <select id="selScs" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="com.nsapi.niceschoolapi.entity.StuExamVO">
-        select ci.classname,s.sname,c.cname,s.sid,sc.scid from stu_course sc,student s,course c,classinfo ci,tch_course thc
+        select ci.classname,ci.classid,s.sname,c.cname,s.sid,sc.scid from stu_course sc,student s,course c,classinfo ci,tch_course thc
         where sc.sid=s.sid
         and c.cid=sc.cid
         and ci.classid=s.classid
         and c.cid=thc.cid
-        and thc.tid=2015003
-        <if test="classname!=null and classname!=''">
-        and  classname like concat('%' ,concat(#{classname},'%'))
+        and thc.tid=#{tid}
+        <if test="classid!=null">
+        and  ci.classid like concat('%' ,concat(#{classid},'%'))
         </if>
         and sc.is_del="0"
+        and s.is_del="0"
         GROUP BY sc.scid
     </select>
    <insert id="add" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO">

@@ -338,7 +338,6 @@
             $('#mid').html("");
             $('#gid').html("");
             $('#classid').html("");
-            $('#sid').html("");
             var did=  $("#did").val();
 
             $.ajax({
@@ -392,12 +391,12 @@
 
                                 success: function (objss) {
                                     $.each(objss, function (index, item) {
-                                        $('#classid').append(new Option(item.classname,item.classname));// 下拉菜单里添加元素
+                                        $('#classid').append(new Option(item.classname,item.classid));// 下拉菜单里添加元素
                                     });
                                     form.render();
-                                    var classname=$("#classid").val();
+                                    var classid=$("#classid").val();
                                     tableIns.reload({
-                                        url:"selScs?classname="+classname
+                                        url:"selScs?classid="+classid
                                     })
                                 }
                             })
@@ -425,7 +424,6 @@
 
             $('#gid').html("");
             $('#classid').html("");
-            $('#sid').html("");
             var mid=  $("#mid").val();
             $.ajax({
                 //要跳转的地址
@@ -445,6 +443,8 @@
                     });
                     form.render();
                     var gid=  $("#gid").val();
+
+
                     $.ajax({
                         //要跳转的地址
                         url: 'selCls',
@@ -459,12 +459,12 @@
 
                         success: function (objss) {
                             $.each(objss, function (index, item) {
-                                $('#classid').append(new Option(item.classname,item.classname));// 下拉菜单里添加元素
+                                $('#classid').append(new Option(item.classname,item.classid));// 下拉菜单里添加元素
                             });
                             form.render();
-                            var classname=$("#classid").val();
+                            var classid=$("#classid").val();
                             tableIns.reload({
-                                url:"selScs?classname="+classname
+                                url:"selScs?classid="+classid
                             })
                         }
                     })
@@ -474,7 +474,6 @@
         //监听年级
         form.on("select(selGr)",function(obj){
             $('#classid').html("");
-            $('#sid').html("");
             var gid=  $("#gid").val();
             $.ajax({
                 //要跳转的地址
@@ -490,21 +489,21 @@
 
                 success: function (objss) {
                     $.each(objss, function (index, item) {
-                        $('#classid').append(new Option(item.classname,item.classname));// 下拉菜单里添加元素
+                        $('#classid').append(new Option(item.classname,item.classid));// 下拉菜单里添加元素
                     });
                     form.render();
-                    var classname=$("#classid").val();
+                    var classid=$("#classid").val();
                     tableIns.reload({
-                        url:"selScs?classname="+classname
+                        url:"selScs?classid="+classid
                     })
                 }
             })
         });
         //监听班级
         form.on("select(selCl)",function(obj){
-            var classname=$("#classid").val();
+            var classid=$("#classid").val();
             tableIns.reload({
-                url:"selScs?classname="+classname
+                url:"selScs?classid="+classid
             })
 
         });
