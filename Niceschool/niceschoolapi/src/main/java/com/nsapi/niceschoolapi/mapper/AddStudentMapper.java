@@ -36,4 +36,6 @@ public interface AddStudentMapper {
 
     //  根据学号查询信息
     List<StudentDB> selectMessage(String stuid);
+    //  查询sys_role角色id
+    String selectRole();
 }

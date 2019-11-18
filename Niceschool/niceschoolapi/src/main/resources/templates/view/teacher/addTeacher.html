@@ -80,7 +80,7 @@
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="button" class="layui-btn" lay-filter="demo1" id="demo1">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -151,23 +151,74 @@
             ]
         });
 
-        //监听提交
-        form.on('submit(demo1)', function(data){
-            layui.$.ajax({
+        var $ = layui.$;
+        //  提交
+        $("#demo1").on('click',function(){
+            $.ajax({
                 type : 'post',
                 url : "addTeacher",
                 dataType:'json',
                 data:layui.$('form').serialize(),
                 success :function(result)
                 {
-                    layer.msg(
-                        result.msg, {
-                            icon: 1,
-                            time: 3000 //2秒关闭（如果不配置，默认是3秒）
-                            ,end:function(){
-                                window.location.reload();
+                    var data = result.data;
+                    var nickName;
+                    var tel;
+                    var loginName;
+                    var adminUser = true;
+                    var locked = false;
+                    var roleLists = result.msg;
+                    //var roleLists = {id:[result.msg]};
+                    var idnum;
+                    $.each(data, function (index, obj) {
+                        nickName = obj.tname;
+                        tel = obj.tphone;
+                        loginName = obj.tchid;
+                        idnum = obj.tcardid;
+
+                    });
+                    var password = idnum.substring(idnum.length-6);
+
+                    var user = {
+                        "loginName":loginName,
+                        "nickName":nickName,
+                        "tel":tel,
+                        "adminUser":adminUser,
+                        "locked":locked,
+                        "roleLists":{},
+                        "password":password
+                    }
+                    var selectRole = [];
+                    selectRole.push({"id":roleLists});
+                    user.roleLists=selectRole;
+                    $.ajax({
+                        type:'post',
+                        url:"/admin/system/user/add",
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        data:JSON.stringify(user),
+                        success:function(data){
+                            if(data){
+                                layer.msg(
+                                    "添加成功", {
+                                        icon: 1,
+                                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                        ,end:function(){
+                                            window.location.reload();
+                                        }
+                                    } );
+                            }else{
+                                layer.msg(
+                                    "添加失败", {
+                                        icon: 1,
+                                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                        ,end:function(){
+                                            window.location.reload();
+                                        }
+                                    } );
                             }
-                        } );
+                        }
+                    });
                 }
             });
         });

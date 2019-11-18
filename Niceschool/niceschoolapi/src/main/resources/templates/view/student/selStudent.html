@@ -105,12 +105,18 @@
                 }
             //  监听系部下拉框 根据所选系部查询专业
             form.on('select(required1)', function(data){
-                //  移除专业下拉框所有值
-                $("#required2").html("");
-                $("#required3").html("");
-                $("#required4").html("");
+                if(data.value==0){
+                    layui.$('#required2').html("");
+                    layui.$('#required3').html("");
+                    layui.$('#required4').html("");
+                    form.render();
+                }
                 //  若系部下拉框值不等于0
-                if(data.value!=0){
+                else{
+                    //  移除专业下拉框所有值
+                    $("#required2").html("");
+                    $("#required3").html("");
+                    $("#required4").html("");
                     layui.$.ajax({
                         type : 'post',
                         url : "selectdid",

@@ -41,25 +41,34 @@
     </insert>
 
     <!-- 班级表人数+1 -->
-    <update id="deleteClassinfo" parameterType="int">
+    <update id="selecteClassinfo" parameterType="int">
       update classinfo set ccount=ccount+1 where classid = #{classid}
     </update>
 
     <!-- 年级人数+1 -->
-    <update id="deleteGrade" parameterType="int">
+    <update id="selecteGrade" parameterType="int">
       update grade set gcount=gcount+1 where gid = #{gid}
     </update>
 
     <!-- 专业人数+1 -->
-    <update id="deleteMajor" parameterType="int">
+    <update id="selecteMajor" parameterType="int">
       update major set mcount=mcount+1 where mid = #{mid}
     </update>
 
     <!-- 系部人数+1 -->
-    <update id="deleteDepartment" parameterType="int">
+    <update id="selecteDepartment" parameterType="int">
       update department set dcount=dcount+1 where did = #{did}
     </update>
 
+    <!-- 根据学号查询信息 -->
+    <select id="selectMessage" resultType="StudentDB">
+        select * from student where stuid = #{stuid}
+    </select>
+
+    <!-- 查询sys_role角色id -->
+    <select id="selectRole" resultType="String">
+        select id from sys_role where name = '学生'
+    </select>
 
 
 </mapper>

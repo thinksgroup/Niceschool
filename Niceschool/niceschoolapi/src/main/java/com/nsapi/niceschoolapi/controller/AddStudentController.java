@@ -5,6 +5,8 @@ import com.nsapi.niceschoolapi.service.AddStudentService;
 import com.nsapi.niceschoolapi.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,8 +35,9 @@ public class AddStudentController {
     //  添加学生
     @RequestMapping("addStudent")
     @ResponseBody
-    public LayuiResult<Map> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception{
-        LayuiResult result= new LayuiResult();
+    @Transactional(rollbackFor = { Exception.class })
+    public LayuiResult<StudentDB> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception{
+        LayuiResult<StudentDB> result= new LayuiResult<>();
         //  将接收到的时间进行类型转换
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date1=format.parse(birthday);
@@ -75,13 +78,15 @@ public class AddStudentController {
         Integer selMajor = addStudentService.selecteMajor(studentVO.getMid());
         //  系部人数+1
         Integer selDepartment = addStudentService.selecteDepartment(studentVO.getDid());
+
         //  根据学号查询信息
         List<StudentDB> stu = addStudentService.selectMessage(stuid);
-
         //  查询sys_role角色id
-        addStudent.s
+        String id = addStudentService.selectRole();
         result.setData(stu);
+        result.setMsg(id);
         return result;
+
     }
 }
 

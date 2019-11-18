@@ -91,5 +91,11 @@ public class AddStudentServiceImpl implements AddStudentService {
         return addStudentMapper.selectMessage(stuid);
     }
 
+    //  查询sys_role角色id
+    @Override
+    public String selectRole() {
+        return addStudentMapper.selectRole();
+    }
+
 
 }

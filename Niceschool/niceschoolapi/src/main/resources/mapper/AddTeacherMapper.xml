@@ -28,4 +28,14 @@
     <select id="selTchid" resultType="String">
       select max(tid)+1 from teacher
     </select>
+
+    <!-- 根据教师工号查询信息 -->
+    <select id="selTeaMessage" resultType="TeacherDB">
+        select * from teacher where tchid = #{tchid}
+    </select>
+
+    <!-- 查询sys_role角色id -->
+    <select id="selectTeaRole" resultType="String">
+        select id from sys_role where name = '教师'
+    </select>
 </mapper>

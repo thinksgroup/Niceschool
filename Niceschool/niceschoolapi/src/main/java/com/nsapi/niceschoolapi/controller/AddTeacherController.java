@@ -36,8 +36,8 @@ public class AddTeacherController {
     //  添加教师
     @RequestMapping("addTeacher")
     @ResponseBody
-    public LayuiResult<Map> addTeacher(TeacherDB teacherDB, String birthday, String tertime) throws Exception{
-        LayuiResult result= new LayuiResult();
+    public LayuiResult<TeacherDB> addTeacher(TeacherDB teacherDB, String birthday, String tertime) throws Exception{
+        LayuiResult<TeacherDB> result= new LayuiResult<>();
         //  将接收到的时间进行类型转换
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date1=format.parse(birthday);
@@ -56,7 +56,14 @@ public class AddTeacherController {
         teacherDB.setTid(Integer.valueOf(tchid));
         //  添加教师
         Integer addTeacher = addTeacherService.addTeacher(teacherDB);
-        result.setMsg("添加成功");
+
+        //  根据教师工号查询信息
+        List<TeacherDB> tea = addTeacherService.selTeaMessage(teacherDB.getTchid());
+
+        //  查询sys_role角色id
+        String id = addTeacherService.selectTeaRole();
+        result.setData(tea);
+        result.setMsg(id);
         return result;
     }
 }

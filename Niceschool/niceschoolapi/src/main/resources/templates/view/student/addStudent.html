@@ -106,16 +106,18 @@
             <label class="layui-form-label">班级</label>
             <div class="layui-input-inline">
                 <select th:name="classid" lay-search="" lay-verify="required" id="required4"  lay-filter="required4">
-                    <option value="">请选择</option>
+                    <option value="0">请选择</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button type="button" class="layui-btn"  lay-filter="demo1" id="demo1">立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+
+
     </form>
 
     <script>
@@ -152,21 +154,25 @@
                         $.each(data, function (index, obj) {
                             layui.$("#required1").append("<option value='"+obj.did+"'>"+obj.dname+"</option>");
                         });
-                        form.render('select');
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        layui.layer.msg(XMLHttpRequest.responseText);
+                        form.render();
                     }
                 });
             }
             //  监听系部下拉框 根据所选系部查询专业
             form.on('select(required1)', function(data){
-                //  移除专业下拉框所有值
-                $("#required2").find("option").remove();
-                $("#required3").find("option").remove();
-                $("#required4").find("option").remove();
+                if(data.value==0){
+                    layui.$('#required2').html("");
+                    layui.$('#required3').html("");
+                    layui.$('#required4').html("");
+                    form.render();
+                }
+
                 //  若系部下拉框值不等于0
-               if(data.value!=0){
+               else{
+                   //  移除专业下拉框所有值
+                   $("#required2").find("option").remove();
+                   $("#required3").find("option").remove();
+                   $("#required4").find("option").remove();
                     layui.$.ajax({
                         type : 'post',
                         url : "selectdid",
@@ -179,7 +185,7 @@
                             $.each(data, function (index, obj) {
                                 layui.$("#required2").append("<option value='" + obj.mid + "'>" + obj.mname + "</option>");
                             });
-                            form.render('select');
+                            form.render();
                             //  监听专业
                             var required2 = $("#required2").val();
                             $("#required3").find("option").remove();
@@ -198,7 +204,7 @@
                                             layui.$("#required3").append("<option value='"+obj.gid+"'>"+obj.gname+"</option>");
 
                                         });
-                                        form.render('select');
+                                        form.render();
                                         //  监听年级
                                         var required3 = $("#required3").val();
                                         $("#required4").find("option").remove();
@@ -215,7 +221,7 @@
                                                     $.each(data, function (index, obj) {
                                                         layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                                                     });
-                                                    form.render('select');
+                                                    form.render();
                                                 },
                                                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                                                     layui.layer.msg(XMLHttpRequest.responseText);
@@ -255,7 +261,7 @@
                             $.each(data, function (index, obj) {
                                 layui.$("#required3").append("<option value='"+obj.gid+"'>"+obj.gname+"</option>");
                             });
-                            form.render('select');
+                            form.render();
                             //  监听年级
                             var required3 = $("#required3").val();
                             $("#required4").find("option").remove();
@@ -272,7 +278,7 @@
                                         $.each(data, function (index, obj) {
                                             layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                                         });
-                                        form.render('select');
+                                        form.render();
                                     },
                                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                                         layui.layer.msg(XMLHttpRequest.responseText);
@@ -305,7 +311,7 @@
                             $.each(data, function (index, obj) {
                                 layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                             });
-                            form.render('select');
+                            form.render();
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             layui.layer.msg(XMLHttpRequest.responseText);
@@ -386,24 +392,73 @@
                 });
             });
 
-            //监听提交
-            form.on('submit(demo1)', function(data){
+            $("#demo1").on('click',function(){
                 layui.$.ajax({
                     type : 'post',
                     url : "addStudent",
                     dataType:'json',
                     data:layui.$('form').serialize(),
                     success :function(result) {
+
                         var data = result.data;
-                        var loginName = data.stuid;
-                        var nickName = data.sname;
+                        var nickName= data.sname ;
                         var tel = data.sphone;
+                        var loginName;
                         var adminUser = true;
                         var locked = false;
-                        var roleLists =
+                        var roleLists = result.msg;
+                        //var roleLists = {id:[result.msg]};
+                        var idnum;
+                        $.each(data, function (index, obj) {
+                            nickName = obj.sname;
+                            tel = obj.sphone;
+                            loginName = obj.stuid;
+                            idnum = obj.scardid;
 
-                        var idnum = $("#scardid").val();
-                        var scardid = scardid.substring(scardid.length-6);
+                        });
+                        var password = idnum.substring(idnum.length-6);
+
+                        var user = {
+                            "loginName":loginName,
+                            "nickName":nickName,
+                            "tel":tel,
+                            "adminUser":adminUser,
+                            "locked":locked,
+                            "roleLists":{},
+                            "password":password
+                        }
+                        var selectRole = [];
+                        selectRole.push({"id":roleLists});
+                        user.roleLists=selectRole;
+                        $.ajax({
+                            type:'post',
+                            url:"/admin/system/user/add",
+                            dataType: "json",
+                            contentType: "application/json;charset=UTF-8",
+                            data:JSON.stringify(user),
+                            success:function(data){
+                                if(data){
+                                    layer.msg(
+                                        "添加成功", {
+                                            icon: 1,
+                                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                            ,end:function(){
+                                                window.location.reload();
+                                            }
+                                        } );
+                                }else{
+                                    layer.msg(
+                                        "添加失败", {
+                                            icon: 1,
+                                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                            ,end:function(){
+                                                window.location.reload();
+                                            }
+                                        } );
+                                }
+                            }
+                        });
+
 
 
                     }
@@ -411,16 +466,6 @@
             });
 
 
-
-
-            // layer.msg(
-            //     result.msg, {
-            //         icon: 1,
-            //         time: 3000 //2秒关闭（如果不配置，默认是3秒）
-            //         ,end:function(){
-            //             window.location.reload();
-            //         }
-            //     } );
 
 
         });
