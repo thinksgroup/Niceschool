@@ -13,7 +13,7 @@
           <if test="tname!=null and tname!=''">
               and t.tname like concat('%',concat(#{tname},'%'))
           </if>
-      </where>LIMIT #{begin},#{end}
+      </where>ORDER BY t.tid desc LIMIT #{begin},#{end}
     </select>
 
     <!-- 查询所有教师数量 -->
@@ -26,7 +26,7 @@
             <if test="tname!=null and tname!=''">
                 and t.tname like concat('%',concat(#{tname},'%'))
             </if>
-        </where>
+        </where> ORDER BY t.tid desc
     </select>
     <!-- 根据教师编号查询教师信息 -->
     <select id="selTeacherId" resultType="TeacherDB">

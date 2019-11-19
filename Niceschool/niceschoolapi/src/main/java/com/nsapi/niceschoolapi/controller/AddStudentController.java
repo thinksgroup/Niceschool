@@ -31,7 +31,6 @@ public class AddStudentController {
         return "view/student/addStudent";
     }
 
-
     //  添加学生
     @RequestMapping("addStudent")
     @ResponseBody
