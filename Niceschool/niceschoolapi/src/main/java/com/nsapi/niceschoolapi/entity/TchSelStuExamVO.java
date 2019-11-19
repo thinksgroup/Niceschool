@@ -6,6 +6,15 @@ public class TchSelStuExamVO {
     private String entertime;
     private Integer classid;
     private String classname;
+    private String sname;
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
 
     public String getClassname() {
         return classname;

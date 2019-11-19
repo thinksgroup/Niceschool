@@ -5,7 +5,6 @@ import com.nsapi.niceschoolapi.entity.SelTchExamVO;
 import com.nsapi.niceschoolapi.service.SelTchExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,9 +17,7 @@ public class selTchExamController {
     private SelTchExamService selTchExamService;
 
     @RequestMapping("/tchExam")
-    public String tchExam(Model model){
-        List<Map>  selTetime=selTchExamService.selTetime();
-        model.addAttribute("selTetime",selTetime);
+    public String tchExam(){
         return "view/teacher/selTchExam";
     }
 

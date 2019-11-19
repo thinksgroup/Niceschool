@@ -2,22 +2,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nsapi.niceschoolapi.mapper.SelTchExamMapper">
-    <!--查询教师授课班级-->
-    <select id="selTetime" resultType="map" parameterType="map">
-        select YEAR(tetime) tetime from tch_exam GROUP BY YEAR(tetime)
-    </select>
-    <!--教师查询学生成绩-->
+    <!--查询教师成绩-->
     <select id="selTchExam" resultType="map" parameterType="map">
         select tch.tname,tex.tid,round(IFNULL((tex.exam/tex.pcount),0),2) exam,tex.pcount,YEAR(tex.tetime) tetime,tex.semester from
         teacher tch,tch_exam tex where tch.tid = tex.tid and tex.is_del = 0
-        <if test="tetime != '' and tetime != null">
-            and YEAR(tex.tetime) = #{tetime}
-        </if>
-        <if test="semester != '' and semester != null">
-            and tex.semester = #{semester}
-        </if>
         <if test="tid != '' and tid != null">
-            and tex.tid = #{tid}
+            and tex.tid like concat('%',concat(#{tid},'%'))
+        </if>
+        <if test="tname != '' and tname != null">
+            and tex.tname like concat('%',concat(#{tname},'%'))
         </if>
     </select>
 </mapper>
