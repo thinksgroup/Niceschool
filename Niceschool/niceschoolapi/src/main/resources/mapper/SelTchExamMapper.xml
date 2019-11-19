@@ -10,7 +10,7 @@
             and tex.tid like concat('%',concat(#{tid},'%'))
         </if>
         <if test="tname != '' and tname != null">
-            and tex.tname like concat('%',concat(#{tname},'%'))
+            and tch.tname like concat('%',concat(#{tname},'%'))
         </if>
     </select>
 </mapper>

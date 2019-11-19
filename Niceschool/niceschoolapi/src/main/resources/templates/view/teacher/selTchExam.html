@@ -46,7 +46,13 @@
                     ,{field: 'exam', title: '教评成绩'}
                     ,{field: 'pcount', title: '教评人数'}
                     ,{field: 'tetime', title: '成绩年份'}
-                    ,{field: 'semester', title: '成绩学期'}
+                    ,{field: 'semester', title: '成绩学期',templet: function (d) {
+                        if (d.semester =='1'){
+                            return '上学期'
+                        }else if (d.semester =='2'){
+                            return '下学期'
+                        }
+                    }}
                 ]
             ]
             , id: 'selTchExam'
