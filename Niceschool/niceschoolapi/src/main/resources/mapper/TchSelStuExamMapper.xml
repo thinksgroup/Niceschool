@@ -23,6 +23,6 @@
         </if>GROUP BY ste.scid
     </select>
     <select id="selTchGrade" resultType="map" parameterType="map">
-        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = #{tid}+j GROUP BY g.gname
+        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = #{tid} GROUP BY g.gname
     </select>
 </mapper>
