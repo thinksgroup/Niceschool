@@ -182,6 +182,12 @@
             <artifactId>spring-test</artifactId>
             <version>5.0.4.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.nsapi</groupId>
+            <artifactId>niceschoolapi</artifactId>
+            <version>0.0.1</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
