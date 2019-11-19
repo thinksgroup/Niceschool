@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional
@@ -36,5 +37,17 @@ public class AddTeacherServiceImpl implements AddTeacherService {
     @Override
     public String selTchid() {
         return addTEacherMapper.selTchid();
+    }
+
+    //  根据教师工号查询信息
+    @Override
+    public List<TeacherDB> selTeaMessage(String tchid) {
+        return addTEacherMapper.selTeaMessage(tchid);
+    }
+
+    //  查询sys_role角色id
+    @Override
+    public String selectTeaRole() {
+        return addTEacherMapper.selectTeaRole();
     }
 }

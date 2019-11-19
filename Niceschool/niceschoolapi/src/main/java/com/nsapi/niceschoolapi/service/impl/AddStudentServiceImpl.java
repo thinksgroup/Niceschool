@@ -1,6 +1,7 @@
 package com.nsapi.niceschoolapi.service.impl;
 
 import com.nsapi.niceschoolapi.entity.CourseDB;
+import com.nsapi.niceschoolapi.entity.StudentDB;
 import com.nsapi.niceschoolapi.entity.StudentVO;
 import com.nsapi.niceschoolapi.mapper.AddStudentMapper;
 import com.nsapi.niceschoolapi.service.AddStudentService;
@@ -46,4 +47,55 @@ public class AddStudentServiceImpl implements AddStudentService {
     public String selStuid(Integer gid) {
         return addStudentMapper.selStuid(gid);
     }
+
+    //  班级人数+1
+    @Override
+    public Integer selecteClassinfo(Integer classid) {
+        return addStudentMapper.selecteClassinfo(classid);
+    }
+
+    //  年级人数+1
+    @Override
+    public Integer selecteGrade(Integer gid) {
+        return addStudentMapper.selecteGrade(gid);
+    }
+
+    //  专业人数+1
+    @Override
+    public Integer selecteMajor(Integer mid) {
+        return addStudentMapper.selecteMajor(mid);
+    }
+
+    //  系部人数+1
+    @Override
+    public Integer selecteDepartment(Integer did) {
+        return addStudentMapper.selecteDepartment(did);
+    }
+
+
+    //  判断该年份是否已存在学生
+    @Override
+    public Integer selectStuYear(Integer classid) {
+        return addStudentMapper.selectStuYear(classid);
+    }
+
+    //  若该年份学生为空时 则添加一条分割线
+    @Override
+    public Integer stuSegmentation(Integer classid) {
+        return addStudentMapper.stuSegmentation(classid);
+    }
+
+    //  根据学号查询信息
+    @Override
+    public List<StudentDB> selectMessage(String stuid) {
+        return addStudentMapper.selectMessage(stuid);
+    }
+
+    //  查询sys_role角色id
+    @Override
+    public String selectRole() {
+        return addStudentMapper.selectRole();
+    }
+
+
 }

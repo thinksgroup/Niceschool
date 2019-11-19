@@ -57,13 +57,15 @@
             </div>
         </div>
         <button class="layui-btn" type="button" id="selBtn" style="margin-left: 580px;margin-top: -53px">开始搜索</button>
-        <button class="layui-btn" type="button" id="qxBtn" style="margin-left: 690px;margin-top: -87px">取消搜索</button>
+        <button class="layui-btn" type="button" id="qxBtn"style="margin-top: -53px">取消搜索</button>
         <table class="layui-hide" id="demo" lay-filter="test">
         </table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="examine">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="examine">查看</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">退学</a>
+
+
         </script>
 
 
@@ -105,12 +107,18 @@
                 }
             //  监听系部下拉框 根据所选系部查询专业
             form.on('select(required1)', function(data){
-                //  移除专业下拉框所有值
-                $("#required2").html("");
-                $("#required3").html("");
-                $("#required4").html("");
+                if(data.value==0){
+                    layui.$('#required2').html("");
+                    layui.$('#required3').html("");
+                    layui.$('#required4').html("");
+                    form.render();
+                }
                 //  若系部下拉框值不等于0
-                if(data.value!=0){
+                else{
+                    //  移除专业下拉框所有值
+                    $("#required2").html("");
+                    $("#required3").html("");
+                    $("#required4").html("");
                     layui.$.ajax({
                         type : 'post',
                         url : "selectdid",
@@ -266,16 +274,16 @@
                 ,limits:[5,10,15],
                 cols: [
                     [ //表头
-                        {field: "sid", title: '编号'},
+                        //{field: "sid", title: '学生编号'},
                         {field: "stuid", title: '学号'},
                         {field: "sname", title: '姓名'},
                         {field: "sgender", title: '性别'},
-                        {field: "sbirthday", title: '出生日期',templet:"<div>{{layui.util.toDateString(d.sbirthday, 'yyyy年MM月dd日')}}</div>"},
-                        {field: "pname", title: '政治面貌'},
-                        {field: "snation", title: '民族'},
-                        {field: "scardid", title: '身份证号'},
-                        {field: "sphone", title: '手机号'},
-                        {field: "saddress", title: '地址'},
+                        // {field: "sbirthday", title: '出生日期',templet:"<div>{{layui.util.toDateString(d.sbirthday, 'yyyy年MM月dd日')}}</div>"},
+                        //{field: "pname", title: '政治面貌'},
+                        //{field: "snation", title: '民族'},
+                        //{field: "scardid", title: '身份证号'},
+                        //{field: "sphone", title: '手机号'},
+                        //{field: "saddress", title: '地址'},
                         {field: "stustate", title: '状态'},
                         {field: "classname", title: '班级'},
                         {fixed: 'right',title:'操作', width: 165, align:'center', toolbar: '#barDemo'}
@@ -374,39 +382,52 @@
                         }
                     });
                 }
-                //查看成绩
+                //查看详情
                 if(layEvent === 'examine'){
                     top.layer.open({
                         type: 2, //layer的5种层类型   0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                        title: ['修改学生信息', 'font-size:18px;'],  //弹出框标题
+                        title: ['学生信息', 'font-size:18px;'],  //弹出框标题
                         shade: [0.5, '#393D49'],     //遮罩层
                         shadeClose:true,          //点击遮罩层外区域关闭遮罩层
                         area: ['800px', '500px'],   //弹出框大小
                         anim: 1,              //弹出动画
-                        content:'selExam?stuid='+data.stuid,
+                        content:'selectMessage?id='+data.sid,
                     });
                 }
 
-                //  删除学生
+
                 if(layEvent == 'del'){
-                    //删除
-                    layer.confirm('确定要对该学生执行退学措施吗？', function () {
-                        $.post("delStudent",{'stuid':data.stuid},function(result)
-                            {
-                                layer.msg(
-                                    result.msg, {
-                                        icon: 1,
-                                        time: 1000 //2秒关闭（如果不配置，默认是3秒）
-                                    }, function(){
-                                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-                                        layer.close(index);
-                                    });
-                            }
-                        );
+                    top.layer.open({
+                        type: 2, //layer的5种层类型   0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                        title: ['退学', 'font-size:18px;'],  //弹出框标题
+                        shade: [0.5, '#393D49'],     //遮罩层
+                        shadeClose:true,          //点击遮罩层外区域关闭遮罩层
+                        area: ['600px', '400px'],   //弹出框大小
+                        anim: 1,              //弹出动画
+                        content:'insertDropout?stuid='+data.stuid,
                     });
                 }
-            });
+                // //  删除学生
+                // if(layEvent == 'del'){
+                //     //删除
+                //     layer.confirm('确定要对该学生执行退学措施吗？', function () {
+                //         $.post("delStudent",{'stuid':data.stuid},function(result)
+                //             {
+                //                 layer.msg(
+                //                     result.msg, {
+                //                         icon: 1,
+                //                         time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                //                     }, function(){
+                //                         obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                //                         layer.close(index);
+                //                     });
+                //             }
+                //         );
+                //     });
+                // }
 
+
+            });
 
 
             //分页

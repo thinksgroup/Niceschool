@@ -9,20 +9,13 @@
 <body>
 <div class="layui-form">
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
-        <div class="layui-input-inline">
-            <select  name="tetime" id="tetime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option th:each="s:${selTetime}" th:value="${s.tetime}" th:text="${s.tetime}"></option>
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="semester" id="semester" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option value="1">上学期</option>
-                <option value="2">下学期</option>
-            </select>
-        </div>
         教师编号：
         <div class="layui-inline">
             <input class="layui-input" name="tid" id="tid" autocomplete="off">
+        </div>
+        教师姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="tname" id="tname" autocomplete="off">
         </div>
     </div>
 
@@ -53,7 +46,13 @@
                     ,{field: 'exam', title: '教评成绩'}
                     ,{field: 'pcount', title: '教评人数'}
                     ,{field: 'tetime', title: '成绩年份'}
-                    ,{field: 'semester', title: '成绩学期'}
+                    ,{field: 'semester', title: '成绩学期',templet: function (d) {
+                        if (d.semester =='1'){
+                            return '上学期'
+                        }else if (d.semester =='2'){
+                            return '下学期'
+                        }
+                    }}
                 ]
             ]
             , id: 'selTchExam'
@@ -63,17 +62,15 @@
         var $ = layui.$;
         $('#selBtn').on('click', function(){
             //获取输入框
-            var tetime = $('#tetime');
-            var semester = $('#semester');
             var tid = $('#tid');
+            var tname = $('#tname');
             //执行重载
             table.reload('selTchExam', {
                 page: {
                     curr: 1 //重新从第 1 页开始selTeacher
                 }
                 ,where: {
-                    tetime: tetime.val(),
-                    semester: semester.val(),
+                    tname: tname.val(),
                     tid: tid.val()
                 }
             });
