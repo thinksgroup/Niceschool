@@ -95,16 +95,16 @@ public class UserController {
         if(userService.userCount(user.getLoginName())>0){
             return ResponseEntity.failure("登录名称已经存在");
         }
-        if(StringUtils.isNotBlank(user.getEmail())){
-            if(userService.userCount(user.getEmail())>0){
-                return ResponseEntity.failure("该邮箱已被使用");
-            }
-        }
-        if(StringUtils.isNoneBlank(user.getTel())){
-            if(userService.userCount(user.getTel())>0){
-                return ResponseEntity.failure("该手机号已被绑定");
-            }
-        }
+//        if(StringUtils.isNotBlank(user.getEmail())){
+//            if(userService.userCount(user.getEmail())>0){
+//                return ResponseEntity.failure("该邮箱已被使用");
+//            }
+//        }
+//        if(StringUtils.isNoneBlank(user.getTel())){
+//            if(userService.userCount(user.getTel())>0){
+//                return ResponseEntity.failure("该手机号已被绑定");
+//            }
+//        }
         //设置默认密码
         if(StringUtils.isBlank(user.getPassword())){
             user.setPassword(Constants.DEFAULT_PASSWORD);

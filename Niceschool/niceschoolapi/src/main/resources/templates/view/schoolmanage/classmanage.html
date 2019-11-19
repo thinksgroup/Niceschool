@@ -364,7 +364,7 @@
                     type: 1,
                     resize: false,
                     area: ['600px', '500px'],
-                    title: '添加年级',
+                    title: '添加班级',
                     content: $('#addDiv'),
                     btn: ['确认添加', '取消'],
                     yes: function (index) {
@@ -432,7 +432,8 @@
                             data: {
                                 did: $("#editSelDpm option:selected").val()
                             },
-                            success: function (alldata) {var result = alldata.data;
+                            success: function (alldata) {
+                                var result = alldata.data;
                                 var lists = '';
                                 for (var i in result) {
                                     if (result[i].mid == data.mid) {
