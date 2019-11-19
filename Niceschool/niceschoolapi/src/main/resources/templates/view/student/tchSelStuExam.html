@@ -9,18 +9,24 @@
 <body>
 <div class="layui-form">
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
+        年级：
         <div class="layui-input-inline">
             <select name="entertime" id="entertime" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="" disabled selected hidden>请选择</option>
                 <option th:each="g:${selTchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
             </select>
         </div>
+        班级：
         <div class="layui-input-inline">
             <select  name="classid" id="classid" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="" disabled selected hidden>请选择</option>
                 <option th:each="c:${tchClass}" th:value="${c.classid}" th:text="${c.classname}"></option>
             </select>
         </div>
+        学期：
         <div class="layui-input-inline">
             <select name="stime" id="stime" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="" disabled selected hidden>请选择</option>
                 <option value="1">大一上学期</option>
                 <option value="2">大一下学期</option>
                 <option value="3">大二上学期</option>
@@ -28,6 +34,10 @@
                 <option value="5">大三上学期</option>
                 <option value="6">大三下学期</option>
             </select>
+        </div>
+        学生姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="sname" id="sname" autocomplete="off">
         </div>
     </div>
 
@@ -73,6 +83,7 @@
             var entertime = $('#entertime');
             var classid = $('#classid');
             var stime = $('#stime');
+            var sname = $('#sname');
             //执行重载
             table.reload('tchSelStuExam', {
                 page: {
@@ -80,6 +91,7 @@
                 }
                 ,where: {
                     entertime: entertime.val(),
+                    sname: sname.val(),
                     classid: classid.val(),
                     stime: stime.val()
 

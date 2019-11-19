@@ -20,9 +20,12 @@
         </if>
         <if test="stime != '' and stime != null">
             and ste.stime = #{stime}
+        </if>
+        <if test="sname!=null and sname!=''">
+            and stu.sname like concat('%',concat(#{sname},'%'))
         </if>GROUP BY ste.scid
     </select>
     <select id="selTchGrade" resultType="map" parameterType="map">
-        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = 2012001 GROUP BY g.gname
+        select g.gid,g.gname from tch_course t,grade g where t.gid = g.gid and t.tid = #{tid} GROUP BY g.gname
     </select>
 </mapper>

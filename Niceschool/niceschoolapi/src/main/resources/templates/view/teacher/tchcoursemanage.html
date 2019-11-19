@@ -147,11 +147,12 @@
             cols: [
                 [
                     {field: 'tid', title: '教师工号'}
-                    , {field: 'cid', title: '课目'}
-                    , {field: 'wid', title: '星期'}
-                    , {field: 'schid', title: '节段'}
-                    , {field: 'classid', title: '班级'}
-                    , {field: 'gid', title: '年级'}
+                    , {field: 'tname', title: '教师姓名'}
+                    , {field: 'cname', title: '课目'}
+                    , {field: 'wname', title: '星期'}
+                    , {field: 'schname', title: '节段'}
+                    , {field: 'classname', title: '班级'}
+                    , {field: 'gname', title: '年级'}
                 ]
             ],
             page: true,
@@ -379,7 +380,7 @@
                 layer.open({
                     type: 1,
                     resize: false,
-                    area: ['800px', '500px'],
+                    area: ['1000px', '500px'],
                     title: '查看'+data.tname+'教师所授课目，教师工号：' + data.tchid,
                     content: $('#selDiv'),
                     btn: ['确认'],
