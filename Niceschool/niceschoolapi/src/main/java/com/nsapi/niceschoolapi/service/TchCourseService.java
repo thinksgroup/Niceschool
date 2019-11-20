@@ -23,6 +23,8 @@ public interface TchCourseService {
     int addOneTchClass(TchCourseVO tchCourseVO);
     //查询是否有重复授课
     int findTchCourseFlag(TchCourseVO tchCourseVO);
+    //查询是否有冲突授课
+    int findTchCourseDanger(TchCourseVO tchCourseVO);
     //查询指定老师教授所有课程
     List<TchCourseVO> findCourseByTch(TchCourseVO tchCourseVO);
 }

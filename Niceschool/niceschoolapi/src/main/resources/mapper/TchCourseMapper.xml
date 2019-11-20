@@ -46,12 +46,16 @@
     </insert>
     <!--查询是否有重复授课-->
     <select id="findTchCourseFlag" parameterType="TchCourseVO" resultType="Integer">
-        select count(*) from tch_class where tid=#{tid} and classid=#{classid} and tcid in(select tcid from tch_course where tid=#{tid} and cid=#{cid} and wid=#{wid} and schid=#{schid} and gid=#{gid})
+        select count(*) from tch_class where tid=#{tid} and classid=#{classid} and tcid in(select tcid from tch_course where tid=#{tid} and cid=#{cid} and gid=#{gid} and is_del=0) and is_del=0
+    </select>
+    <!--查询是否有冲突授课-->
+    <select id="findTchCourseDanger" parameterType="TchCourseVO" resultType="Integer">
+        select count(*) from tch_class where classid=#{classid} and tcid in(select tcid from tch_course where cid=#{cid} and gid=#{gid} and is_del=0) and is_del=0
     </select>
     <!--查询指定老师教授所有课程-->
     <select id="findCourseByTch" resultType="TchCourseVO">
-        select tcs.tid,classname,cname,gname,wname,schname,tname from tch_class tcs,tch_course tc,
-classinfo ci,course cr,grade gr,weeks we,schedule sc,teacher t where tcs.tcid=tc.tcid and ci.classid=tcs.classid
-and tc.gid=gr.gid and  cr.cid=tc.cid and we.wid=tc.wid and sc.schid=tc.schid and t.tid=tcs.tid and tc.tid=#{tid}
+        select tc.tcid,tcs.tcsid,tcs.tid,classname,cname,gname,tname from tch_class tcs,tch_course tc,
+classinfo ci,course cr,grade gr,teacher t where tcs.tcid=tc.tcid and ci.classid=tcs.classid
+and tc.gid=gr.gid and cr.cid=tc.cid and t.tid=tcs.tid and tc.tid=#{tid} and tcs.is_del=0 and tc.is_del=0
     </select>
 </mapper>
