@@ -12,7 +12,7 @@
     <!-- 判断是否要插入新一年分割工号 1要插入，0不用插入 -->
     <select id="selectYear" resultType="int">
         select case
-        when (select year(now()))>(select substring((select max(tid) from teacher), 1, 4))
+        when (select year(now()))&gt;(select substring((select max(tid) from teacher), 1, 4))
         then year(now())
         else 0
         end
