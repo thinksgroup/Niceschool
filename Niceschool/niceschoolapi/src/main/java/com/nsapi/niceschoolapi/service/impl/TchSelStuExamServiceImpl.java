@@ -31,4 +31,5 @@ public class TchSelStuExamServiceImpl implements TchSelStuExamService {
     public List<Map> selTchGrade(String tid) {
         return tchSelStuExamMapper.selTchGrade(tid);
     }
+
 }

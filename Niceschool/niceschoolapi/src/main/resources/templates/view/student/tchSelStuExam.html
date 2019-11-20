@@ -9,13 +9,6 @@
 <body>
 <div class="layui-form">
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
-        年级：
-        <div class="layui-input-inline">
-            <select name="entertime" id="entertime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option value="" disabled selected hidden>请选择</option>
-                <option th:each="g:${selTchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
-            </select>
-        </div>
         班级：
         <div class="layui-input-inline">
             <select  name="classid" id="classid" lay-search="" lay-verify="stime"  lay-filter="stime">
@@ -23,16 +16,11 @@
                 <option th:each="c:${tchClass}" th:value="${c.classid}" th:text="${c.classname}"></option>
             </select>
         </div>
-        学期：
+        年级：
         <div class="layui-input-inline">
-            <select name="stime" id="stime" lay-search="" lay-verify="stime"  lay-filter="stime">
+            <select  name="gname" id="gname" lay-search="" lay-verify="stime"  lay-filter="stime">
                 <option value="" disabled selected hidden>请选择</option>
-                <option value="1">大一上学期</option>
-                <option value="2">大一下学期</option>
-                <option value="3">大二上学期</option>
-                <option value="4">大二下学期</option>
-                <option value="5">大三上学期</option>
-                <option value="6">大三下学期</option>
+                <option th:each="g:${tchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
             </select>
         </div>
         学生姓名：
@@ -80,9 +68,8 @@
         var $ = layui.$;
         $('#selBtn').on('click', function(){
             //获取输入框
-            var entertime = $('#entertime');
+            var gname = $('#gname');
             var classid = $('#classid');
-            var stime = $('#stime');
             var sname = $('#sname');
             //执行重载
             table.reload('tchSelStuExam', {
@@ -90,11 +77,9 @@
                     curr: 1 //重新从第 1 页开始selTeacher
                 }
                 ,where: {
-                    entertime: entertime.val(),
+                    gname: gname.val(),
                     sname: sname.val(),
-                    classid: classid.val(),
-                    stime: stime.val()
-
+                    classid: classid.val()
                 }
             });
         });
