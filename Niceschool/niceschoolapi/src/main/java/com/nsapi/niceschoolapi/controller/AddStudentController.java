@@ -33,8 +33,9 @@ public class AddStudentController {
 
     //  添加学生
     @RequestMapping("addStudent")
-    @ResponseBody
+    @ResponseBody   // 通常用来返回JSON数据给客户端
     @Transactional(rollbackFor = { Exception.class })
+    //  类里面的方法抛出异常，就会回滚，数据库里面的数据也会回滚
     public LayuiResult<StudentDB> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception{
         LayuiResult<StudentDB> result= new LayuiResult<>();
         //  将接收到的时间进行类型转换
