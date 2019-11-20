@@ -5,7 +5,7 @@
 <mapper namespace="com.nsapi.niceschoolapi.mapper.DeleteMapper">
     <!-- 删除学生信息 -->
     <update id="deleteStudent" parameterType="String">
-      update student set is_del=1 where stuid = #{stuid}
+      update student set is_del=1,leavetime=now(),stustate=2 where stuid = #{stuid}
     </update>
 
     <!-- 删除学生选课信息 -->
