@@ -21,7 +21,7 @@
     <insert id="teaSegmentation" parameterType="int">
         insert into teacher
           values((select  CAST((select concat(year(now()),'000')) AS UNSIGNED int)),(select  CAST((select concat(year(now()),'000')) AS UNSIGNED int)),
-          '分割线','男',NOW(),1,'汉族','11111111111111111','17303963816','分割线',now(),NOW(),1,1)
+          '年份过渡数据','年份过渡数据',NOW(),1,'年份过渡数据','年份过渡数据','年份过渡数据','年份过渡数据',now(),NOW(),1,1)
     </insert>
 
     <!-- 生成教师工号 -->

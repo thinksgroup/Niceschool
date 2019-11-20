@@ -37,7 +37,7 @@
     <insert id="stuSegmentation" parameterType="int">
         insert into student values((select  CAST((select concat(substring(gname,1,4),'0000')) AS UNSIGNED int) from classinfo c left join grade g on c.gid = g.gid where c.classid=#{classid}),
         (select  CAST((select concat(substring(gname,1,4),'0000')) AS UNSIGNED int) from classinfo c left join grade g on c.gid = g.gid where c.classid=#{classid}),
-        '分割线','男',now(),1,'分割','111111111111111111','11111111111','分割线',now(),now(),1,#{classid},1,111111)
+        '年份过渡数据','年份过渡数据',now(),1,'年份过渡数据','年份过渡数据','年份过渡数据','年份过渡数据',now(),now(),1,#{classid},1,111111)
     </insert>
 
     <!-- 班级表人数+1 -->
