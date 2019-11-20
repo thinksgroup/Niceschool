@@ -59,6 +59,17 @@ public class TeacherController {
         return "view/teacher/updTeacher";
     }
 
+    //  根据教师编号查询教师详细信息
+    @RequestMapping("/selectTeaMessage")
+    public String selectTeaMessage(Integer id, Model model){
+        List<TeacherDB> tea = lxxTeacherService.selTeacherId(id);
+        //  查询政治面貌
+        List<PoliticsTypeDB> selpol = lxxStudentService.selPolitics();
+        model.addAttribute("tea",tea);
+        model.addAttribute("selpol",selpol);
+        return "view/teacher/selTchExam";
+    }
+
     //  修改教师信息
     @RequestMapping("/updateTeacher")
     @ResponseBody

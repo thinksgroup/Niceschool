@@ -23,7 +23,7 @@
         and c.cid=thc.cid
         and thc.tid=#{tid}
         <if test="classid!=null">
-        and  ci.classid like concat('%' ,concat(#{classid},'%'))
+        and  ci.classid =#{classid}
         </if>
         and sc.is_del="0"
         and s.is_del="0"

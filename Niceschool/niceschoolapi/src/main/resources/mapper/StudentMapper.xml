@@ -30,7 +30,7 @@
             <if test="classid!=null and classid!=''">
                 and c.classid = #{classid}
             </if>
-        </where>LIMIT #{begin},#{end}
+        </where> ORDER BY s.sid desc LIMIT #{begin},#{end}
     </select>
     <!-- 查询学生信息数量 -->
     <select id="selCount" resultType="int">
@@ -59,7 +59,7 @@
             <if test="classid!=null and classid!=''">
                 and c.classid = #{classid}
             </if>
-        </where>
+        </where> ORDER BY s.sid desc
     </select>
 
     <!-- 根据学生id查询学生信息 -->

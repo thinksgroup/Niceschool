@@ -21,8 +21,7 @@
        and l.stuid=#{stuid}
        <where>
            <if test="ctname != null and ctname !=''">
-               AND `ctname`
-               LIKE concat('%',#{ctname},'%')
+               and  ctname =#{ctname}
            </if>
        </where>
        and a.studytype='选修'
