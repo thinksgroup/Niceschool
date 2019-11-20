@@ -44,6 +44,12 @@ public class AddTeacherController {
         Date date2=format.parse(tertime);
         teacherDB.setTbirthday(date1);
         teacherDB.setEntertime(date2);
+        //  查询教师数量
+        Integer teacount = addTeacherService.selTeacherCount();
+        if(teacount == 0){
+            //  添加一条分割线
+            Integer aa = addTeacherService.teaSegmentation();
+        }
         //  判断是否要插入新一年分割工号 1要插入，0不用插入
         Integer year = addTeacherService.selectYear();
         if(year>0){

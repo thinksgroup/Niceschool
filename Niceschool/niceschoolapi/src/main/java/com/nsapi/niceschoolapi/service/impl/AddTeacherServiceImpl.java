@@ -50,4 +50,10 @@ public class AddTeacherServiceImpl implements AddTeacherService {
     public String selectTeaRole() {
         return addTEacherMapper.selectTeaRole();
     }
+
+    //  查询教师数量
+    @Override
+    public Integer selTeacherCount() {
+        return addTEacherMapper.selTeacherCount();
+    }
 }

@@ -38,4 +38,9 @@
     <select id="selectTeaRole" resultType="String">
         select id from sys_role where name = '教师'
     </select>
+
+    <!-- 查询教师数量 -->
+    <select id="selTeacherCount" resultType="int">
+        select count(*) from teacher
+    </select>
 </mapper>

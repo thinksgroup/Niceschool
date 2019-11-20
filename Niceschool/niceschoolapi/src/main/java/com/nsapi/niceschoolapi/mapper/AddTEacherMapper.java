@@ -22,4 +22,7 @@ public interface AddTEacherMapper {
     List<TeacherDB> selTeaMessage(String tchid);
     //  查询sys_role角色id
     String selectTeaRole();
+
+    //  查询教师数量
+    Integer selTeacherCount();
 }
