@@ -57,13 +57,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="sname" id="sname"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                <input type="text" name="sname" id="sname"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
             </div>
 
 
             <label class="layui-form-label">科目</label>
             <div class="layui-input-inline">
-                <input type="text" name="cname"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                <input type="text" name="cname"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
 
         </div>
         </div>
@@ -113,13 +113,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="sname" id="snames"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                <input type="text" name="sname" id="snames"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
             </div>
 
 
             <label class="layui-form-label">科目</label>
             <div class="layui-input-inline">
-                <input type="text" name="cname"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                <input type="text" name="cname"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
 
             </div>
         </div>
@@ -234,7 +234,7 @@
                             var stime=$("#stime").val();
                             $.post("/selmessage",{ sid:sid, scid:scid, normalexam:normalexam, testexam:testexam, sumexam:sumexam, stime:stime},function(res){
                                 layer.msg(res)
-                                window.setTimeout('window.location.href="/selstudentExam"',3000);
+                                window.setTimeout('window.location.href="/selstudentExam"',2000);
                             })
                         })
                         }
@@ -242,24 +242,34 @@
                 });
         }
         $("#normalexam").on('blur',function () {
+            var  nexamreg= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
             var normalexam=$("#normalexam").val();
             var testexam=$("#testexam").val();
             if(normalexam>100||normalexam<0){
-                alert("最低分为0，最高分为100")
+                layer.msg("最低分为0，最高分为100");
+                $("#normalexam").val("");
+            }
+            else if(!nexamreg.test(normalexam)&&normalexam!=""){
+                layer.msg("只能为数字");
                 $("#normalexam").val("");
             }
         })
         $("#testexam").on('blur',function () {
+            var  texamreg= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
             var normalexam=$("#normalexam").val();
             var testexam=$("#testexam").val();
             if(testexam>100||testexam<0){
                 alert("最低分为0，最高分为100")
                 $("#testexam").val("");
             }
+            else if(!texamreg.test(testexam)&&testexam!=""){
+                layer.msg("只能为数字");
+                $("#testexam").val("");
+            }
           else  if (testexam=="") {
                 $("#sumexam").val("")
             }
-            else if(testexam!=""){$("#sumexam").val((parseInt(normalexam)+parseInt(testexam))/2);
+            else if(testexam!=""){$("#sumexam").val((parseFloat(normalexam)+parseFloat(testexam))/2);
             }
         })
         //修改
@@ -281,7 +291,7 @@
                         var stime=$("#stimes").val();
                             $.post("/saveupdate",{ sid:sid, scid:scid, normalexam:normalexam, testexam:testexam, sumexam:sumexam, stime:stime},function(res){
                                 layer.msg(res)
-                                window.setTimeout('window.location.href="/selstudentExam"',3000);
+                                window.setTimeout('window.location.href="/selstudentExam"',2000);
                             })
                     })
                 }
@@ -289,25 +299,35 @@
             });
         }
         $("#normalexams").on('blur',function () {
+            var  nexamregs= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
             var normalexams=$("#normalexams").val();
             var testexams=$("#testexams").val();
             if(normalexams>100||normalexams<0){
-                alert("最低分为0，最高分为100")
-                $("#normalexam").val("");
+                layer.msg("最低分为0，最高分为100")
+                $("#normalexams").val("");
+            }
+            else if(!nexamregs.test(normalexams)&&normalexams!=""){
+               layer.msg("只能为数字")
+                $("#normalexams").val("");
             }
         })
         $("#testexams").on('blur',function () {
+            var  texamregs= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
             var normalexams=$("#normalexams").val();
             var testexams=$("#testexams").val();
             if(testexams>100||testexams<0){
-                alert("最低分为0，最高分为100")
+                layer.msg("最低分为0，最高分为100")
                 $("#testexams").val("");
             }
-            else  if (testexams=="") {
+            else if(!texamregs.test(testexams)&&testexams!=""){
+                layer.msg("只能为数字")
+                $("#testexams").val("");
+            }
+            else  if (testexams==""){
                 $("#sumexams").val("")
             }
             else if(testexams!="")
-            {$("#sumexams").val((parseInt(normalexams)+parseInt(testexams))/2);
+            {$("#sumexams").val((parseFloat(normalexams)+parseFloat(testexams))/2);
             }
         })
         //渲染下拉框

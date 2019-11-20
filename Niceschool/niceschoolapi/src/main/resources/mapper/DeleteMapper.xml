@@ -5,7 +5,7 @@
 <mapper namespace="com.nsapi.niceschoolapi.mapper.DeleteMapper">
     <!-- 删除学生信息 -->
     <update id="deleteStudent" parameterType="String">
-      update student set is_del=1 where stuid = #{stuid}
+      update student set is_del=1,leavetime=now(),stustate=2 where stuid = #{stuid}
     </update>
 
     <!-- 删除学生选课信息 -->
@@ -68,4 +68,9 @@
     <update id="deleteUser" parameterType="String">
       update sys_user set locked = 1 where login_name=#{login_name}
     </update>
+
+    <!-- 将学生添加至dropout退学信息表 -->
+    <insert id="insertDropout" parameterType="String">
+        insert into dropout (drreason,sid) values(#{param2},(select sid from student where stuid = #{param1}))
+    </insert>
 </mapper>

@@ -11,8 +11,8 @@ public class StuExamVO {
     private Integer classid;
     private String classname;
     private Integer stime;
-    private Integer normalexam;
-    private  Integer testexam;
+    private double normalexam;
+    private  double testexam;
     private double sumexam;
 
     public Integer getTid() {
@@ -31,19 +31,19 @@ public class StuExamVO {
         this.stime = stime;
     }
 
-    public Integer getNormalexam() {
+    public double getNormalexam() {
         return normalexam;
     }
 
-    public void setNormalexam(Integer normalexam) {
+    public void setNormalexam(double normalexam) {
         this.normalexam = normalexam;
     }
 
-    public Integer getTestexam() {
+    public double getTestexam() {
         return testexam;
     }
 
-    public void setTestexam(Integer testexam) {
+    public void setTestexam(double testexam) {
         this.testexam = testexam;
     }
 

@@ -17,11 +17,6 @@ public class selTchExamServiceImpl implements SelTchExamService {
     private SelTchExamMapper selTchExamMapper;
 
     @Override
-    public List<Map> selTetime() {
-        return selTchExamMapper.selTetime();
-    }
-
-    @Override
     public List<Map> selTchExam(SelTchExamVO selTchExamVO) {
         return selTchExamMapper.selTchExam(selTchExamVO);
     }

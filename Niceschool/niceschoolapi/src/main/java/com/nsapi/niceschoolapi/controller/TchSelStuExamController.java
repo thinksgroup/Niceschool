@@ -19,12 +19,12 @@ public class TchSelStuExamController {
     private TchSelStuExamService tchSelStuExamService;
 
     @RequestMapping("/tchSelExam")
-    public String tchSelExam(Model model,TchSelStuExamVO tchSelStuExamVO){
+    public String tchSelExam(Model model){
         String tid=MySysUser.loginName();
         List<Map> tchClass = tchSelStuExamService.selTchClass(tid);
-        List<Map> selTchGrade= tchSelStuExamService.selTchGrade(tid);
+        List<Map> tchGrade = tchSelStuExamService.selTchGrade(tid);
         model.addAttribute("tchClass",tchClass);
-        model.addAttribute("selTchGrade",selTchGrade);
+        model.addAttribute("tchGrade",tchGrade);
         return "view/student/tchSelStuExam";
     }
 

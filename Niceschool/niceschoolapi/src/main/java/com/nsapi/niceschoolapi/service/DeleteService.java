@@ -33,4 +33,7 @@ public interface DeleteService {
 
     //  改用户登录状态改为（1）锁定状态
     Integer deleteUser(String loginName);
+
+    //  将学生添加至dropout退学信息表
+    Integer insertDropout(String stuid, String drreason);
 }

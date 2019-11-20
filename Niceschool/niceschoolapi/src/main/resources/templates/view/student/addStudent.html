@@ -8,20 +8,14 @@
 
 </head>
 <body>
-    <form class="layui-form layui-form-pane" th:action="@{/addStudent}" th:method="post">
+    <form class="layui-form layui-form-pane" lay-filter="stuform"  th:method="post">
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
                 <input type="text" name="username" th:name="sname" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item" pane="">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-                <input type="radio" th:name="sgender" value="男" title="男" checked="">
-                <input type="radio" th:name="sgender" value="女" title="女">
-            </div>
-        </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">政治面貌</label>
             <div class="layui-input-inline">
@@ -32,33 +26,44 @@
         </div>
 
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">出生日期</label>
-                <div class="layui-input-block">
-                    <input type="text" name="date" th:name="birthday" lay-verify="date" id="date" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label">民族</label>
             <div class="layui-input-inline">
-                <input type="text" lay-verify="snation" th:name="snation" placeholder="请输入" autocomplete="off" class="layui-input">
+                <select name="quiz1" th:name="snation" id="minzu" lay-search>
+                </select>
             </div>
         </div>
+
 
         <div class="layui-form-item">
             <label class="layui-form-label">验证身份证</label>
             <div class="layui-input-block">
-                <input type="text" name="identity" th:name="scardid" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="identity" th:id="scardid" th:name="scardid" lay-verify="identity" placeholder="" autocomplete="off" class="layui-input" onkeyup="setInfo(this.value)">
             </div>
+            <input type="hidden" id="view2">
+        </div>
 
+        <div class="layui-form-item" pane="">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" th:name="sgender" value="男" title="男" id="radio1" checked>
+                <input type="radio" th:name="sgender" value="女" title="女" id="radio2">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-block">
+                    <input type="text" name="date" th:name="birthday" lay-verify="date" autocomplete="off" class="layui-input" id="view" readonly="readonly">
+                </div>
+            </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">验证手机</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="phone" th:name="sphone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    <input type="tel" name="phone" th:name="sphone" lay-verify="phone" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
@@ -69,19 +74,14 @@
                 <textarea placeholder="请输入内容" th:name="saddress" class="layui-textarea" lay-verify="address"></textarea>
             </div>
         </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">入学日期</label>
-                <div class="layui-input-block">
-                    <input type="text" name="date" th:name="tertime" id="date1" lay-verify="date1" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
+
+        <input type="hidden" th:name="tertime" id="tertime">
+
         <div class="layui-form-item">
             <label class="layui-form-label">系</label>
             <div class="layui-input-inline">
                 <select th:name="did"  lay-search="" lay-verify="required" id="required1"  lay-filter="required1">
-                    <option value="">请选择</option>
+                    <option value="0">请选择</option>
                 </select>
             </div>
 
@@ -89,32 +89,64 @@
             <div class="layui-input-inline">
                 <select th:name="mid"  lay-search="" lay-verify="required" id="required2"  lay-filter="required2">
                     <option value="">请选择</option>
+
                 </select>
             </div>
 
             <label class="layui-form-label">年级</label>
             <div class="layui-input-inline">
                 <select th:name="gid"  lay-search="" lay-verify="required" id="required3"  lay-filter="required3">
-                    <option value="">请选择</option>
+                    <option value="0">请选择</option>
                 </select>
             </div>
 
             <label class="layui-form-label">班级</label>
             <div class="layui-input-inline">
                 <select th:name="classid" lay-search="" lay-verify="required" id="required4"  lay-filter="required4">
-                    <option value="">请选择</option>
+                    <option value="0">请选择</option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                <button  type="button" class="layui-btn" lay-filter="demo1" id="demo1" lay-submit>立即提交</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
+
+
     </form>
 
     <script>
+        function setInfo(idCard){
+            document.getElementById('view').value=getBirth(idCard);
+            document.getElementById('view2').value=getSex(idCard);
+        }
+        function getBirth(idCard) {
+            var birthday = "";
+            if (idCard != null && idCard != "") {
+                if (idCard.length == 15) {
+                    birthday = "19" + idCard.slice(6, 12);
+                } else if (idCard.length == 18) {
+                    birthday = idCard.slice(6, 14);
+                }
+                birthday = birthday.replace(/(.{4})(.{2})/, "$1-$2-");
+                //通过正则表达式来指定输出格式为:1990-01-01
+            }
+            return birthday;
+        }
+       function getSex(idCard) {
+            var sexStr = '';
+            if (parseInt(idCard.slice(-2, -1)) % 2 == 1) {
+                sexStr = '男';
+
+            }
+            else {
+                sexStr = '女';
+            }
+            return sexStr;
+        }
+
         layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'jquery', 'form','layedit'], function() {
             var laydate = layui.laydate ,//日期
                 laypage = layui.laypage, //分页
@@ -132,6 +164,24 @@
                 });
             });
 
+            layui.$("#scardid").on('blur',function(){
+                var gender = layui.$("#view2").val();
+                if(gender == '男'){
+                    $("#radio1").trigger("click");
+                }else{
+                    $("#radio2").trigger("click");
+                }
+                form.render();
+            });
+
+
+            var mz=new Array('汉族','蒙古族','回族','藏族','维吾尔族','苗族','彝族','壮族','布依族','朝鲜族','满族','侗族','瑶族','白族','土家族','哈尼族','哈萨克族','傣族','黎族','僳僳族','佤族','畲族','高山族','拉祜族','水族','东乡族','纳西族','景颇族','柯尔克孜族','土族','达斡尔族','仫佬族','羌族','布朗族','撒拉族','毛南族','仡佬族','锡伯族','阿昌族','普米族','塔吉克族','怒族','乌孜别克族','俄罗斯族','鄂温克族','德昂族','保安族','裕固族','京族','塔塔尔族','独龙族','鄂伦春族','赫哲族','门巴族','珞巴族','基诺族');
+            for (const index in mz) {
+                document.getElementById("minzu").innerHTML+='<option value="'+mz[index]+'">'+mz[index]+'</option>';
+            };
+            form.render();
+
+
             if(1==1){
                 layui.$.ajax({
                     type : 'post',
@@ -142,21 +192,25 @@
                         $.each(data, function (index, obj) {
                             layui.$("#required1").append("<option value='"+obj.did+"'>"+obj.dname+"</option>");
                         });
-                        form.render('select');
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        layui.layer.msg(XMLHttpRequest.responseText);
+                        form.render();
                     }
                 });
             }
             //  监听系部下拉框 根据所选系部查询专业
             form.on('select(required1)', function(data){
-                //  移除专业下拉框所有值
-                $("#required2").find("option").remove();
-                $("#required3").find("option").remove();
-                $("#required4").find("option").remove();
+                if(data.value==0){
+                    layui.$('#required2').html("");
+                    layui.$('#required3').html("");
+                    layui.$('#required4').html("");
+                    form.render();
+                }
+
                 //  若系部下拉框值不等于0
-               if(data.value!=0){
+               else{
+                   //  移除专业下拉框所有值
+                   $("#required2").find("option").remove();
+                   $("#required3").find("option").remove();
+                   $("#required4").find("option").remove();
                     layui.$.ajax({
                         type : 'post',
                         url : "selectdid",
@@ -169,7 +223,7 @@
                             $.each(data, function (index, obj) {
                                 layui.$("#required2").append("<option value='" + obj.mid + "'>" + obj.mname + "</option>");
                             });
-                            form.render('select');
+                            form.render();
                             //  监听专业
                             var required2 = $("#required2").val();
                             $("#required3").find("option").remove();
@@ -188,7 +242,7 @@
                                             layui.$("#required3").append("<option value='"+obj.gid+"'>"+obj.gname+"</option>");
 
                                         });
-                                        form.render('select');
+                                        form.render();
                                         //  监听年级
                                         var required3 = $("#required3").val();
                                         $("#required4").find("option").remove();
@@ -201,11 +255,16 @@
                                                 },
                                                 dataType:'json',
                                                 success : function(result) {
+                                                    var aa = $("#required3").find("option:selected").text();
+                                                    var year = aa.substring(0,4);
+                                                    var time = year+"-09-01";
+                                                    $("#tertime").val(time);
                                                     var data = result.data;
                                                     $.each(data, function (index, obj) {
                                                         layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                                                     });
-                                                    form.render('select');
+                                                    form.render();
+
                                                 },
                                                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                                                     layui.layer.msg(XMLHttpRequest.responseText);
@@ -245,7 +304,7 @@
                             $.each(data, function (index, obj) {
                                 layui.$("#required3").append("<option value='"+obj.gid+"'>"+obj.gname+"</option>");
                             });
-                            form.render('select');
+                            form.render();
                             //  监听年级
                             var required3 = $("#required3").val();
                             $("#required4").find("option").remove();
@@ -258,11 +317,15 @@
                                     },
                                     dataType:'json',
                                     success : function(result) {
+                                        var aa = $("#required3").find("option:selected").text();
+                                        var year = aa.substring(0,4);
+                                        var time = year+"-09-01";
+                                        $("#tertime").val(time);
                                         var data = result.data;
                                         $.each(data, function (index, obj) {
                                             layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                                         });
-                                        form.render('select');
+                                        form.render();
                                     },
                                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                                         layui.layer.msg(XMLHttpRequest.responseText);
@@ -291,11 +354,15 @@
                         },
                         dataType:'json',
                         success : function(result) {
+                            var aa = $("#required3").find("option:selected").text();
+                            var year = aa.substring(0,4);
+                            var time = year+"-09-01";
+                            $("#tertime").val(time);
                             var data = result.data;
                             $.each(data, function (index, obj) {
                                 layui.$("#required4").append("<option value='"+obj.classid+"'>"+obj.classname+"</option>");
                             });
-                            form.render('select');
+                            form.render();
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                             layui.layer.msg(XMLHttpRequest.responseText);
@@ -304,11 +371,9 @@
                 }
             });
 
+
+
             //日期
-            laydate.render({
-                elem: '#date',
-                trigger: 'click',
-            });
             laydate.render({
                 elem: '#date1',
                 trigger: 'click',
@@ -322,10 +387,6 @@
                         return '请按正确格式输入';
                     }
                 }
-                ,date:[
-                    /^[\s\S]*.*[^\s][\s\S]*$/
-                    ,'请按正确格式填写信息'
-                ]
                 ,date1:[
                     /^[\s\S]*.*[^\s][\s\S]*$/
                     ,'请按正确格式填写信息'
@@ -336,6 +397,14 @@
                 ]
                 ,address:[
                     /^[\s\S]*.*[^\s][\s\S]*$/
+                    ,'请按正确格式填写信息'
+                ]
+                ,identity:[
+                    /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+                    ,'请按正确格式填写信息'
+                ]
+                ,phone:[
+                    /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
                     ,'请按正确格式填写信息'
                 ]
             });
@@ -367,6 +436,81 @@
                     }
                 });
             });
+
+            $("#demo1").on('click',function(){
+                layui.$.ajax({
+                    type : 'post',
+                    url : "addStudent",
+                    dataType:'json',
+                    data:layui.$('form').serialize(),
+                    success :function(result) {
+
+                        var data = result.data;
+                        var nickName= data.sname ;
+                        var tel = data.sphone;
+                        var loginName;
+                        var adminUser = true;
+                        var locked = false;
+                        var roleLists = result.msg;
+                        var idnum;
+                        $.each(data, function (index, obj) {
+                            nickName = obj.sname;
+                            tel = obj.sphone;
+                            loginName = obj.stuid;
+                            idnum = obj.scardid;
+
+                        });
+                        var password = idnum.substring(idnum.length-6);
+
+                        var user = {
+                            "loginName":loginName,
+                            "nickName":nickName,
+                            "tel":tel,
+                            "adminUser":adminUser,
+                            "locked":locked,
+                            "roleLists":{},
+                            "password":password
+                        }
+                        var selectRole = [];
+                        selectRole.push({"id":roleLists});
+                        user.roleLists=selectRole;
+                        $.ajax({
+                            type:'post',
+                            url:"/admin/system/user/add",
+                            dataType: "json",
+                            contentType: "application/json;charset=UTF-8",
+                            data:JSON.stringify(user),
+                            success:function(data){
+                                if(data){
+                                    layer.msg(
+                                        "添加成功", {
+                                            icon: 1,
+                                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                            ,end:function(){
+                                                window.location.reload();
+                                            }
+                                        } );
+                                }else{
+                                    layer.msg(
+                                        "添加失败", {
+                                            icon: 1,
+                                            time: 1000 //2秒关闭（如果不配置，默认是3秒）
+                                            ,end:function(){
+                                                window.location.reload();
+                                            }
+                                        } );
+                                }
+                            }
+                        });
+
+
+
+                    }
+                });
+            });
+
+
+
 
         });
     </script>

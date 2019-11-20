@@ -6,7 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface SelTchExamMapper {
-    List<Map> selTetime();
-
     List<Map> selTchExam(SelTchExamVO selTchExamVO);
 }

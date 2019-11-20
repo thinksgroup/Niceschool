@@ -3,6 +3,8 @@ package com.nsapi.niceschoolapi.mapper;
 import com.nsapi.niceschoolapi.entity.TeacherDB;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface AddTEacherMapper {
 
@@ -14,4 +16,13 @@ public interface AddTEacherMapper {
     Integer teaSegmentation();
     //  生成教师工号
     String selTchid();
+
+
+    //  根据教师工号查询信息
+    List<TeacherDB> selTeaMessage(String tchid);
+    //  查询sys_role角色id
+    String selectTeaRole();
+
+    //  查询教师数量
+    Integer selTeacherCount();
 }

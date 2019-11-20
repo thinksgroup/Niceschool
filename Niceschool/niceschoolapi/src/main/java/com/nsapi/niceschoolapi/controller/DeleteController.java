@@ -4,6 +4,7 @@ import com.nsapi.niceschoolapi.entity.LayuiResult;
 import com.nsapi.niceschoolapi.service.DeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,10 +15,18 @@ public class DeleteController {
     @Autowired
     private DeleteService deleteService;
 
+    @RequestMapping("/insertDropout")
+    public String insertDropout(String stuid, Model model){
+        model.addAttribute("stuid",stuid);
+        return "view/student/dropout";
+    }
+
     @RequestMapping("delStudent")
     @ResponseBody
-    public LayuiResult<Map> delStudent(String stuid){
+    public LayuiResult<Map> delStudent(String stuid,String drreason){
         LayuiResult result = new LayuiResult();
+        //  将学生添加至dropout退学信息表
+        Integer aa = deleteService.insertDropout(stuid,drreason);
         //  删除学生信息
         Integer deleteStudent = deleteService.deleteStudent(stuid);
         //  删除学生选课信息

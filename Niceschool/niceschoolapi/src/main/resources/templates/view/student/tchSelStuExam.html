@@ -9,25 +9,23 @@
 <body>
 <div class="layui-form">
     <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
-        <div class="layui-input-inline">
-            <select name="entertime" id="entertime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option th:each="g:${selTchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
-            </select>
-        </div>
+        班级：
         <div class="layui-input-inline">
             <select  name="classid" id="classid" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="" disabled selected hidden>请选择</option>
                 <option th:each="c:${tchClass}" th:value="${c.classid}" th:text="${c.classname}"></option>
             </select>
         </div>
+        年级：
         <div class="layui-input-inline">
-            <select name="stime" id="stime" lay-search="" lay-verify="stime"  lay-filter="stime">
-                <option value="1">大一上学期</option>
-                <option value="2">大一下学期</option>
-                <option value="3">大二上学期</option>
-                <option value="4">大二下学期</option>
-                <option value="5">大三上学期</option>
-                <option value="6">大三下学期</option>
+            <select  name="gname" id="gname" lay-search="" lay-verify="stime"  lay-filter="stime">
+                <option value="" disabled selected hidden>请选择</option>
+                <option th:each="g:${tchGrade}" th:value="${g.gname}" th:text="${g.gname}"></option>
             </select>
+        </div>
+        学生姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="sname" id="sname" autocomplete="off">
         </div>
     </div>
 
@@ -53,11 +51,12 @@
             ,title: '成绩查询'
             ,cols: [
                 [ //表头
-                    {field: 'sname', title: '学生'}
+                    {field: 'sid', title: '学号'}
+                    ,{field: 'sname', title: '学生'}
                     ,{field: 'cname', title: '课程'}
                     ,{field: 'ccredit', title: '学分'}
-                    ,{field: 'type', title: '类别'}
-                    ,{field: 'studynature', title: '修读性质'}
+                    ,{field: 'ctname', title: '类别'}
+                    ,{field: 'studytype', title: '修读性质'}
                     ,{field: 'normalexam', title: '平时成绩'}
                     ,{field: 'testexam', title: '考试成绩'}
                     ,{field: 'sumexam', title: '综合成绩'}
@@ -70,19 +69,18 @@
         var $ = layui.$;
         $('#selBtn').on('click', function(){
             //获取输入框
-            var entertime = $('#entertime');
+            var gname = $('#gname');
             var classid = $('#classid');
-            var stime = $('#stime');
+            var sname = $('#sname');
             //执行重载
             table.reload('tchSelStuExam', {
                 page: {
                     curr: 1 //重新从第 1 页开始selTeacher
                 }
                 ,where: {
-                    entertime: entertime.val(),
-                    classid: classid.val(),
-                    stime: stime.val()
-
+                    gname: gname.val(),
+                    sname: sname.val(),
+                    classid: classid.val()
                 }
             });
         });

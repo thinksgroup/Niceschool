@@ -3,9 +3,18 @@ package com.nsapi.niceschoolapi.entity;
 public class TchSelStuExamVO {
     private String tid;
     private Integer stime;
-    private String entertime;
+    private String gname;
     private Integer classid;
     private String classname;
+    private String sname;
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
 
     public String getClassname() {
         return classname;
@@ -31,12 +40,12 @@ public class TchSelStuExamVO {
         this.stime = stime;
     }
 
-    public String getEntertime() {
-        return entertime;
+    public String getGname() {
+        return gname;
     }
 
-    public void setEntertime(String entertime) {
-        this.entertime = entertime;
+    public void setGname(String gname) {
+        this.gname = gname;
     }
 
     public Integer getClassid() {

@@ -77,7 +77,7 @@ public class StudentController extends BaseController {
     }
 
 
-    //  根据id查询一条学生信息
+    //  根据id查询一条学生信息以此进行修改
     @RequestMapping("/selStudentId")
     public String selStudentId(Integer id, Model model){
         //  查询学生信息
@@ -90,6 +90,21 @@ public class StudentController extends BaseController {
         model.addAttribute("cls",cls);
         model.addAttribute("stupol",stupol);
         return "view/student/updStudent";
+    }
+
+    //  根据id查询显示学生详细信息
+    @RequestMapping("/selectMessage")
+    public String selectMessage(Integer id, Model model){
+        //  查询学生信息
+        List<StudentDB> stu = studentService.selStudentId(id);
+        //  查询班级
+        List<ClassinfoDB> cls = studentService.selClass();
+        //  查询政治面貌表
+        List<PoliticsTypeDB> stupol = studentService.selPolitics();
+        model.addAttribute("stu",stu);
+        model.addAttribute("cls",cls);
+        model.addAttribute("stupol",stupol);
+        return "view/student/selStuExam";
     }
 
     //  修改用户信息
