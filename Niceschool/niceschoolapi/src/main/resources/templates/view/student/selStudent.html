@@ -405,6 +405,10 @@
                         area: ['600px', '400px'],   //弹出框大小
                         anim: 1,              //弹出动画
                         content:'insertDropout?stuid='+data.stuid,
+                        end: function() {
+                            //刷新页面,
+                            location.reload();
+                        }
                     });
                 }
                 // //  删除学生
