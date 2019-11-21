@@ -27,4 +27,6 @@ public interface TchCourseService {
     int findTchCourseDanger(TchCourseVO tchCourseVO);
     //查询指定老师教授所有课程
     List<TchCourseVO> findCourseByTch(TchCourseVO tchCourseVO);
+    //删除教师授课及班级
+    int delTchCourse(TchCourseVO tchCourseVO);
 }

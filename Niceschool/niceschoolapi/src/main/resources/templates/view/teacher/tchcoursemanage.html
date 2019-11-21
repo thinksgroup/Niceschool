@@ -101,7 +101,9 @@
     <a class="layui-btn layui-btn-sm" lay-event="sel">已选</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit">选课</a>
 </script>
-
+<script type="text/html" id="delBarBtn">
+    <a class="layui-btn layui-btn-sm" lay-event="del">删除</a>
+</script>
 <script>
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
         var $ = layui.$ //重点处
@@ -136,15 +138,45 @@
                     , {field: 'cname', title: '课目'}
                     , {field: 'classname', title: '班级'}
                     , {field: 'gname', title: '年级'}
+                    , {fixed: 'right', title: '操作', toolbar: '#delBarBtn', width: 100}
                 ]
             ],
             page: true,
             even: true,
             id: 'selReload'
         });
+        //监听删除工具条
+        table.on('tool(tchTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确定要删除该门课吗？', function (index) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/tchcoursemanage/deltchcourse',
+                        data: {
+                            tcsid:data.tcsid
+                        },
+                        success: function (editdata) {
+                            if (editdata == true) {
+                                layer.open({
+                                    content: '删除成功！',
+                                    yes: function (index) {
+                                        layer.close(index);
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                layer.alert('删除失败，请稍后重试！');
+                            }
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
 
+        });
 
-        //监听工具条
+        //监听添加查看工具条
         table.on('tool(gradeTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
@@ -283,7 +315,7 @@
                 layer.open({
                     type: 1,
                     resize: false,
-                    area: ['600px', '370px'],
+                    area: ['600px', '500px'],
                     title: '选择授课教师：'+data.tname+' 教师工号：' + data.tchid,
                     content: $('#editDiv'),
                     btn: ['提交', '取消'],
@@ -296,7 +328,6 @@
                             schid:1,
                             gid:$("#editSelGrade option:selected").val()
                         };
-                        console.log(tchCourseData);
                         var tips='确定让【'+data.tname+'】老师教 ['+$("#editSelGrade option:selected").text()+'] ['+$("#editSelDpm option:selected").text()+'] ['+$("#editSelMajor option:selected").text()+'] ['+$("#editSelClass option:selected").text()+'班] 的 ['+$("#editSelCourse option:selected").text()+'课] 吗？';
                         layer.confirm(tips.toString(), function (index) {
                             $.ajax({
@@ -333,7 +364,7 @@
                     type: 1,
                     resize: false,
                     area: ['1000px', '500px'],
-                    title: '查看'+data.tname+'教师所授课目，教师工号：' + data.tchid,
+                    title: '查看【'+data.tname+'】所授课目，教师工号：' + data.tchid,
                     content: $('#selDiv'),
                     btn: ['确认'],
                     yes: function (index) {

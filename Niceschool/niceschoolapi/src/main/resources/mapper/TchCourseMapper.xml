@@ -58,4 +58,8 @@
 classinfo ci,course cr,grade gr,teacher t where tcs.tcid=tc.tcid and ci.classid=tcs.classid
 and tc.gid=gr.gid and cr.cid=tc.cid and t.tid=tcs.tid and tc.tid=#{tid} and tcs.is_del=0 and tc.is_del=0
     </select>
+    <!--删除教师授课及班级-->
+    <delete id="delTchCourse" parameterType="TchCourseVO">
+        delete tcs,tc from tch_course as tc left join tch_class as tcs on tcs.tcid=tc.tcid where tcs.tcsid=#{tcsid};
+    </delete>
 </mapper>

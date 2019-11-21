@@ -72,5 +72,10 @@ public class TchCourseServiceImpl implements TchCourseService {
     //查询指定老师教授所有课程
     @Override
     public List<TchCourseVO> findCourseByTch(TchCourseVO tchCourseVO) { return tchCourseMapper.findCourseByTch(tchCourseVO); }
+    //删除教师授课及班级
+    @Override
+    public int delTchCourse(TchCourseVO tchCourseVO) {
+        return tchCourseMapper.delTchCourse(tchCourseVO);
+    }
 
 }

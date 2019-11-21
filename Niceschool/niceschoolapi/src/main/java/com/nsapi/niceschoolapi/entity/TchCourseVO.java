@@ -24,6 +24,7 @@ public class TchCourseVO implements Serializable {
     private Integer mid; //专业编号
     private Integer mcount; //专业人数
     private Integer did; //系部编号
+    private Integer tcsid; //教师班级编号
     private Integer tcid; //教师授课编号
     private Integer tid; //教师编号
     private Integer wid; //授课星期编号
@@ -401,4 +402,8 @@ public class TchCourseVO implements Serializable {
     public void setIsDel(Integer isDel) {
         this.isDel = isDel;
     }
+
+    public Integer getTcsid() { return tcsid; }
+
+    public void setTcsid(Integer tcsid) { this.tcsid = tcsid; }
 }
