@@ -16,8 +16,9 @@ public class DeleteController {
     private DeleteService deleteService;
 
     @RequestMapping("/insertDropout")
-    public String insertDropout(String stuid, Model model){
+    public String insertDropout(String stuid,String sname, Model model){
         model.addAttribute("stuid",stuid);
+        model.addAttribute("sname",sname);
         return "view/student/dropout";
     }
 

@@ -15,6 +15,13 @@
         </div>
     </div>
 
+    <div class="layui-form-item" style="margin-top: 10px">
+        <label class="layui-form-label">姓名：</label>
+        <div class="layui-input-inline">
+            <input name="username" class="layui-input" type="text"autocomplete="off" lay-verify="sname" th:value="${sname}" id="sname" th:name="sname" disabled>
+        </div>
+    </div>
+
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">退学理由</label>
         <div class="layui-input-block">

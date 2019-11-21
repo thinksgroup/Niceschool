@@ -404,7 +404,7 @@
                         shadeClose:true,          //点击遮罩层外区域关闭遮罩层
                         area: ['600px', '400px'],   //弹出框大小
                         anim: 1,              //弹出动画
-                        content:'insertDropout?stuid='+data.stuid,
+                        content:'insertDropout?stuid='+data.stuid+"&sname="+data.sname,
                         end: function() {
                             //刷新页面,
                             location.reload();

@@ -19,7 +19,7 @@ import java.util.Map;
 @Controller
 //使用它标记的类就是一个SpringMVC Controller 对象。分发处理器将会扫描使用了该注解的类的方法
 public class AddStudentController {
-    @Autowired
+    @Autowired  //  自动注入
     private StudentService studentService;
     @Autowired
     private AddStudentService addStudentService;
@@ -35,8 +35,6 @@ public class AddStudentController {
     //  添加学生
     @RequestMapping("addStudent") //   用来处理请求地址映射的注解
     @ResponseBody   // 通常用来返回JSON数据给客户端
-    @Transactional(rollbackFor = { Exception.class })
-    //  类里面的方法抛出异常，就会回滚，数据库里面的数据也会回滚
     public LayuiResult<StudentDB> addStudent(StudentVO studentVO, String birthday, String tertime) throws Exception{
         LayuiResult<StudentDB> result= new LayuiResult<>();
         //  将接收到的时间进行类型转换

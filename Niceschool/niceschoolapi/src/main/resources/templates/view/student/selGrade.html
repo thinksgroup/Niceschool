@@ -7,16 +7,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
 </head>
 <body>
-   <div th:each="m:${selStudentMessage}" class="layui-form">
-       <span style="color: #9F9F9F">系部：</span>
-       <span th:text="${m.dname}" style="margin-right: 40px"></span>
-       <span style="color: #9F9F9F">行政班级：</span>
-       <span th:text="${m.gmc}"  style="margin-right: 35px"></span>
-       <span style="color: #9F9F9F">学号：</span>
-       <span th:text="${m.stuid}"  style="margin-right: 35px"></span>
-       <span style="color: #9F9F9F">姓名：</span>
-       <span th:text="${m.sname}"  style="margin-right: 35px"></span>
-       <br>
+   <div th:each="m:${selStudentMessage}" class="layui-form" style="margin-top: 20px">
+
+       <blockquote class="layui-elem-quote" style="margin: 5px 20px">
+           <span style="color: #9F9F9F">系部：</span>
+           <span th:text="${m.dname}" style="margin-right: 40px"></span>
+           <span style="color: #9F9F9F">行政班级：</span>
+           <span th:text="${m.gmc}"  style="margin-right: 35px"></span>
+           <span style="color: #9F9F9F">学号：</span>
+           <span th:text="${m.stuid}"  style="margin-right: 35px"></span>
+           <span style="color: #9F9F9F">姓名：</span>
+           <span th:text="${m.sname}"  style="margin-right: 35px"></span>
+       </blockquote>
        <div class="layui-inline" style="margin-top: 10px;margin-left: 30px">
            <div class="layui-input-inline">
                <select th:name="stime" th:id="stime" lay-search="" lay-verify="stime" id="stime"  lay-filter="stime">
