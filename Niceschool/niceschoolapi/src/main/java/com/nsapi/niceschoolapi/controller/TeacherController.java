@@ -67,7 +67,7 @@ public class TeacherController {
         List<PoliticsTypeDB> selpol = lxxStudentService.selPolitics();
         model.addAttribute("tea",tea);
         model.addAttribute("selpol",selpol);
-        return "view/teacher/selTchExam";
+        return "view/teacher/selTchMessage";
     }
 
     //  修改教师信息
