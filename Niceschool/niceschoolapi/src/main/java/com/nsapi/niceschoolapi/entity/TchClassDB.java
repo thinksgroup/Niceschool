@@ -8,8 +8,8 @@ import java.io.Serializable;
  */
 
 public class TchClassDB implements Serializable {
-
-  private Integer tcid; //教师班级编号
+  private Integer tcsid; //教师班级编号
+  private Integer tcid; //教师授课编号
   private Integer tid; //教师编号
   private Integer classid; //班级编号
   private Integer isDel; //逻辑删除
@@ -44,5 +44,13 @@ public class TchClassDB implements Serializable {
 
   public void setIsDel(Integer isDel) {
     this.isDel = isDel;
+  }
+
+  public Integer getTcsid() {
+    return tcsid;
+  }
+
+  public void setTcsid(Integer tcsid) {
+    this.tcsid = tcsid;
   }
 }

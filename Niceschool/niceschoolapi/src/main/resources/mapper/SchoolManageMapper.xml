@@ -14,6 +14,7 @@
                 and d.dname=#{dname}
             </if>
         </where>
+        order by d.did desc
     </select>
     <!--添加系部-->
     <insert id="addOneDpm" parameterType="DepartmentDB">
@@ -23,10 +24,6 @@
     <update id="editOneDpm" parameterType="DepartmentDB">
         update department set dname=#{dname} where did=#{did}
     </update>
-    <!--删除系部-->
-    <delete id="delOneDpm" parameterType="Integer">
-        delete from department where did=#{did}
-    </delete>
     <!--**************************************************************专业管理***********************************************************************-->
     <!--查询全部专业-->
     <select id="findAllMajor" resultType="SchoolManageVO">
@@ -42,6 +39,7 @@
                 and d.dname=#{dname}
             </if>
         </where>
+        order by m.mid desc
     </select>
     <!--添加专业-->
     <insert id="addOneMajor" parameterType="MajorDB">
@@ -51,10 +49,6 @@
     <update id="editOneMajor" parameterType="MajorDB">
         update major set mname=#{mname},did=#{did} where mid=#{mid}
     </update>
-    <!--删除专业-->
-    <delete id="delOneMajor" parameterType="Integer">
-        delete from major where mid=#{mid}
-    </delete>
 
     <!--**************************************************************年级管理***********************************************************************-->
     <!--查询全部年级-->
@@ -75,6 +69,7 @@
                 and d.dname=#{dname}
             </if>
         </where>
+        order by g.gid desc
     </select>
     <!--级联系部查询对应专业-->
     <select id="jlSelMajor" resultType="SchoolManageVO">
@@ -88,10 +83,6 @@
     <update id="editOneGrade" parameterType="MajorDB">
         update grade set gname=#{gname},mid=#{mid} where gid=#{gid}
     </update>
-    <!--删除年级-->
-    <delete id="delOneGrade" parameterType="Integer">
-        delete from grade where gid=#{gid}
-    </delete>
 
     <!--**************************************************************班级管理***********************************************************************-->
     <!--查询全部班级-->
@@ -116,6 +107,7 @@
                     and d.dname=#{dname}
                 </if>
         </where>
+        order by c.classid desc
     </select>
     <!--级联专业查询对应年级-->
     <select id="jlSelGrade" resultType="SchoolManageVO">
@@ -129,10 +121,6 @@
     <update id="editOneClass" parameterType="ClassinfoDB">
         update classinfo set classname=#{classname},gid=#{gid} where classid=#{classid}
     </update>
-    <!--删除班级-->
-    <delete id="delOneClass" parameterType="Integer">
-        delete from classinfo where classid=#{classid}
-    </delete>
 
     <!--**************************************************************条件查询***********************************************************************-->
     <!--条件查询classname-->

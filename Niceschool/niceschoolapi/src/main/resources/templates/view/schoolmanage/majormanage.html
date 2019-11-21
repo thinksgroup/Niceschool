@@ -107,7 +107,6 @@
 </html>
 <script type="text/html" id="barBtn">
     <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</a>
 </script>
 
 <script>
@@ -132,7 +131,7 @@
                     {field: 'mid', title: '专业编号', width: 200}
                     , {field: 'mname', title: '专业名称'}
                     , {field: 'dname', title: '所属系部'}
-                    , {fixed: 'right', title: '操作', toolbar: '#barBtn', width: 150}
+                    , {fixed: 'right', title: '操作', toolbar: '#barBtn',width:100}
                 ]
             ]
             ,
@@ -277,32 +276,6 @@
 
                     }
                 });
-            } else if (obj.event === 'del') {
-                layer.alert('你在想毛线呢？！');
-                //删除问题
-                /*layer.confirm('确定要删除吗？', function (index) {
-                    $.ajax({
-                        type: 'post',
-                        url: '/schoolmanage/delonemajor',
-                        data: {
-                            mid: data.mid
-                        },
-                        success: function (deldata) {
-                            if (deldata == true) {
-                                obj.del();
-                                layer.open({
-                                    content: '删除成功！',
-                                    yes: function (index) {
-                                        layer.close(index);
-                                    }
-                                });
-                            } else {
-                                layer.msg('删除失败，请稍后重试！');
-                            }
-                        }
-                    });
-                    layer.close(index);
-                });*/
             }
 
         });

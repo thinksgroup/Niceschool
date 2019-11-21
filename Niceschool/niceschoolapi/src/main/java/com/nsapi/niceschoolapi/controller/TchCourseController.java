@@ -142,17 +142,23 @@ public class TchCourseController extends BaseController {
         if(flag>0){
             return false;
         }else{
-            int r = tchCourseService.addOneTchCourse(tchCourseVO);
-            if(r>0){
-                int r2 = tchCourseService.addOneTchClass(tchCourseVO);
-                if(r2>0){
-                    return true;
+            int d = tchCourseService.findTchCourseDanger(tchCourseVO);
+            if (d>0){
+                return false;
+            }else {
+                int r = tchCourseService.addOneTchCourse(tchCourseVO);
+                if(r>0){
+                    int r2 = tchCourseService.addOneTchClass(tchCourseVO);
+                    if(r2>0){
+                        return true;
+                    }else{
+                        return false;
+                    }
                 }else{
                     return false;
                 }
-            }else{
-                return false;
             }
+
         }
 
     }
@@ -174,6 +180,20 @@ public class TchCourseController extends BaseController {
         return sData;
     }
 
+    /**
+     * 教师授课及班级删除
+     */
 
+    @RequestMapping("deltchcourse")
+    @ResponseBody
+    public Object delTchCourse(TchCourseVO tchCourseVO){
+        int flag = tchCourseService.delTchCourse(tchCourseVO);
+        if(flag>0){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
 
 }

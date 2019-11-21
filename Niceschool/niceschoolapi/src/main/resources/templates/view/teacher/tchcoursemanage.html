@@ -90,20 +90,6 @@
                         lay-search></select>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">选择星期</label>
-            <div class="layui-input-block">
-                <select id="editSelWeeks" name="editSelWeeks" lay-filter="editSelWeeks" lay-verify="editSelWeeks"
-                        lay-search></select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">选择节段</label>
-            <div class="layui-input-block">
-                <select id="editSelSchedule" name="editSelSchedule" lay-filter="editSelSchedule" lay-verify="editSelSchedule"
-                        lay-search></select>
-            </div>
-        </div>
     </form>
 
 </div>
@@ -115,7 +101,9 @@
     <a class="layui-btn layui-btn-sm" lay-event="sel">已选</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit">选课</a>
 </script>
-
+<script type="text/html" id="delBarBtn">
+    <a class="layui-btn layui-btn-sm" lay-event="del">删除</a>
+</script>
 <script>
     layui.use(['jquery', 'layer', 'form', 'table', 'laydate'], function () {
         var $ = layui.$ //重点处
@@ -132,8 +120,7 @@
             url: '/tchcoursemanage/findalltch',
             cols: [
                 [
-                      {field: 'tid', title: '教师编号', width: 200}
-                    , {field: 'tchid', title: '教师工号'}
+                    {field: 'tchid', title: '教师工号'}
                     , {field: 'tname', title: '教师姓名'}
                     , {fixed: 'right', title: '操作', toolbar: '#barBtn', width: 150}
                 ]
@@ -149,19 +136,47 @@
                     {field: 'tid', title: '教师工号'}
                     , {field: 'tname', title: '教师姓名'}
                     , {field: 'cname', title: '课目'}
-                    , {field: 'wname', title: '星期'}
-                    , {field: 'schname', title: '节段'}
                     , {field: 'classname', title: '班级'}
                     , {field: 'gname', title: '年级'}
+                    , {fixed: 'right', title: '操作', toolbar: '#delBarBtn', width: 100}
                 ]
             ],
             page: true,
             even: true,
             id: 'selReload'
         });
+        //监听删除工具条
+        table.on('tool(tchTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确定要删除该门课吗？', function (index) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/tchcoursemanage/deltchcourse',
+                        data: {
+                            tcsid:data.tcsid
+                        },
+                        success: function (editdata) {
+                            if (editdata == true) {
+                                layer.open({
+                                    content: '删除成功！',
+                                    yes: function (index) {
+                                        layer.close(index);
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                layer.alert('删除失败，请稍后重试！');
+                            }
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
 
+        });
 
-        //监听工具条
+        //监听添加查看工具条
         table.on('tool(gradeTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
@@ -309,11 +324,10 @@
                             tid:data.tchid,
                             classid:$("#editSelClass option:selected").val(),
                             cid:$("#editSelCourse option:selected").val(),
-                            wid:$("#editSelWeeks option:selected").val(),
-                            schid:$("#editSelSchedule option:selected").val(),
+                            wid:1,
+                            schid:1,
                             gid:$("#editSelGrade option:selected").val()
                         };
-                        console.log(tchCourseData);
                         var tips='确定让【'+data.tname+'】老师教 ['+$("#editSelGrade option:selected").text()+'] ['+$("#editSelDpm option:selected").text()+'] ['+$("#editSelMajor option:selected").text()+'] ['+$("#editSelClass option:selected").text()+'班] 的 ['+$("#editSelCourse option:selected").text()+'课] 吗？';
                         layer.confirm(tips.toString(), function (index) {
                             $.ajax({
@@ -330,44 +344,13 @@
                                             }
                                         });
                                     } else {
-                                        layer.msg('添加失败，请检查是否有重复！');
+                                        layer.alert('无法授课，该课已存在或与其他教师冲突！');
                                     }
                                 }
                             });
                             layer.close(index);
                         });
-                        /*if (editCname.trim() == "") {
-                            layer.alert('请输入年级名称！');
-                            $("#editClassText").val("");
-                        } else if (editCname.trim() == data.gname.trim() && $("#editSelDpm option:selected").val() == data.did && $("#editSelMajor option:selected").val() == data.mid) {
-                            layer.alert('未做任何修改！');
-                        } else {
-                            layer.confirm('确定要修改吗？', function (index) {
-                                $.ajax({
-                                    type: 'post',
-                                    url: '/schoolmanage/editoneclass',
-                                    data: {
-                                        classid: data.classid,
-                                        classname: editCname,
-                                        gid: $("#editSelGrade option:selected").val()
-                                    },
-                                    success: function (editdata) {
-                                        if (editdata == true) {
-                                            layer.open({
-                                                content: '修改成功！',
-                                                yes: function (index) {
-                                                    layer.close(index);
-                                                    window.location.reload();
-                                                }
-                                            });
-                                        } else {
-                                            layer.msg('修改失败，请稍后重试！');
-                                        }
-                                    }
-                                });
-                                layer.close(index);
-                            });
-                        }*/
+
 
 
                     }
@@ -381,7 +364,7 @@
                     type: 1,
                     resize: false,
                     area: ['1000px', '500px'],
-                    title: '查看'+data.tname+'教师所授课目，教师工号：' + data.tchid,
+                    title: '查看【'+data.tname+'】所授课目，教师工号：' + data.tchid,
                     content: $('#selDiv'),
                     btn: ['确认'],
                     yes: function (index) {
