@@ -151,6 +151,7 @@
                     , {field: 'gname', title: '年级名称'}
                     , {field: 'mname', title: '所属专业'}
                     , {field: 'dname', title: '所属系部'}
+                    , {field: 'gcount', title: '年级人数'}
                     , {fixed: 'right', title: '操作', toolbar: '#barBtn',width:100}
                 ]
             ]
@@ -270,7 +271,7 @@
                                                 }
                                             });
                                         } else {
-                                            layer.msg('提交失败，请稍后重试！');
+                                            layer.msg('添加失败，请检查是否重复或稍后重试！');
                                         }
                                     }
                                 });

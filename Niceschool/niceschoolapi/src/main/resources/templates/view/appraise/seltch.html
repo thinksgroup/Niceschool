@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>学生教评</title>
-    <!--<script type="text/javascript" th:src="@{/js/jquery-3.1.1.js}"></script>-->
     <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/static/js/marked.js}"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
@@ -15,7 +14,6 @@
 </head>
 <style>
     .layui-card {
-
         box-shadow: #c0c0c0 0 1px 3px;
     }
 </style>
@@ -27,10 +25,7 @@
 <div id="editDiv" style="display: none">
 
     <form id="tmlist" class="layui-form" style="padding: 10px;">
-
-
     </form>
-
 
 </div>
 </div>
@@ -49,8 +44,6 @@
             , table = layui.table
             , layer = layui.layer
             , laydate = layui.laydate;
-
-
         //获取分页数据列表
         table.render({
             elem: '#tchlist'
@@ -66,13 +59,11 @@
             , page: false
             , even: true
         });
-
         //监听工具条
         table.on('tool(tmTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
                 var $ = layui.$;
-
                 //查询教评状态
                 $.ajax({
                     type: 'post',
@@ -89,7 +80,6 @@
                                 }
                             });
                         } else {
-
                             //开始获取题目数据
                             $.ajax({
                                 type: 'post',
@@ -104,12 +94,10 @@
                                     for (var i in result) {
                                         lists += "<div class='layui-card'><div class='layui-card-header'>第" + adnum(i) + "题：</div><div class='layui-card-body'><div class='layui-form-item'>评价内容：" + result[i].elcontent + "</div><div class='layui-form-item'><div class='layui-input-block'><input type='radio' name='t" + i + "' value='5' title='很好'><input type='radio' name='t" + i + "' value='4' title='好'><input type='radio' name='t" + i + "' value='3' title='一般'><input type='radio' name='t" + i + "' value='2' title='较差'><input type='radio' name='t" + i + "' value='1' title='差'></div></div></div></div>";
                                     }
-
                                     function adnum(nums) {
                                         nums++;
                                         return nums;
                                     }
-
                                     $('#tmlist').html(lists);
                                     form.render();
                                     //弹出做题窗口
@@ -129,7 +117,6 @@
                                                 console.log(names+':'+temps);
                                                 if (!isNaN(temps)){
                                                     sum += temps;
-
                                                 }else {
                                                     var err = i+1;
                                                     layer.open({
@@ -166,94 +153,15 @@
                                                 });
                                                 layer.close(index);
                                             });
-                                            /*$.ajax({
-                                                type: 'post',
-                                                url: '/news/editingnews',
-                                                data: {
-                                                    nid: $('#nid').val(),
-                                                    ntitle: $('#ntitle').val(),
-                                                    nauthor: $('#nauthor').val(),
-                                                    ncontent: $('#ncontent').val(),
-                                                    ntime: $('#ntime').val()
-                                                },
-                                                success: function (data) {
-                                                    if (data == true) {
-                                                        layer.open({
-                                                            content: '已成功更新数据！',
-                                                            yes: function (index, layero) {
-                                                                layer.close(index);
-                                                                window.location.reload();
-                                                            }
-                                                        });
-                                                    } else {
-                                                        layer.msg('更新失败，请稍后重试！');
-                                                    }
-                                                }
-                                            });*/
-
-
-                                            //layer.close(index);
                                         }
                                     });
-
-
                                 }
                             });
-
-
                         }
                     }
                 });
-
-
             }
-
         });
-
-        //监听提交
-        /*form.on('submit(subBtn)', function(data){
-            layui.use('jquery',function(){
-                var $=layui.$;
-                $.ajax({
-                    type: 'post',
-                    url: '/news/addingNews',
-                    data: {
-                        ntitle:data.field.ntitle,
-                        nauthor:data.field.nauthor,
-                        ncontent:data.field.ncontent
-                    },
-                    success: function(data){
-                        if(data==true){
-                            layer.open({
-                                content: '已成功发布！',
-                                yes: function(index, layero){
-                                    window.location.reload();
-                                    layer.close(index);
-                                }
-                            });
-                        }else{
-                            layer.msg('发布失败，请稍后重试！');
-                        }
-                    }
-                });
-            });
-            return false;//禁止跳转，否则会提交两次，且页面会刷新
-        });*/
-
-        /**
-         * 转换时间格式
-         */
-        function fDate(date) {
-            var d = new Date(date);
-            var month = (d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1) : (d.getMonth() + 1);
-            var day = d.getDate() < 10 ? '0' + d.getDate() : d.getDate();
-            var hours = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
-            var min = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
-            var sec = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
-            var times = d.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + min + ':' + sec;
-            return times
-        }
-
     });
 
 

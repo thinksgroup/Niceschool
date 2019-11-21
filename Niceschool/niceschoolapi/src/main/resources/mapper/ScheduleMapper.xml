@@ -6,13 +6,4 @@
     <select id="findAllSchedule" resultType="ScheduleDB">
         select * from schedule
     </select>
-    <!--<insert id="addNews" parameterType="NewsDB">-->
-        <!--insert into newsinfo(ntitle,ncontent,nauthor) values(#{ntitle},#{ncontent},#{nauthor})-->
-    <!--</insert>-->
-    <!--<update id="editNews" parameterType="NewsDB">-->
-        <!--update newsinfo set ntitle=#{ntitle},ncontent=#{ncontent},nauthor=#{nauthor} where nid=#{nid}-->
-    <!--</update>-->
-    <!--<delete id="deleteNews" parameterType="Integer">-->
-        <!--delete from newsinfo where nid=#{nid}-->
-    <!--</delete>-->
 </mapper>

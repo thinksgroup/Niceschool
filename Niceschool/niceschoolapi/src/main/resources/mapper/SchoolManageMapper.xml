@@ -147,5 +147,17 @@
         </if>
          group by gname order by gid
     </select>
-
+    <!--**************************************************************重复验证***********************************************************************-->
+    <select id="checkOneDpm" resultType="Integer">
+        select count(*) from department where dname=#{dname}
+    </select>
+    <select id="checkOneMajor" resultType="Integer">
+        select count(*) from major where mname=#{mname} and did=#{did}
+    </select>
+    <select id="checkOneGrade" resultType="Integer">
+        select count(*) from grade where gname=#{gname} and mid=#{mid}
+    </select>
+    <select id="checkOneClass" resultType="Integer">
+        select count(*) from classinfo where classname=#{classname} and gid=#{gid}
+    </select>
 </mapper>

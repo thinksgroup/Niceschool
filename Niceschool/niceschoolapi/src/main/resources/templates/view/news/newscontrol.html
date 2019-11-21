@@ -9,19 +9,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/addnews.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/github-markdown.css}"/>
-
-
 </head>
-
 <body>
-
-
 <table id="newslist" lay-filter="newsTable"></table>
-
 <div id="editDiv" style="display: none">
-
     <form class="layui-form layui-form-pane">
-
         <div class="layui-row">
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
@@ -40,8 +32,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="layui-row">
             <div class="layui-col-xs6">
                 <div class="layui-form-item">
@@ -62,27 +52,16 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
     </form>
-
-
     <div class="layui-row">
         <div class="layui-col-xs6">
             <div class="layui-card">
                 <div class="layui-card-header">编辑区</div>
                 <div class="layui-card-body">
-                    <!--<textarea class="comments" rows="3" cols="27" id="ncontent" name='ncontent' onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea>-->
                     <textarea id="ncontent" name='ncontent' rows=1 cols=40 style='overflow:scroll;overflow-y:hidden;overflow-x:hidden;width: 100%;resize:none;'
                               onfocus="window.activeobj=this;this.clock=setInterval(function(){activeobj.style.height=activeobj.scrollHeight+'px';},200);" onblur="clearInterval(this.clock);"></textarea>
                 </div>
             </div>
-
         </div>
         <div class="layui-col-xs6">
             <div class="layui-card">
@@ -91,18 +70,15 @@
                     <div id="viewframe" class="markdown-body" style="display: block;width: 100%;height: 100%"></div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 </body>
-
 </html>
 <script type="text/html" id="barBtn">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 <script>
     layui.use(['jquery', 'layer','form', 'table', 'laydate'], function(){
         var $ = layui.$ //重点处
@@ -111,16 +87,13 @@
             , table = layui.table
             , layer = layui.layer
             ,laydate = layui.laydate;
-
         $("#ncontent").on('keyup',function () {
             $('#viewframe').html(marked($(this).val()));
         });
-
         laydate.render({
             elem: '#ntime',
             type:'datetime'
         });
-
         //获取分页数据列表
         table.render({
             elem: '#newslist'
@@ -140,7 +113,6 @@
             , page: true
             , even: true
         });
-
         //监听工具条
         table.on('tool(newsTable)', function (obj) {
             var data = obj.data;
@@ -159,7 +131,6 @@
                     content: $('#editDiv'),
                     btn: ['提交修改', '取消'],
                     yes: function(index){
-
                         $.ajax({
                             type: 'post',
                             url: '/news/editingnews',
@@ -184,12 +155,9 @@
                                 }
                             }
                         });
-
                 }
                 });
                 $("#ncontent").focus();
-
-
             } else if (obj.event === 'del') {
                 layer.confirm('确定要删除吗？', function (index) {
                         $.ajax({
@@ -216,9 +184,6 @@
                 });
             }
         });
-
-
-
         /**
          * 转换时间格式
          */
@@ -232,11 +197,5 @@
             var times = d.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + min + ':' + sec;
             return times
         }
-
     });
-
-
-
-
-
 </script>

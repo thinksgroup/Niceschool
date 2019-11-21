@@ -155,6 +155,8 @@ public class AppraiseController extends BaseController {
         }else if(res1==0){
             //添加记录
             int res_addOneAppraise = appraiseService.addOneAppraise(evTchVO);
+            evTchVO.setPcount(1);
+            evTchVO.setExam(evTchVO.getErexam());
             //新增成绩
             int res_addOneTchExam = appraiseService.addOneTchExam(evTchVO);
 

@@ -71,4 +71,11 @@ public interface SchoolManageMapper {
     //条件查询grade
     List<SchoolManageVO> tjSelGrade(SchoolManageVO schoolManageVO);
 
+    /**
+     * 重复验证
+     */
+    int checkOneDpm(DepartmentDB departmentDB);
+    int checkOneMajor(MajorDB majorDB);
+    int checkOneGrade(GradeDB gradeDB);
+    int checkOneClass(ClassinfoDB classinfoDB);
 }

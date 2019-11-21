@@ -131,6 +131,7 @@
                     {field: 'mid', title: '专业编号', width: 200}
                     , {field: 'mname', title: '专业名称'}
                     , {field: 'dname', title: '所属系部'}
+                    , {field: 'mcount', title: '专业人数'}
                     , {fixed: 'right', title: '操作', toolbar: '#barBtn',width:100}
                 ]
             ]
@@ -192,7 +193,7 @@
                                                 }
                                             });
                                         } else {
-                                            layer.msg('提交失败，请稍后重试！');
+                                            layer.msg('添加失败，请检查是否重复或稍后重试！');
                                         }
                                     }
                                 });

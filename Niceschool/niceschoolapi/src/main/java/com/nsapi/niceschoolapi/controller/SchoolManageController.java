@@ -58,20 +58,27 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("addonedpm")
     @ResponseBody
-    public Object addOneDpm(DepartmentDB departmentDB){
-        int r = schoolManageService.addOneDpm(departmentDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object addOneDpm(DepartmentDB departmentDB) {
+        int check = schoolManageService.checkOneDpm(departmentDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.addOneDpm(departmentDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
+
     }
+
     /**
      * 获取系部列表
      */
     @RequestMapping("findalldpm")
     @ResponseBody
-    public Object findAllDpm(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object findAllDpm(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.findAllDpm(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -82,31 +89,24 @@ public class SchoolManageController extends BaseController {
         dpmData.put("data", pageInfo.getList());
         return dpmData;
     }
-    /**
-     * 删除系部
-     * */
-    @RequestMapping("delonedpm")
-    @ResponseBody
-    public Object delOneDpm(Integer did){
-        int r = schoolManageService.delOneDpm(did);
-        if(r==1){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     /**
      * 编辑系部
      */
     @RequestMapping("editonedpm")
     @ResponseBody
-    public Object editOneDpm(DepartmentDB departmentDB){
-        int r = schoolManageService.editOneDpm(departmentDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object editOneDpm(DepartmentDB departmentDB) {
+        int check = schoolManageService.checkOneDpm(departmentDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.editOneDpm(departmentDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -117,20 +117,26 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("addonemajor")
     @ResponseBody
-    public Object addOneMajor(MajorDB majorDB){
-        int r = schoolManageService.addOneMajor(majorDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object addOneMajor(MajorDB majorDB) {
+        int check = schoolManageService.checkOneMajor(majorDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.addOneMajor(majorDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
+
     /**
      * 获取专业列表
      */
     @RequestMapping("findallmajor")
     @ResponseBody
-    public Object findAllMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object findAllMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.findAllMajor(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -141,31 +147,24 @@ public class SchoolManageController extends BaseController {
         majorData.put("data", pageInfo.getList());
         return majorData;
     }
-    /**
-     * 删除专业
-     * */
-    @RequestMapping("delonemajor")
-    @ResponseBody
-    public Object delOneMajor(Integer mid){
-        int r = schoolManageService.delOneMajor(mid);
-        if(r==1){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     /**
      * 编辑专业
      */
     @RequestMapping("editonemajor")
     @ResponseBody
-    public Object editOneMajor(MajorDB majorDB){
-        int r = schoolManageService.editOneMajor(majorDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object editOneMajor(MajorDB majorDB) {
+        int check = schoolManageService.checkOneMajor(majorDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.editOneMajor(majorDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -176,20 +175,26 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("addonegrade")
     @ResponseBody
-    public Object addOneGrade(GradeDB gradeDB){
-        int r = schoolManageService.addOneGrade(gradeDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object addOneGrade(GradeDB gradeDB) {
+        int check = schoolManageService.checkOneGrade(gradeDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.addOneGrade(gradeDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
+
     /**
      * 获取年级列表
      */
     @RequestMapping("findallgrade")
     @ResponseBody
-    public Object findAllGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object findAllGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.findAllGrade(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -206,7 +211,7 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("jlselmajor")
     @ResponseBody
-    public Object jlSelMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object jlSelMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.jlSelMajor(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -218,31 +223,23 @@ public class SchoolManageController extends BaseController {
         return jlmajorData;
     }
 
-    /**
-     * 删除年级
-     * */
-    @RequestMapping("delonegrade")
-    @ResponseBody
-    public Object delOneGrade(Integer gid){
-        int r = schoolManageService.delOneGrade(gid);
-        if(r==1){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     /**
      * 编辑年级
      */
     @RequestMapping("editonegrade")
     @ResponseBody
-    public Object editOneGrade(GradeDB gradeDB){
-        int r = schoolManageService.editOneGrade(gradeDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object editOneGrade(GradeDB gradeDB) {
+        int check = schoolManageService.checkOneGrade(gradeDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.editOneGrade(gradeDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -254,20 +251,26 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("addoneclass")
     @ResponseBody
-    public Object addOneClass(ClassinfoDB classinfoDB){
-        int r = schoolManageService.addOneClass(classinfoDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object addOneClass(ClassinfoDB classinfoDB) {
+        int check = schoolManageService.checkOneClass(classinfoDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.addOneClass(classinfoDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
+
     /**
      * 获取班级列表
      */
     @RequestMapping("findallclass")
     @ResponseBody
-    public Object findAllClass(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object findAllClass(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.findAllClass(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -284,7 +287,7 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("jlselgrade")
     @ResponseBody
-    public Object jlSelGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object jlSelGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.jlSelGrade(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -296,42 +299,35 @@ public class SchoolManageController extends BaseController {
         return jlgradeData;
     }
 
-    /**
-     * 删除班级
-     * */
-    @RequestMapping("deloneclass")
-    @ResponseBody
-    public Object delOneClass(Integer classid){
-        int r = schoolManageService.delOneClass(classid);
-        if(r==1){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     /**
      * 编辑班级
      */
     @RequestMapping("editoneclass")
     @ResponseBody
-    public Object editOneClass(ClassinfoDB classinfoDB){
-        int r = schoolManageService.editOneClass(classinfoDB);
-        if(r==1){
-            return true;
-        }else{
+    public Object editOneClass(ClassinfoDB classinfoDB) {
+        int check = schoolManageService.checkOneClass(classinfoDB);
+        if (check > 0) {
             return false;
+        } else {
+            int r = schoolManageService.editOneClass(classinfoDB);
+            if (r == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
-/*******************************************************************年级管理*********************************************************************/
+/*******************************************************************条件查询*********************************************************************/
 
     /**
      * 条件查询班级
      */
     @RequestMapping("tjselclass")
     @ResponseBody
-    public Object tjSelClass(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object tjSelClass(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.tjSelClass(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -348,7 +344,7 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("tjseldpm")
     @ResponseBody
-    public Object tjSelDpm(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object tjSelDpm(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.tjSelDpm(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -365,7 +361,7 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("tjselmajor")
     @ResponseBody
-    public Object tjSelMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object tjSelMajor(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.tjSelMajor(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -382,7 +378,7 @@ public class SchoolManageController extends BaseController {
      */
     @RequestMapping("tjselgrade")
     @ResponseBody
-    public Object tjSelGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit){
+    public Object tjSelGrade(SchoolManageVO schoolManageVO, Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         List<SchoolManageVO> listAll = schoolManageService.tjSelGrade(schoolManageVO);
         PageInfo pageInfo = new PageInfo(listAll);
@@ -393,7 +389,6 @@ public class SchoolManageController extends BaseController {
         gradeData.put("data", pageInfo.getList());
         return gradeData;
     }
-
 
 
 }

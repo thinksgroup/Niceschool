@@ -142,4 +142,26 @@ public class SchoolManageServiceImpl implements SchoolManageService {
     public List<SchoolManageVO> tjSelGrade(SchoolManageVO schoolManageVO) {
         return schoolManageMapper.tjSelGrade(schoolManageVO);
     }
+    /**
+     * 重复验证
+     */
+    @Override
+    public int checkOneDpm(DepartmentDB departmentDB) {
+        return schoolManageMapper.checkOneDpm(departmentDB);
+    }
+
+    @Override
+    public int checkOneMajor(MajorDB majorDB) {
+        return schoolManageMapper.checkOneMajor(majorDB);
+    }
+
+    @Override
+    public int checkOneGrade(GradeDB gradeDB) {
+        return schoolManageMapper.checkOneGrade(gradeDB);
+    }
+
+    @Override
+    public int checkOneClass(ClassinfoDB classinfoDB) {
+        return schoolManageMapper.checkOneClass(classinfoDB);
+    }
 }
