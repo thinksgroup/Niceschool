@@ -24,7 +24,10 @@ public class GradeController {
         String stuid = MySysUser.loginName();
         //  查询学生个人信息
         List<Map> selStudentMessage = gradeService.selStudentMessage(stuid);
+        //  查询学分
+        Integer ccredit =  gradeService.selCcredit(stuid);
         model.addAttribute("selStudentMessage",selStudentMessage);
+        model.addAttribute("redit",ccredit);
         return "view/student/selGrade";
     }
 

@@ -39,4 +39,10 @@ public class GradeServiceImpl implements GradeService {
     public List<TeacherDB> selTea(Integer tid) {
         return gradeMapper.selTea(tid);
     }
+
+    //  查询学分
+    @Override
+    public Integer selCcredit(String stuid) {
+        return gradeMapper.selCcredit(stuid);
+    }
 }

@@ -29,4 +29,12 @@
     <select id="selTea" resultType="TeacherDB">
         select * from teacher where tid = #{tid}
     </select>
+
+    <!-- 查询学分 -->
+    <select id="selCcredit" resultType="int">
+        select sum(c.ccredit) ccredit from stu_exam e
+        left join stu_course cou on e.scid = cou.scid
+        left join student s on e.sid = s.sid
+        left join course c on cou.cid = c.cid where s.stuid = #{stuid} GROUP BY e.sid
+    </select>
 </mapper>

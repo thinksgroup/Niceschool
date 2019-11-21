@@ -13,4 +13,7 @@ public interface GradeService {
     List<Map> selGrade(String stuid, Integer stime);
     //  查询教师个人信息
     List<TeacherDB> selTea(Integer tid);
+
+    //  查询学分
+    Integer selCcredit(String stuid);
 }
