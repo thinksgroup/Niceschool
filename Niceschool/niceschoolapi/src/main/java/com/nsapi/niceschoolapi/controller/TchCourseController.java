@@ -180,6 +180,20 @@ public class TchCourseController extends BaseController {
         return sData;
     }
 
+    /**
+     * 教师授课及班级删除
+     */
 
+    @RequestMapping("deltchcourse")
+    @ResponseBody
+    public Object delTchCourse(TchCourseVO tchCourseVO){
+        int flag = tchCourseService.delTchCourse(tchCourseVO);
+        if(flag>0){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
 
 }

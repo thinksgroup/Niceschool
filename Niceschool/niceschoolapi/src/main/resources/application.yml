@@ -15,7 +15,9 @@ spring:
       proxy-target-class: true
     datasource:
         jdbc-url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
+
         #jdbc-url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
+
         username: niceschool
         password: 123@qwe
         driver-class-name: com.mysql.jdbc.Driver
@@ -62,7 +64,9 @@ spring:
     proxy-target-class: true
   datasource:
       url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
+
       #url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
+
       username: niceschool
       password: 123@qwe
       driver-class-name: com.mysql.jdbc.Driver
