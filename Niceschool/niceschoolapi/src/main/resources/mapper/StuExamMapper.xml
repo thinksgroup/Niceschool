@@ -36,9 +36,6 @@
     <select id="selExam" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="int">
         select count(*) from stu_exam where scid=#{scid} and stime=#{stime}
     </select>
-    <select id="selExams" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="com.nsapi.niceschoolapi.entity.StuExamDB">
-        select * from stu_exam where scid=#{scid} and stime=#{stime}
-    </select>
     <update id="updateExam" parameterType="com.nsapi.niceschoolapi.entity.StuExamDB">
         update stu_exam set normalexam=#{normalexam},testexam=#{testexam},sumexam=#{sumexam},stime=#{stime} where scid=#{scid}
     </update>

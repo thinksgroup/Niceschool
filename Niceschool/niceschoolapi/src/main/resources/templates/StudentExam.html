@@ -105,61 +105,6 @@
     </form>
 
 </div>
-<!--修改成绩的弹出层-->
-<div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
-    <form class="layui-form"  lay-filter="dataFrms" id="dataFrms">
-        <input type="text" name="sid"  id="sids" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" style="display: none">
-        <input type="text" name="scid" id="scids" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" style="display: none">
-        <div class="layui-form-item">
-            <label class="layui-form-label">姓名</label>
-            <div class="layui-input-inline">
-                <input type="text" name="sname" id="snames"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-
-
-            <label class="layui-form-label">科目</label>
-            <div class="layui-input-inline">
-                <input type="text" name="cname"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
-
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">平时成绩</label>
-            <div class="layui-input-inline">
-                <input type="text" name="normalexam" id="normalexams"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-            <label class="layui-form-label">考试成绩</label>
-            <div class="layui-input-inline">
-                <input type="text" name="testexam" id="testexams"  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">综合成绩</label>
-            <div class="layui-input-inline">
-                <input type="text" name="sumexam" id="sumexams"  lay-verify="required" readonly="true" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-            <label class="layui-form-label">学期</label>
-            <div class="layui-input-inline">
-                <select name="stime" id="stimes"  autocomplete="off" lay-verify="required">
-                    <option value="1">大一上学期</option>
-                    <option value="2">大一下学期</option>
-                    <option value="3">大二上学期</option>
-                    <option value="4">大二下学期</option>
-                    <option value="5">大三上学期</option>
-                    <option value="6">大三下学期</option>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-inline" style="margin-left: 200px;margin-top: 50px">
-                <button type="button" class="layui-btn layui-btn-primary" lay-filter="formDemos" lay-submit>提交</button>
-            </div>
-            <div class="layui-input-inline" style="margin-top: 50px">
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            </div>
-        </div>
-    </form>
-</div>
 <!-- 数据表格开始 -->
 <table class="layui-hide" id="userTable" lay-filter="userTable"></table>
 <script>
@@ -198,21 +143,6 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             if(layEvent == 'add'){
                 openAdd(data);
-            }
-            if(layEvent=='update'){
-                $.post("/updatemessage",{scid:data.scid,stime:data.stime},function(res){
-                    if(res==1){
-                    layer.msg("此学生还未导入成绩")}
-                    else{
-                        openUpdate(data);
-                        $("#normalexams").val(res.normalexam);
-                        $("#testexams").val(res.testexam);
-                        $("#sumexams").val(res.sumexam);
-                        var a=res.stime;
-                        $("#stimes").find("option[value="+a+"]").prop("selected",true);
-                        form.render();
-                    }
-                })
             }
         });
         //添加
@@ -270,64 +200,6 @@
                 $("#sumexam").val("")
             }
             else if(testexam!=""){$("#sumexam").val((parseFloat(normalexam)+parseFloat(testexam))/2);
-            }
-        })
-        //修改
-        //打开修改页面
-        function  openUpdate(data){
-            mainIndex=layer.open({
-                type:1,
-                title:'修改',
-                content:$("#saveOrUpdateDiv"),
-                area:['800px','350px'],
-                success:function(index){
-                    form.val("dataFrms",data);
-                    form.on('submit(formDemos)', function(){
-                        var sid=$("#sids").val();
-                        var scid=$("#scids").val();
-                        var normalexam=$("#normalexams").val();
-                        var testexam=$("#testexams").val();
-                        var sumexam=$("#sumexams").val();
-                        var stime=$("#stimes").val();
-                            $.post("/saveupdate",{ sid:sid, scid:scid, normalexam:normalexam, testexam:testexam, sumexam:sumexam, stime:stime},function(res){
-                                layer.msg(res)
-                                window.setTimeout('window.location.href="/selstudentExam"',2000);
-                            })
-                    })
-                }
-
-            });
-        }
-        $("#normalexams").on('blur',function () {
-            var  nexamregs= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
-            var normalexams=$("#normalexams").val();
-            var testexams=$("#testexams").val();
-            if(normalexams>100||normalexams<0){
-                layer.msg("最低分为0，最高分为100")
-                $("#normalexams").val("");
-            }
-            else if(!nexamregs.test(normalexams)&&normalexams!=""){
-               layer.msg("只能为数字")
-                $("#normalexams").val("");
-            }
-        })
-        $("#testexams").on('blur',function () {
-            var  texamregs= /^(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/
-            var normalexams=$("#normalexams").val();
-            var testexams=$("#testexams").val();
-            if(testexams>100||testexams<0){
-                layer.msg("最低分为0，最高分为100")
-                $("#testexams").val("");
-            }
-            else if(!texamregs.test(testexams)&&testexams!=""){
-                layer.msg("只能为数字")
-                $("#testexams").val("");
-            }
-            else  if (testexams==""){
-                $("#sumexams").val("")
-            }
-            else if(testexams!="")
-            {$("#sumexams").val((parseFloat(normalexams)+parseFloat(testexams))/2);
             }
         })
         //渲染下拉框

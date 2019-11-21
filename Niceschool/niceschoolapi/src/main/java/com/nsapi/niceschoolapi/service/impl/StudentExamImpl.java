@@ -48,10 +48,6 @@ private StuExamMapper stuExamMapper;
         return stuExamMapper.selExam(stuExamVO);
     }
 
-    @Override
-    public StuExamDB selExams(StuExamVO stuExamVO) {
-        return stuExamMapper.selExams(stuExamVO);
-    }
 
     @Override
     public int updateExam(StuExamDB stuExamDB) {

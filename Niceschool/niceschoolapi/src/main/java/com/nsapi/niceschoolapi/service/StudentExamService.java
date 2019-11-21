@@ -12,6 +12,5 @@ public interface StudentExamService {
     List<StuExamVO> selScs(StuExamVO stuExamVO);
     int add(StuExamVO stuExamVO);
     int selExam(StuExamVO stuExamVO);
-    StuExamDB selExams(StuExamVO stuExamVO);
     int updateExam(StuExamDB stuExamDB);
 }

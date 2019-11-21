@@ -92,18 +92,6 @@ public class StuExamController {
         return msg;
     }
     @ResponseBody
-    @RequestMapping("updatemessage")
-    public Object updatemessage(StuExamVO stuExamVO){
-        Object res="";
-        int num = studentExamService.selExam(stuExamVO);
-        if(num!=1){
-            res=1;
-        }
-        else {
-         res = studentExamService.selExams(stuExamVO);}
-        return res;
-    }
-    @ResponseBody
     @RequestMapping("saveupdate")
     public  Object saveupdate(StuExamDB stuExamDB){
         String msg="";
