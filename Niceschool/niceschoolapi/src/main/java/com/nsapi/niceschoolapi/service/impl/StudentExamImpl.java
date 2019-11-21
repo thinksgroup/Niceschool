@@ -44,13 +44,13 @@ private StuExamMapper stuExamMapper;
     }
 
     @Override
-    public int selExam(Integer scid) {
-        return stuExamMapper.selExam(scid);
+    public int selExam(StuExamVO stuExamVO) {
+        return stuExamMapper.selExam(stuExamVO);
     }
 
     @Override
-    public StuExamDB selExams(Integer scid) {
-        return stuExamMapper.selExams(scid);
+    public StuExamDB selExams(StuExamVO stuExamVO) {
+        return stuExamMapper.selExams(stuExamVO);
     }
 
     @Override

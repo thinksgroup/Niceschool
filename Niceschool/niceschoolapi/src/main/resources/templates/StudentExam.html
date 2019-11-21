@@ -84,7 +84,7 @@
             </div>
             <label class="layui-form-label">学期</label>
             <div class="layui-input-inline">
-            <select name="stime" id="stime" lay-search="" lay-verify="stime">
+            <select name="stime" id="stime"  lay-verify="required">
                 <option value="1">大一上学期</option>
                 <option value="2">大一下学期</option>
                 <option value="3">大二上学期</option>
@@ -140,7 +140,7 @@
             </div>
             <label class="layui-form-label">学期</label>
             <div class="layui-input-inline">
-                <select name="stime" id="stimes" lay-verify="stime" autocomplete="off">
+                <select name="stime" id="stimes"  autocomplete="off" lay-verify="required">
                     <option value="1">大一上学期</option>
                     <option value="2">大一下学期</option>
                     <option value="3">大二上学期</option>
@@ -200,7 +200,7 @@
                 openAdd(data);
             }
             if(layEvent=='update'){
-                $.post("/updatemessage",{scid:data.scid},function(res){
+                $.post("/updatemessage",{scid:data.scid,stime:data.stime},function(res){
                     if(res==1){
                     layer.msg("此学生还未导入成绩")}
                     else{

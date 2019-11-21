@@ -75,9 +75,9 @@ public class StuExamController {
     }
     @ResponseBody
     @RequestMapping("selmessage")
-    public Object selmessage(StuExamVO stuExamVO, Integer scid){
+    public Object selmessage(StuExamVO stuExamVO){
         String msg="";
-        int i = studentExamService.selExam(scid);
+        int i = studentExamService.selExam(stuExamVO);
         if(i==1){
            msg="请不要重复导入成绩";
         }else{
@@ -93,14 +93,14 @@ public class StuExamController {
     }
     @ResponseBody
     @RequestMapping("updatemessage")
-    public Object updatemessage(Integer scid){
+    public Object updatemessage(StuExamVO stuExamVO){
         Object res="";
-        int num = studentExamService.selExam(scid);
+        int num = studentExamService.selExam(stuExamVO);
         if(num!=1){
             res=1;
         }
         else {
-         res = studentExamService.selExams(scid);}
+         res = studentExamService.selExams(stuExamVO);}
         return res;
     }
     @ResponseBody
