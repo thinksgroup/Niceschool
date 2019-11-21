@@ -8,7 +8,7 @@
     </select>
     <!--教师查询学生成绩-->
     <select id="tchSelStuExam" resultType="map" parameterType="map">
-        select stu.sid,stu.sname,cou.cname,cou.ccredit,cty.ctname,cou.studytype,ste.normalexam,ste.testexam,ste.sumexam from
+        select stu.sid,stu.sname,cou.cname,cou.ccredit,cty.ctname,cou.studytype,ste.normalexam,ste.testexam,ste.sumexam,MAX(ste.stime) stime,ste.scid from
         teacher tch,tch_class tcl,student stu,stu_exam ste,course cou,course_type cty,stu_course sco,tch_course tco where
         tch.tid = tcl.tid and tcl.classid = stu.classid and ste.sid = stu.sid and stu.sid = sco.sid and sco.cid = cou.cid
         and cou.ctid = cty.ctid and tco.tid = tch.tid and ste.scid = sco.scid and tco.cid = cou.cid and stu.is_del =0  and tch.tid = #{tid}
