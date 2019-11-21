@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+//使用它标记的类就是一个SpringMVC Controller 对象。分发处理器将会扫描使用了该注解的类的方法
 public class AddStudentController {
     @Autowired
     private StudentService studentService;
@@ -32,7 +33,7 @@ public class AddStudentController {
     }
 
     //  添加学生
-    @RequestMapping("addStudent")
+    @RequestMapping("addStudent") //   用来处理请求地址映射的注解
     @ResponseBody   // 通常用来返回JSON数据给客户端
     @Transactional(rollbackFor = { Exception.class })
     //  类里面的方法抛出异常，就会回滚，数据库里面的数据也会回滚

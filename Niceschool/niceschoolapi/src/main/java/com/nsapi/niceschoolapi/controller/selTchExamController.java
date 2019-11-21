@@ -1,7 +1,11 @@
 package com.nsapi.niceschoolapi.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.nsapi.niceschoolapi.common.config.MySysUser;
 import com.nsapi.niceschoolapi.entity.LayuiResult;
 import com.nsapi.niceschoolapi.entity.SelTchExamVO;
+import com.nsapi.niceschoolapi.entity.TchSelStuExamVO;
 import com.nsapi.niceschoolapi.service.SelTchExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +27,18 @@ public class selTchExamController {
 
     @RequestMapping("/selTchExam")
     @ResponseBody
-    public LayuiResult<Map> selTchExam(SelTchExamVO selTchExamVO){
+    public LayuiResult<Map> selTchExam(SelTchExamVO selTchExamVO, Integer page, Integer limit){
+        PageHelper.startPage(page, limit);
         List<Map> selTchExam = selTchExamService.selTchExam(selTchExamVO);
+        PageInfo pageInfo = new PageInfo(selTchExam);
         LayuiResult<Map> result = new LayuiResult<>();
-        result.setData(selTchExam);
+        //这是layui要求返回的json数据格式
+        result.setCode(0);
+        result.setMsg( "");
+        //将全部数据的条数作为count传给前台（一共多少条）
+        result.setCount((int) pageInfo.getTotal());
+        //将分页后的数据返回（每页要显示的数据）
+        result.setData(pageInfo.getList());
         return result;
     }
 }

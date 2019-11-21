@@ -43,14 +43,12 @@
             element = layui.element, //元素操作
             slider = layui.slider,//滑块
             form = layui.form;
-        //执行一个 table 实例
+        //获取分页数据列表
         table.render({
             elem: '#demo1'
-            ,height: 550
-            ,url: 'tchSelStuExam' //数据接口
-            ,title: '成绩查询'
-            ,cols: [
-                [ //表头
+            , url: '/tchSelStuExam'
+            , cols: [
+                [
                     {field: 'sid', title: '学号'}
                     ,{field: 'sname', title: '学生'}
                     ,{field: 'cname', title: '课程'}
@@ -62,6 +60,8 @@
                     ,{field: 'sumexam', title: '综合成绩'}
                 ]
             ]
+            , page: true
+            , even: true
             , id: 'tchSelStuExam'
         });
 
