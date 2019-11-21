@@ -115,16 +115,21 @@
                 [   //列表数据
 
 
-                    {field:'scid', title:'ID',align:'center',width:"100",sort: true}
-                    ,{field:'stuid', title:'学号',align:'center',width:"100"}
+                    {field:'scid', title:'ID',align:'center',width:"130",sort: true}
+                    ,{field:'stuid', title:'学号',align:'center',width:"130"}
 
-                    ,{field:'sname', title:'学生名',align:'center',width:"140",sort: true}
-                    ,{field:'cname', title:'课程名',align:'center',width:"160",sort: true}
-                    ,{field:'classname', title:'班级名字',align:'center',width:"140",sort: true}
+                    ,{field:'sname', title:'学生名',align:'center',width:"150",sort: true}
+                    ,{field:'cname', title:'课程名',align:'center',width:"200",sort: true}
+                    ,{field:'classname', title:'班级名字',align:'center',width:"200",sort: true}
+                    ,{field:'studytype', title:'班级名字',align:'center',width:"200",sort: true}
 
-                    ,{fixed: '', title:'操作',align:'center',width:'230',templet:function(data){
+                    ,{fixed: '', title:'操作',align:'center',width:'270',templet:function(data){
+                        if(data.studytype=='选修'){
+                            return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">强制退课</a><a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #fff979;" lay-event="dels">换课</a>'
+                        }else{
+                            return '必修不可操作';
+                        }
 
-                        return '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">强制退课</a><a class="layui-btn layui-btn-danger layui-btn-xs" style="background-color: #fff979;" lay-event="dels">换课</a>'
 
                     }}
                 ]
@@ -164,7 +169,6 @@
         form.on("submit(doSubmit)",function(obj){
             //序列化表单数据
             var params=$("#dataFrm").serialize();
-            alert(params);
             $.post(url,params,function(obj){
                 layer.msg(obj);
                 //关闭弹出层

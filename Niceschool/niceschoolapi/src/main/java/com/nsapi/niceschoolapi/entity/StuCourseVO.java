@@ -9,6 +9,15 @@ public class StuCourseVO {
     private String cname;
     private Integer classid;
     private String classname; //班级名称
+    private String studytype; //班级名称
+
+    public String getStudytype() {
+        return studytype;
+    }
+
+    public void setStudytype(String studytype) {
+        this.studytype = studytype;
+    }
 
     public String getClassname() {
         return classname;

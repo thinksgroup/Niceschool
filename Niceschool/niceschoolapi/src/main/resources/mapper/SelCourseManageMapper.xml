@@ -19,7 +19,7 @@
         select * from student where classid=#{classid} and is_del=0
     </select>
     <select id="selSc" parameterType="com.nsapi.niceschoolapi.entity.StuCourseVO" resultType="com.nsapi.niceschoolapi.entity.StuCourseVO">
-        select sc.*,s.stuid,s.sname,s.classid,c.cname,ci.classname from stu_course sc,student s,course c,classinfo ci where sc.sid=s.sid and c.cid=sc.cid
+        select sc.*,s.stuid,s.sname,s.classid,c.cname,ci.classname,c.studytype from stu_course sc,student s,course c,classinfo ci where sc.sid=s.sid and c.cid=sc.cid
         and ci.classid=s.classid and s.is_del=0
         <if test="sname!=null and sname!=''">
             and  sname like concat('%' ,concat(#{sname},'%'))
