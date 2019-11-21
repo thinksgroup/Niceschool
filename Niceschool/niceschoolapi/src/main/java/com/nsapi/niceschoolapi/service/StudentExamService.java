@@ -11,7 +11,6 @@ public interface StudentExamService {
     List<ClassinfoDB> selClasss(Integer gid);
     List<StuExamVO> selScs(StuExamVO stuExamVO);
     int add(StuExamVO stuExamVO);
-    int selExam(Integer scid);
-    StuExamDB selExams(Integer scid);
+    int selExam(StuExamVO stuExamVO);
     int updateExam(StuExamDB stuExamDB);
 }

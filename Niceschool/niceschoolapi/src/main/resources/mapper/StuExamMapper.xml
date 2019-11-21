@@ -16,8 +16,9 @@
         select * from classinfo where gid=#{gid}
     </select>
     <select id="selScs" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="com.nsapi.niceschoolapi.entity.StuExamVO">
-        select ci.classname,ci.classid,s.sname,c.cname,s.sid,sc.scid from stu_course sc,student s,course c,classinfo ci,tch_course thc
+        select ci.classname,ci.classid,s.sname,c.cname,s.sid,sc.scid,sex.stime from stu_course sc,student s,course c,classinfo ci,tch_course thc,stu_exam sex
         where sc.sid=s.sid
+        and sc.scid=sex.scid
         and c.cid=sc.cid
         and ci.classid=s.classid
         and c.cid=thc.cid
@@ -33,10 +34,7 @@
     insert into stu_exam(sid,scid,normalexam,testexam,sumexam,stime,studynature,is_del)values(#{sid},#{scid},#{normalexam},#{testexam},#{sumexam},#{stime},0,0)
    </insert>
     <select id="selExam" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="int">
-        select count(*) from stu_exam where scid=#{scid}
-    </select>
-    <select id="selExams" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="com.nsapi.niceschoolapi.entity.StuExamDB">
-        select * from stu_exam where scid=#{scid}
+        select count(*) from stu_exam where scid=#{scid} and stime=#{stime}
     </select>
     <update id="updateExam" parameterType="com.nsapi.niceschoolapi.entity.StuExamDB">
         update stu_exam set normalexam=#{normalexam},testexam=#{testexam},sumexam=#{sumexam},stime=#{stime} where scid=#{scid}
