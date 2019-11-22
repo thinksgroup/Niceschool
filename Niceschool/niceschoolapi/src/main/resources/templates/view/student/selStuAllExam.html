@@ -24,6 +24,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="layui-col-xs12">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">学期</label>
+                            <div class="layui-input-block">
+                                <select name="stime" id="stime"  lay-filter="stime"
+                                        lay-verify="stime" lay-search>
+                                    <option value="" disabled selected hidden>请选择</option>
+                                    <option value="1">大一上学期</option>
+                                    <option value="2">大一下学期</option>
+                                    <option value="3">大二上学期</option>
+                                    <option value="4">大二下学期</option>
+                                    <option value="5">大三上学期</option>
+                                    <option value="6">大三下学期</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -89,6 +106,21 @@
                     ,{field: 'normalexam', title: '平时成绩'}
                     ,{field: 'testexam', title: '考试成绩'}
                     ,{field: 'sumexam', title: '综合成绩'}
+                    ,{field: 'stime', title: '学期',templet: function (data) {
+                        if (data.stime =='1'){
+                            return '大一上学期'
+                        }else if (data.stime =='2'){
+                            return '大一下学期'
+                        }else if (data.stime =='3'){
+                            return '大二上学期'
+                        }else if (data.stime =='4'){
+                            return '大二下学期'
+                        }else if (data.stime =='5'){
+                            return '大三上学期'
+                        }else if (data.stime =='6'){
+                            return '大三下学期'
+                        }
+                    }}
                 ]
             ]
             ,
@@ -214,6 +246,17 @@
                     url : '/selAllExam?gname=' + seldata.value +'&mname='+$("#selByMajor option:selected").val()
                 });
             }
+        });
+        form.on('select(stime)', function(seldata){
+            //执行重载
+            table.reload('tableReload', {
+                page: {
+                    curr: 1 //重新从第 1 页开始selTeacher
+                }
+                ,where: {
+                    stime: seldata.value
+                }
+            });
         });
     });
 </script>

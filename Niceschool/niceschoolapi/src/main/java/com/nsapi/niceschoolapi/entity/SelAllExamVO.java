@@ -5,6 +5,7 @@ public class SelAllExamVO {
     private String gname;
     private String mname;
     private String dname;
+    private Integer stime;
 
     public String getClassname() {
         return classname;
@@ -36,5 +37,13 @@ public class SelAllExamVO {
 
     public void setDname(String dname) {
         this.dname = dname;
+    }
+
+    public Integer getStime() {
+        return stime;
+    }
+
+    public void setStime(Integer stime) {
+        this.stime = stime;
     }
 }

@@ -20,5 +20,8 @@
         <if test="dname != null">
             and d.dname=#{dname}
         </if>
+        <if test="stime != null">
+            and sex.stime=#{stime}
+        </if>
     </select>
 </mapper>
