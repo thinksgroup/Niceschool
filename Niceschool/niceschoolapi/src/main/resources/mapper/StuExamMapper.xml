@@ -16,9 +16,8 @@
         select * from classinfo where gid=#{gid}
     </select>
     <select id="selScs" parameterType="com.nsapi.niceschoolapi.entity.StuExamVO" resultType="com.nsapi.niceschoolapi.entity.StuExamVO">
-        select ci.classname,ci.classid,s.sname,c.cname,s.sid,sc.scid,sex.stime from stu_course sc,student s,course c,classinfo ci,tch_course thc,stu_exam sex
+        select ci.classname,ci.classid,s.sname,c.cname,s.sid,sc.scid from stu_course sc,student s,course c,classinfo ci,tch_course thc
         where sc.sid=s.sid
-        and sc.scid=sex.scid
         and c.cid=sc.cid
         and ci.classid=s.classid
         and c.cid=thc.cid

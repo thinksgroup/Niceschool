@@ -12,7 +12,7 @@
 <body>
 
     <div>
-        <form class="layui-form" style="margin-left: -50px">
+        <form class="layui-form" style="margin-left: -60px">
             <div class="layui-inline">
                 <label class="layui-form-label">系：</label>
                 <div class="layui-input-inline">
@@ -21,7 +21,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline" style="margin-left: -30px">
+            <div class="layui-inline" style="margin-left: -40px">
                 <label class="layui-form-label">专业：</label>
                 <div class="layui-input-inline">
                     <select th:name="mid" lay-search="" lay-verify="required2" id="required2"  lay-filter="required2">
@@ -29,7 +29,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline" style="margin-left: -30px">
+            <div class="layui-inline" style="margin-left: -40px">
                 <label class="layui-form-label">年级：</label>
                 <div class="layui-input-inline">
                     <select th:name="gid" lay-search="" lay-verify="required3" id="required3"  lay-filter="required3">
@@ -37,7 +37,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline" style="margin-left: -30px">
+            <div class="layui-inline" style="margin-left: -40px">
                 <label class="layui-form-label">班级：</label>
                 <div class="layui-input-inline">
                     <select th:name="classid" lay-search="" lay-verify="required4" id="required4"  lay-filter="required4">
@@ -375,11 +375,7 @@
                         shadeClose:true,          //点击遮罩层外区域关闭遮罩层
                         area: ['580px', '500px'],   //弹出框大小
                         anim: 1,              //弹出动画
-                        content:'selStudentId?id='+data.sid,
-                        end: function() {
-                            //刷新页面,
-                            location.reload();
-                        }
+                        content:'selStudentId?id='+data.sid
                     });
                 }
                 //查看详情
@@ -404,11 +400,7 @@
                         shadeClose:true,          //点击遮罩层外区域关闭遮罩层
                         area: ['600px', '400px'],   //弹出框大小
                         anim: 1,              //弹出动画
-                        content:'insertDropout?stuid='+data.stuid+"&sname="+data.sname,
-                        end: function() {
-                            //刷新页面,
-                            location.reload();
-                        }
+                        content:'insertDropout?stuid='+data.stuid+"&sname="+data.sname
                     });
                 }
                 // //  删除学生
