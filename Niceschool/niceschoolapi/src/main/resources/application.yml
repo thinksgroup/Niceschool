@@ -14,9 +14,9 @@ spring:
     aop:
       proxy-target-class: true
     datasource:
-        jdbc-url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
+      #jdbc-url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
 
-        #jdbc-url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
+        jdbc-url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
 
         username: niceschool
         password: 123@qwe
@@ -63,9 +63,9 @@ spring:
   aop:
     proxy-target-class: true
   datasource:
-      url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
+    #url: jdbc:mysql://whn946.cn/niceschool?useUnicode=true&characterEncoding=utf8
 
-      #url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://localhost/niceschool?useUnicode=true&characterEncoding=utf8
 
       username: niceschool
       password: 123@qwe
