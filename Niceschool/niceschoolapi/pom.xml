@@ -28,7 +28,7 @@
         <HikariCP.version>3.2.0</HikariCP.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-codec.version>1.11</commons-codec.version>
-        <fastjson.version>1.2.41</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <!--<jackson.version>2.9.0</jackson.version>-->
     </properties>
 
